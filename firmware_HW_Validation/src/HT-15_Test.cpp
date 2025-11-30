@@ -7,10 +7,50 @@
 #include "pico/multicore.h"
 #include "hardware/adc.h"
 #include "hardware/spi.h"
+#include "hardware/i2c.h"
 
 #include "pindefs.cpp"
 #include "keypad.h"
+#include "tlv320aic3100.h"
+#include "addresses.cpp"
 
+//global variables
+
+//key names for printing
+char key_names[23][6] = {
+    "Null", "Up", "Down", "Left", "Right", "Lock", "Side1", "Side2",
+    "PTT", "Back", "Enter", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "*", "#"
+};
+
+//Audio Amplifier object
+TLV320AIC3100 audio_amp;
+
+
+/// I2C1 Initialization
+void I2C1_init(){
+    // Force-reset the I2C1 peripheral in case the Wi-Fi core or bootloader locked it
+    i2c1_hw->enable = 0;
+    sleep_us(10);
+
+    // Initialize I2C1 at 100kHz
+    i2c_init(i2c1, 100000);
+
+    // Set up GPIO pins for I2C1
+    gpio_set_function(I2C1_SDA, GPIO_FUNC_I2C);
+    gpio_set_function(I2C1_SCL, GPIO_FUNC_I2C);
+}
+
+void I2C1_scan_bus(){
+    printf("Scanning I2C1 bus...\n");
+    for (uint8_t address = 1; address < 127; address++) {
+        uint8_t txdata[] = {0x00};
+        int ret = i2c_write_blocking(i2c1, address, txdata, 1, false);
+        if (ret >= 0) {
+            printf("Found device at address 0x%02X\n", address);
+        }
+    }
+    printf("I2C1 scan complete.\n");
+}
 //turn audio amp power on or off
 void set_audioamp_power(bool state){
     //state = true turns off power, false turns on power (inverted logic)
@@ -50,12 +90,21 @@ void init_encoder(){
     gpio_set_dir(BTN_ENC_B, GPIO_IN);
 }
 
-//initialize all necessary pins
 void init_all(){
+    //initialize all necessary pins
+
+    //init I2C1
+    I2C1_init();
+
     //Audioamp power pin
     gpio_init(AUDIOAMP_POWER);
     gpio_set_dir(AUDIOAMP_POWER, GPIO_OUT);
     set_audioamp_power(true);
+    sleep_ms(10); //wait for power to stabilize
+
+    audio_amp.init(i2c1, ADDRESS_I2C_AUDIOAMP); //initialize audio amp
+
+    Keypad::init(); //initialize keypad
 
     //init status LED
     gpio_init(LED_STATUS);
@@ -68,12 +117,9 @@ void init_all(){
     //init encoder pins
     init_encoder();
 
+
 }
 
-char key_names[23][6] = {
-    "Null", "Up", "Down", "Left", "Right", "Lock", "Side1", "Side2",
-    "PTT", "Back", "Enter", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "*", "#"
-};
 
 //what will run on core 0
 void core_0() {
@@ -83,7 +129,6 @@ void core_0() {
     bool led_state = false;
     gpio_put(LED_STATUS, 1);
    
-    Keypad::keypad_init();
 
     uint8_t encoder_state = 0;
 
@@ -133,6 +178,11 @@ void core_0() {
                 printf("Volume: %d\n", current_volume);
             }
         }       
+
+        if (counter%2000==1000){
+            I2C1_scan_bus();
+            printf("Amp_clockdiv: %02X\n", audio_amp.read_register(26));
+        }
 
         //manage counter
         counter++;

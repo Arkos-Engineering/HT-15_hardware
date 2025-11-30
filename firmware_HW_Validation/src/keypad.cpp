@@ -18,7 +18,7 @@
 
     std::vector<Keys> Keypad::buttons_pressed_since_last_poll = {};
 
-void Keypad::keypad_init(){
+void Keypad::init(){
     // init button pins
     for (int i = 0; i < 6; i++) {
         gpio_init(Keypad::button_sense_pin[i]);

@@ -43,7 +43,7 @@ enum Keys{
 class Keypad{
     public:
         // Initialize keypad GPIOs and ADC inputs used by keypad code.
-        static void keypad_init();
+        static void init();
 
         // Run one iteration of keypad processing. This will scan the matrix, handle debouncing,
         // Call this periodically from the main loop.
