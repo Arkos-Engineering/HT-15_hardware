@@ -51,16 +51,6 @@ void I2C1_scan_bus(){
     }
     printf("I2C1 scan complete.\n");
 }
-//turn audio amp power on or off
-void set_audioamp_power(bool state){
-    //state = true turns off power, false turns on power (inverted logic)
-    if(state){
-        printf("Disabling Audio Amp Power\n");
-    } else{
-        printf("Enabling Audio Amp Power\n");
-    }
-    gpio_put(AUDIOAMP_POWER, !state);
-}
 
 //initialize battery voltage reading
 void init_battery_voltage(){
@@ -96,13 +86,8 @@ void init_all(){
     //init I2C1
     I2C1_init();
 
-    //Audioamp power pin
-    gpio_init(AUDIOAMP_POWER);
-    gpio_set_dir(AUDIOAMP_POWER, GPIO_OUT);
-    set_audioamp_power(true);
-    sleep_ms(10); //wait for power to stabilize
 
-    audio_amp.init(i2c1, ADDRESS_I2C_AUDIOAMP); //initialize audio amp
+    audio_amp.init(i2c1, ADDRESS_I2C_AUDIOAMP, AUDIOAMP_RESET); //initialize audio amp
 
     Keypad::init(); //initialize keypad
 

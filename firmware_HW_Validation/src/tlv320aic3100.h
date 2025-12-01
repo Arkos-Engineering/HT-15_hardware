@@ -16,8 +16,9 @@
 
 class TLV320AIC3100{
     public:
-        void init(i2c_inst_t *i2c_bus, int i2c_address); // Initialize TLV320AIC3100 Audio Amplifier
+        void init(i2c_inst_t *i2c_bus, int i2c_address, uint8_t reset_gpio_pin); // Initialize TLV320AIC3100 Audio Amplifier
         void reset(); // Reset the audio amplifier
+        void reset_soft(); // Reset the audio amplifier through I2C command
         void reinit(); // Re-initialize the audio amplifier after power cycle
 
         bool write_page(uint8_t page); // Set register page
@@ -28,6 +29,7 @@ class TLV320AIC3100{
         i2c_inst_t *control_bus; //I2C bus instance
         uint8_t control_address; //7 bit I2C address
         uint8_t current_page; //current register page
+        uint8_t reset_pin; //GPIO pin for hardware reset
 
 
 };
