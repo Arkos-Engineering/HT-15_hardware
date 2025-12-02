@@ -167,6 +167,8 @@ void core_0() {
         if (counter%2000==1000){
             I2C1_scan_bus();
             printf("Amp_clockdiv: %02X\n", audio_amp.read_register(26));
+            audio_amp.set_volume(current_volume);
+            audio_amp.beep(100);
         }
 
         //manage counter
