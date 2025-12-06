@@ -9,6 +9,8 @@
 #include <vector>
 
 #include "pico/stdlib.h"
+#include "hardware/gpio.h"
+#include "hardware/clocks.h"
 #include "hardware/i2c.h"
 
 #include "pindefs.cpp"
@@ -16,7 +18,8 @@
 
 class TLV320AIC3100{
     public:
-        void init(i2c_inst_t *i2c_bus, int i2c_address, uint8_t reset_gpio_pin); // Initialize TLV320AIC3100 Audio Amplifier
+        void init(i2c_inst_t *i2c_bus, int i2c_address, uint8_t reset_gpio_pin, uint8_t master_clock_pin); // Initialize TLV320AIC3100 Audio Amplifier
+        void init_system_clock(); // Initialize system clock settings
         void reset(); // Reset the audio amplifier
         void reset_soft(); // Reset the audio amplifier through I2C command
         void reinit(); // Re-initialize the audio amplifier after power cycle
@@ -40,6 +43,7 @@ class TLV320AIC3100{
         uint8_t current_page; //current register page
         uint8_t reset_pin; //GPIO pin for hardware reset
         uint8_t volume; //volume for beep sound
+        uint8_t mclk_pin; //GPIO pin for master clock output from the rp235x
 
 
 };

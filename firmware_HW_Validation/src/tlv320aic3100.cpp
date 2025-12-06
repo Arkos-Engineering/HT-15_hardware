@@ -39,7 +39,7 @@ void TLV320AIC3100::reset_soft(){
     sleep_us(1);
 }
 
-void TLV320AIC3100::init(i2c_inst_t *i2c_bus, int i2c_address, uint8_t reset_gpio_pin){
+void TLV320AIC3100::init(i2c_inst_t *i2c_bus, int i2c_address, uint8_t reset_gpio_pin, uint8_t master_clock_pin){
     //Initialize TLV320AIC3100 Audio Amplifier
     //be sure to initialize I2C bus before calling this function
     //ensure audio amp power is enabled before calling this function
@@ -47,9 +47,21 @@ void TLV320AIC3100::init(i2c_inst_t *i2c_bus, int i2c_address, uint8_t reset_gpi
     this->control_bus = i2c_bus;
     this->control_address = i2c_address;
     this->reset_pin = reset_gpio_pin;
+    this->mclk_pin = master_clock_pin;
 
     this->reinit();
 
+}
+
+void TLV320AIC3100::init_system_clock(){
+    //configure microcontroller to output required MCLK signal on pin specified by master_clock_pin, derived from system clock
+
+    //setup mclk pin
+    gpio_init(this->mclk_pin);
+    gpio_set_function(this->mclk_pin, GPIO_FUNC_GPCK);
+    //set clkout to mclk (12MHz)
+    clock_gpio_init_int_frac8(this->mclk_pin, CLOCKS_CLK_GPOUT0_CTRL_AUXSRC_VALUE_CLK_SYS, 1, 0);
+    
 }
 
 void TLV320AIC3100::reinit(){
@@ -57,6 +69,8 @@ void TLV320AIC3100::reinit(){
     //setup reset pin
     gpio_init(this->reset_pin);
     gpio_set_dir(this->reset_pin, GPIO_OUT);
+
+    this->init_system_clock(); //initialize system clock output
     
     //reset audio amp
     this->reset();

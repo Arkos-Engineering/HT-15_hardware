@@ -87,7 +87,7 @@ void init_all(){
     I2C1_init();
 
 
-    audio_amp.init(i2c1, ADDRESS_I2C_AUDIOAMP, AUDIOAMP_RESET); //initialize audio amp
+    audio_amp.init(i2c1, ADDRESS_I2C_AUDIOAMP, AUDIOAMP_RESET, AUDIOAMP_MASTERCLK); //initialize audio amp
 
     Keypad::init(); //initialize keypad
 
