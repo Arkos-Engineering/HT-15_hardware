@@ -56,12 +56,8 @@ void TLV320AIC3100::init(i2c_inst_t *i2c_bus, int i2c_address, uint8_t reset_gpi
 void TLV320AIC3100::init_system_clock(){
     //configure microcontroller to output required MCLK signal on pin specified by master_clock_pin, derived from system clock
 
-    //setup mclk pin
-    gpio_init(this->mclk_pin);
-    gpio_set_function(this->mclk_pin, GPIO_FUNC_GPCK);
-    //set clkout to mclk (12MHz)
-    clock_gpio_init_int_frac8(this->mclk_pin, CLOCKS_CLK_GPOUT0_CTRL_AUXSRC_VALUE_CLK_SYS, 1, 0);
-    
+    //set clkout to the crystal oscillator frequency (12MHz)
+    clock_gpio_init(this->mclk_pin, CLOCKS_CLK_GPOUT0_CTRL_AUXSRC_VALUE_XOSC_CLKSRC, 1);
 }
 
 void TLV320AIC3100::reinit(){
