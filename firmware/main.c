@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <inttypes.h>
 #include <pico.h>
-#include "pico/stdlib.h"
+#include <pico/stdlib.h>
+#include <pico/bootrom.h>
 
 typedef uint8_t u8;
 typedef uint16_t u16;
@@ -21,8 +23,8 @@ typedef char const * c_str;
 
 #define U32_MAX UINT32_MAX
 
-#define IFOR(i, v) for(u32 i = 0; i < v; ++i)
-#define ARRAY_SIZE(a) (sizeof(a)/sizeof(*a))
+#define ifor(i, v) for(u32 i = 0; i < (u32)v; ++i)
+#define array_size(a) (sizeof(a)/sizeof(*a))
 #define alignof(x) __alignof__(x)
 
 #define PINS \
@@ -83,6 +85,19 @@ typedef enum {
     pin_unknown = U32_MAX
 } pin;
 
+#define BLINK_CODES\
+    X(okay, 0)\
+    X(stdio_failed_to_initalize, 3)\
+    X(next_blink_code_idk, 7)\
+
+typedef enum{
+    #define X(name, code) blink_code_##name = code,
+    BLINK_CODES
+    #undef X
+    blink_codes_max_enum,
+    blink_codes_unknown = U32_MAX
+} blink_code;
+
 #define KEYS\
     X(up)\
     X(down)\
@@ -128,13 +143,15 @@ typedef enum{
     #define X(s) key_state_##s,
     KEY_STATES
     #undef X
+    key_state_max_enum,
+    key_state_unknown = U32_MAX
 } key_state;
 
 key_state key_states[key_max_enum] = {key_state_released};
 u32 last_key_changed_timestamp[key_max_enum] = {0};
 u32 millis_until_repeating = 420;
 
-#define BUTTONS_SIZE ARRAY_SIZE(button_power_pin) * ARRAY_SIZE(button_sense_pin)
+#define BUTTONS_SIZE array_size(button_power_pin) * array_size(button_sense_pin)
 #define BUTTON_DEBOUNCE_BUFFER_SIZE 1<<2
 bool8 button_debounce_buffer[BUTTONS_SIZE * BUTTON_DEBOUNCE_BUFFER_SIZE] = {0}; 
 u32 button_debounce_buffer_index = 0;
@@ -159,15 +176,15 @@ time32 get_time(){
     return 0;
 }
 
-/* check physical user input. like buttons */
-void poll_input(){
+/* TODO@Zea as of December 20 2025 add knobs */
+void poll_buttons_and_knobs(){
     /* */
-    u32 columns = ARRAY_SIZE(button_power_pin);
-    u32 rows = ARRAY_SIZE(button_sense_pin);
-    IFOR(c, columns){
+    u32 columns = array_size(button_power_pin);
+    u32 rows = array_size(button_sense_pin);
+    ifor(c, columns){
         gpio_put(button_power_pin[c], 1);
         sleep_us(1);
-        IFOR(r, rows){
+        ifor(r, rows){
             bool8 pin = gpio_get(button_sense_pin[r]);
             button_debounce_buffer[(button_debounce_buffer_index * columns * rows) + c * rows + r] = pin;
         }
@@ -176,81 +193,105 @@ void poll_input(){
     }
     /* evaluate if a button is released or not */
     bool8 buttons[BUTTONS_SIZE] = {0};
-    IFOR(b, BUTTONS_SIZE) {
-        IFOR(d, BUTTON_DEBOUNCE_BUFFER_SIZE){
+    ifor(b, BUTTONS_SIZE) {
+        ifor(d, BUTTON_DEBOUNCE_BUFFER_SIZE){
             u32 buffer_offset = circle_buffer_index_at(2, button_debounce_buffer_index - d);
             /* quick and durty but if the last 4 loops and the button is off we can assume its actually off and not ringing.*/
-            buttons[b] |= button_debounce_buffer[buffer_offset * BUTTONS_SIZE + b]; 
+            buttons[b] = button_debounce_buffer[buffer_offset * BUTTONS_SIZE + b]; 
         }
     }
     button_debounce_buffer_index = circle_buffer_index_at(2, button_debounce_buffer_index+1);
     
-    IFOR(b, BUTTONS_SIZE){
+    ifor(b, BUTTONS_SIZE){
         u32 key = key_map[b];
 
-        key_state new_key_state = key_state_released; 
         if(buttons[b]){
-           new_key_state = key_state_pressed;
-        }
-        if(key_states[key] == key_state_pressed && new_key_state == key_state_pressed){
-            time32 time_sense_last_change = last_key_changed_timestamp[key] - get_time();
-            if(time_sense_last_change > millis_until_repeating){
-                key_states[key] = key_state_repeat;
-            }
+            if(key_states[key] == key_state_pressed){
+                time32 time_sense_last_change = last_key_changed_timestamp[key] - get_time();
+                if(time_sense_last_change > millis_until_repeating){
+                    key_states[key] = key_state_repeat;
+                }
+            }else key_states[key] = key_state_pressed;
+        }else{
+            key_states[key] = key_state_released;
         }
     }
 }
 
 void print_button_debounce_buffer(){
-    IFOR(i, 1<<2){
-        printf("button buffer %u:\n", i);
-        IFOR(b, BUTTONS_SIZE){
-            printf("button %u state %u", b, button_debounce_buffer[(i * BUTTONS_SIZE) + b]);
+    ifor(i, 1<<2){
+        printf("button buffer %"PRIu32":\n", i);
+        ifor(b, BUTTONS_SIZE){
+            printf("button %"PRIu32" state %"PRIi8"\n", b, button_debounce_buffer[(i * BUTTONS_SIZE) + b]);
         }
         printf("\n");
     }
 }
 
 void print_key_states(){
-    static c_str key_names[] = {
-        #define X(name) #name
+    static c_str key_names[key_max_enum] = {
+        #define X(name) #name,
         KEYS
         #undef X
     };
 
-    static c_str key_state_names[] = {
-        #define X(name) #name
+    static c_str key_state_names[key_max_enum] = {
+        #define X(name) #name,
         KEY_STATES
         #undef X
     };
 
-    IFOR(k, key_max_enum) printf("key %s : %s \n", key_names[k], key_state_names[key_states[k]]);
+    ifor(k, key_max_enum){
+        printf("key %s : %s \n", key_names[k], key_state_names[key_states[k]]);
+    } 
 }
 
 int main(){
         /* initalize_daughter_board();
         initalize_configuration();
         initialze_radio_stored_state(); */
+        
 
-        puts("blalalalalal");
-        IFOR(i, 6){
-                gpio_init(button_sense_pin[i]);
-                gpio_set_dir(button_sense_pin[i], 0);
-                gpio_pull_down(button_sense_pin[i]);
-        }
-        IFOR(i, 4){
-                gpio_init(button_power_pin[i]);
-                gpio_set_dir(button_power_pin[i], 0);
-                gpio_pull_down(button_power_pin[i]);
-        }
 
-        /* main loop */
-        for(;;){
-            poll_input();
-            print_button_debounce_buffer();
-            print_key_states();
-            /*TODO@Zea as of December 20 2025: make this try to keep the same interval between loops*/
-            sleep_ms(14);
+    gpio_init(led_status);
+    gpio_set_dir(led_status, GPIO_OUT);
+    gpio_put(led_status, 1);
+    bool8 led_status_value = 1;
+    if(!stdio_init_all()){
+
+        ifor(i, blink_code_stdio_failed_to_initalize){
+            sleep_ms(333);
+            gpio_put(led_status, 0);
+            sleep_ms(333);
+            gpio_put(led_status, 1);
+            //reset_usb_boot(0,0);
         }
+    }
+
+    ifor(i, 6){
+            gpio_init(button_sense_pin[i]);
+            gpio_set_dir(button_sense_pin[i], GPIO_IN);
+            gpio_pull_down(button_sense_pin[i]);
+    }
+    ifor(i, 4){
+            gpio_init(button_power_pin[i]);
+            gpio_set_dir(button_power_pin[i], GPIO_OUT);
+            gpio_pull_down(button_power_pin[i]);
+    }
+    
+    /* main loop */
+    for(u32 i = 0;;++i){
+        poll_buttons_and_knobs();
+        print_button_debounce_buffer();
+        print_key_states();
+
+        if((i& ((1<<5)-1)) == 0){
+            gpio_put(led_status, led_status_value);
+            led_status_value = !led_status_value;
+        }
+        /*TODO@Zea as of December 20 2025: make this try to keep the same interval between loops*/
+        sleep_ms(14);
+        printf("loop:%"PRIu32"\r", i);
+    }
 }
 

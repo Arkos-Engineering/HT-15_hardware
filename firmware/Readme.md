@@ -1,3 +1,12 @@
+BUILD
+=====
+
+
+In build after cmake .. and the device is plugged into a usb.
+``` shell
+ninja; if [ $? -eq 0 ]; then (sudo picotool load -f Firmware.uf2) fi
+```
+
 Coding Practices
 ================
 
