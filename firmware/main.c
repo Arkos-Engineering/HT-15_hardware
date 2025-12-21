@@ -3,6 +3,10 @@
 #include <inttypes.h>
 #include <pico.h>
 #include <pico/stdlib.h>
+#include "pico/multicore.h"
+#include "hardware/adc.h"
+#include "hardware/spi.h"
+#include "hardware/i2c.h"
 #include <pico/bootrom.h>
 
 typedef uint8_t u8;
@@ -14,6 +18,8 @@ typedef int16_t i16;
 typedef int32_t i32;
 typedef u32 time32;
 
+/* TODO @Zea as of December 20 2025: we should probably use fixed point values here instead of software floats
+    At some point we should poison these values and remove all floats and doubles from the code. */
 typedef float f32;
 typedef double f64;
 
@@ -28,57 +34,57 @@ typedef char const * c_str;
 #define alignof(x) __alignof__(x)
 
 #define PINS \
-    X(btn_mtx_a,           0)\
-    X(btn_mtx_b,           1)\
-    X(btn_mtx_c,           2)\
-    X(btn_mtx_d,           3)\
-    X(btn_mtx_0,           4)\
-    X(btn_mtx_1,           5)\
-    X(btn_mtx_2,           6)\
-    X(btn_mtx_3,           7)\
-    X(btn_mtx_4,           8)\
-    X(btn_mtx_5,           9)\
-    X(spi1_clk,            10)\
-    X(spi1_sdi,            11)\
-    X(spi1_sdo,            12)\
-    X(audioamp_masterclk,  13)\
-    X(audioamp_sdi,        14)\
-    X(audioamp_scl,        15)\
-    X(audioamp_wordselect, 16)\
-    X(audioamp_sdo,        17)\
-    X(sd_cs,               18)\
-    X(sd_card_detect,      19)\
-    X(flash_cs,            20)\
-    X(display_cs,          21)\
-    X(display_busy,        22)\
-    X(display_reset,       23)\
-    X(chgr_stat,           24)\
-    X(audioamp_power,      25)\
-    X(mars,                26)\
-    X(led_status,          27)\
-    X(mic_scl,             28)\
-    X(mic_sdo,             29)\
-    X(mic_wordselect,      30)\
-    X(btn_enc_a,           31)\
-    X(btn_enc_b,           32)\
-    X(rf_gpio2,            33)\
-    X(rf_gpio1,            34)\
-    X(rf_gpio0,            35)\
-    X(rf_sdo,              36)\
-    X(rf_sel,              37)\
-    X(rf_sclk,             38)\
-    X(rf_sdi,              39)\
-    X(rf_gpio3,            40)\
-    X(headset_ptt,         41)\
-    X(i2c1_sda,            42)\
-    X(i2c1_scl,            43)\
-    X(headset_conn,        44)\
-    X(pot_volume,          45)\
-    X(chgr_conn,           46)\
-    X(v_bat,               47)
+    X(buttonmatrix_a,       0)\
+    X(buttonmatrix_b,       1)\
+    X(buttonmatrix_c,       2)\
+    X(buttonmatrix_d,       3)\
+    X(buttonmatrix_0,       4)\
+    X(buttonmatrix_1,       5)\
+    X(buttonmatrix_2,       6)\
+    X(buttonmatrix_3,       7)\
+    X(buttonmatrix_4,       8)\
+    X(buttonmatrix_5,       9)\
+    X(spi1_clk,             10)\
+    X(spi1_sdi,             11)\
+    X(spi1_sdo,             12)\
+    X(audioamp_masterclock, 13)\
+    X(audioamp_sdi,         14)\
+    X(audioamp_scl,         15)\
+    X(audioamp_wordselect,  16)\
+    X(audioamp_sdo,         17)\
+    X(sd_cs,                18)\
+    X(sd_card_detect,       19)\
+    X(flash_cs,             20)\
+    X(display_cs,           21)\
+    X(display_busy,         22)\
+    X(display_reset,        23)\
+    X(charger_status,       24)\
+    X(audioamp_power,       25)\
+    X(mars,                 26)\
+    X(led_status,           27)\
+    X(mic_scl,              28)\
+    X(mic_sdo,              29)\
+    X(mic_wordselect,       30)\
+    X(encoder_a,            31)\
+    X(encoder_b,            32)\
+    X(rf_gpio2,             33)\
+    X(rf_gpio1,             34)\
+    X(rf_gpio0,             35)\
+    X(rf_sdo,               36)\
+    X(rf_sel,               37)\
+    X(rf_sclk,              38)\
+    X(rf_sdi,               39)\
+    X(rf_gpio3,             40)\
+    X(headset_ptt,          41)\
+    X(i2c1_sda,             42)\
+    X(i2c1_scl,             43)\
+    X(headset_conn,         44)\
+    X(pot_volume,           45)\
+    X(chgr_conn,            46)\
+    X(v_bat,                47)
 
 typedef enum {
-    #define X(name, pin) name = pin,
+    #define X(name, pin) pin_##name = pin,
     PINS
     #undef X
     pin_max_enum,
@@ -131,8 +137,8 @@ typedef enum {
 } key_tag;
 typedef struct key{u8 value;}key;
 
-const u8 button_sense_pin[] = {btn_mtx_0, btn_mtx_1, btn_mtx_2, btn_mtx_3, btn_mtx_4, btn_mtx_5};
-const u8 button_power_pin[] = {btn_mtx_a, btn_mtx_b, btn_mtx_c, btn_mtx_d};
+const u8 button_sense_pin[] = {pin_buttonmatrix_0, pin_buttonmatrix_1, pin_buttonmatrix_2, pin_buttonmatrix_3, pin_buttonmatrix_4, pin_buttonmatrix_5};
+const u8 button_power_pin[] = {pin_buttonmatrix_a, pin_buttonmatrix_b, pin_buttonmatrix_c, pin_buttonmatrix_d};
 
 #define KEY_STATES\
     X(released)\
@@ -170,15 +176,186 @@ static inline u32 circle_buffer_index_at(u8 alignment, i32 index){
         return index & ((1<<alignment)-1);
 }
 
+/*  I2C1 Initialization */
+void I2C1_init(){
+}
+
+void I2C1_scan_bus(){
+    printf("Scanning I2C1 bus...\n");
+    for (uint8_t address = 1; address < 127; address++) {
+        uint8_t txdata[] = {0x00};
+        int ret = i2c_write_blocking(i2c1, address, txdata, 1, false);
+        if (ret >= 0) {
+            printf("Found device at address 0x%02X\n", address);
+        }
+    }
+    printf("I2C1 scan complete.\n");
+}
+
+typedef struct {
+    i2c_inst_t *control_bus;     /* I2C bus instance */
+    u8          control_address; /* 7 bit I2C address */
+    u8          current_page;    /* current register page */
+    u8          reset_pin;       /* GPIO pin for hardware reset */
+    u8          volume;          /* volume for beep sound */
+    u8          mclk_pin;        /* GPIO pin for master clock output from the rp235x */
+} TLV320AIC3100;
+
+static void  TLV320AIC3100_beep(TLV320AIC3100*amp, u8 volume);
+static void  TLV320AIC3100_set_volume(TLV320AIC3100*amp, u8 volume);
+static void  TLV320AIC3100_set_speaker_amplifier_power(TLV320AIC3100 * amp, bool8 power_on);
+static void  TLV320AIC3100_set_dac_power(TLV320AIC3100*amp, bool8 pow_l, bool8 pow_r);
+static void  TLV320AIC3100_set_mute(TLV320AIC3100*amp, bool8 mute_l, bool8 mute_r);
+static void  TLV320AIC3100_reinit(TLV320AIC3100*amp);
+static void  TLV320AIC3100_init_system_clock(TLV320AIC3100*amp);
+static void  TLV320AIC3100_init(TLV320AIC3100*amp, i2c_inst_t *i2c_bus, int i2c_address, u8 reset_gpio_pin, u8 master_clock_pin);
+static void  TLV320AIC3100_reset_soft(TLV320AIC3100*amp);
+static void  TLV320AIC3100_reset(TLV320AIC3100*amp);
+static u8    TLV320AIC3100_read_register(TLV320AIC3100*amp, u8 reg_address);
+static bool8 TLV320AIC3100_write_register(TLV320AIC3100*amp, u8 reg_address, u8 value);
+static bool8 TLV320AIC3100_write_page(TLV320AIC3100*amp, u8 page);
+
+static bool8 TLV320AIC3100_write_page(TLV320AIC3100 *amp, u8 page){
+    /* Set register page */
+    amp->current_page = page;
+    return TLV320AIC3100_write_register(amp, 0x00, page);
+}
+
+static bool8 TLV320AIC3100_write_register(TLV320AIC3100 * amp, u8 reg_address, u8 value){
+    /* Write value to register */
+    u8 tx_data[] = {reg_address, value};
+    return (i2c_write_blocking(amp->control_bus, amp->control_address, tx_data, 2, false)>0);
+}
+
+static u8 TLV320AIC3100_read_register(TLV320AIC3100 * amp, u8 reg_address){
+    u8 rx_data = 0;
+
+    /* read value from register */
+    i2c_write_blocking(amp->control_bus, amp->control_address, &reg_address, 1, true);
+    i2c_read_blocking(amp->control_bus, amp->control_address, &rx_data, 1, false);
+    return rx_data;
+}
+
+void TLV320AIC3100_reset(TLV320AIC3100 * amp){
+    /* Reset the audio amplifier using the hardware reset pin */
+    gpio_put(amp->reset_pin, 0); /* start_reset */
+    sleep_us(1);
+    gpio_put(amp->reset_pin, 1); /* finish_reset */
+    sleep_us(1);
+}
+
+static void TLV320AIC3100_reset_soft(TLV320AIC3100 * amp){
+    /* Reset the audio amplifier through I2C command */
+    /* wait at least 1ms after calling amp function to allow reset to complete */
+    TLV320AIC3100_write_page(amp, 0); /* set to page 0 */
+    TLV320AIC3100_write_register(amp, 0x01, 0x01); /* write reset command to reset register */
+    sleep_us(1);
+}
+
+static void TLV320AIC3100_init(TLV320AIC3100 * amp, i2c_inst_t *i2c_bus, int i2c_address, u8 reset_gpio_pin, u8 master_clock_pin){
+    /* Initialize TLV320AIC3100 Audio Amplifier */
+    /* be sure to initialize I2C bus before calling amp function */
+    /* ensure audio amp power is enabled before calling amp function */
+
+    amp->control_bus = i2c_bus;
+    amp->control_address = i2c_address;
+    amp->reset_pin = reset_gpio_pin;
+    amp->mclk_pin = master_clock_pin;
+
+    TLV320AIC3100_reinit(amp);
+
+}
+
+static void TLV320AIC3100_init_system_clock(TLV320AIC3100 * amp){
+    /* configure microcontroller to output required MCLK signal on pin specified by master_clock_pin, derived from system clock */
+
+    /* set clkout to the crystal oscillator frequency (12MHz) */
+    /*  clock_gpio_init(amp->mclk_pin, CLOCKS_CLK_GPOUT0_CTRL_AUXSRC_VALUE_XOSC_CLKSRC, 1); */
+}
+
+static void TLV320AIC3100_reinit(TLV320AIC3100 * amp){
+
+    /* setup reset pin */
+    gpio_init(amp->reset_pin);
+    gpio_set_dir(amp->reset_pin, GPIO_OUT);
+
+    TLV320AIC3100_init_system_clock(amp); /* initialize system clock output */
+    
+    /* reset audio amp */
+    TLV320AIC3100_reset(amp);
+
+
+    TLV320AIC3100_set_dac_power(amp, true, true); /* power on both DAC channels */
+    TLV320AIC3100_set_mute(amp, false, false); /* unmute audio output */
+    TLV320AIC3100_set_volume(amp, 128); /* set unity gain volume */
+    TLV320AIC3100_set_speaker_amplifier_power(amp, true); /* power on speaker amplifier */
+
+    /* unmute speaker amp */
+    TLV320AIC3100_write_page(amp, 1); /* set to page 1 */
+    TLV320AIC3100_write_register(amp, 42, 0b00000100); /* unmute speaker */
+}
+
+static void TLV320AIC3100_set_mute(TLV320AIC3100 * amp, bool8 mute_l, bool8 mute_r){
+    /* Mute or unmute audio output */
+    TLV320AIC3100_write_page(amp, 0); /* set to page 0 */
+    TLV320AIC3100_write_register(amp, 64, 0b00000010 | (mute_l ? 0b1000 : 0x00) | (mute_r ? 0b0100 : 0x00)); /* set mute registers */
+}
+
+static void TLV320AIC3100_set_dac_power(TLV320AIC3100 * amp, bool8 pow_l, bool8 pow_r){
+    /* Set DAC power state */
+    TLV320AIC3100_write_page(amp, 0); /* set to page 0 */
+    TLV320AIC3100_write_register(amp, 63, 0b00010101 | (pow_l ? 0b10000000 : 0) | (pow_r ? 0b01000000 : 0b0)); /* set DAC power registers */
+}
+
+static void TLV320AIC3100_set_speaker_amplifier_power(TLV320AIC3100 * amp, bool8 power_on){
+    /* Set overall amplifier power state */
+    TLV320AIC3100_write_page(amp, 1); /* set to page 0 */
+    TLV320AIC3100_write_register(amp, 32, power_on ? 0b10000110 : 0b00000110); /* set speaker amplifier power register */
+}
+
+
+static void TLV320AIC3100_set_volume(TLV320AIC3100 * amp, u8 volume){
+    /* sets amp output volume, accepts 1 to 176. 128 is unity gain. each step is 0.5dB. Numbers outside amp range will be clamped. */
+
+    int8_t reg_value = volume - 128;
+    if (reg_value > 48) reg_value = 48; /* max volume is +24dB, 48 steps of 0.5dB */
+    if (reg_value == -128) reg_value = -127; /* min volume is -63.5dB, -127 steps of 0.5dB */
+
+    TLV320AIC3100_write_page(amp, 0); /* set to page 0 */
+    TLV320AIC3100_write_register(amp, 65, reg_value); /* left headphone out volume */
+    TLV320AIC3100_write_register(amp, 66, reg_value); /* right headphone out volume */
+}
+
+static void TLV320AIC3100_beep(TLV320AIC3100 * amp, u8 volume){
+    /* Generate a beep sound at specified volume (0-100) */
+    if(volume>100) volume = 100;
+
+    /* map volume 0-100 to register value 0x00-0x1F */
+    u8 reg_volume = ((u8)((float)(100-volume)*0.64)) & 0b00111111;
+
+    TLV320AIC3100_write_page(amp, 0); /* set to page 0 */
+    TLV320AIC3100_write_register(amp, 72, 0b00000011); /* set right channel beep volume to follow left channel */
+    TLV320AIC3100_write_register(amp, 71, reg_volume | 0b10000000); /* set left channel beep volume and start beep */
+}
+
 /* returns time in milis sense device turned on */
 time32 get_time(){
     /* TODO:*/
     return 0;
 }
 
+f32 get_battery_voltage(){
+    adc_select_input(pin_v_bat-40); /* V_BAT is ADC7, ADC input is 0 indexed */
+    return (f32)adc_read()*.003791; /* conversion factor for voltage divider and ADC step size (127/27)*(3.3/4095) */
+}
+u8 get_volume_pot(){
+    adc_select_input(pin_pot_volume-40); /* POT_VOLUME is ADC5, ADC input is 0 indexed */
+    return 99-((u8)((f32)adc_read()*0.02442));
+}
+
+
 /* TODO@Zea as of December 20 2025 add knobs */
-void poll_buttons_and_knobs(){
-    /* */
+void poll_input(){
     u32 columns = array_size(button_power_pin);
     u32 rows = array_size(button_sense_pin);
     ifor(c, columns){
@@ -186,7 +363,7 @@ void poll_buttons_and_knobs(){
         sleep_us(1);
         ifor(r, rows){
             bool8 pin = gpio_get(button_sense_pin[r]);
-            button_debounce_buffer[(button_debounce_buffer_index * columns * rows) + c * rows + r] = pin;
+            button_debounce_buffer[(button_debounce_buffer_index * columns * rows) + r * columns + c] = pin;
         }
         gpio_put(button_power_pin[c], 0);
         sleep_us(1);
@@ -204,6 +381,7 @@ void poll_buttons_and_knobs(){
     
     ifor(b, BUTTONS_SIZE){
         u32 key = key_map[b];
+        if(key == key_unknown) continue;
 
         if(buttons[b]){
             if(key_states[key] == key_state_pressed){
@@ -216,6 +394,24 @@ void poll_buttons_and_knobs(){
             key_states[key] = key_state_released;
         }
     }
+
+    /* process encoder */
+    // encoder_state=((encoder_state<<1) | gpio_get(BTN_ENC_A)) & 0b111;/* store the last three states of the encoder A pin */
+    // if(encoder_state==0b100){
+    //     if(gpio_get(BTN_ENC_B)){
+    //         printf("Channel +\n");
+    //     } else{
+    //         printf("Channel -\n");
+    //     }
+    //     encoder_state=0;
+    // }
+
+    /* read volume pot */
+    // current_volume = get_volume_pot();
+    // if(abs(current_volume-last_volume)>2){
+    //     last_volume = current_volume;
+    //     printf("Volume: %d\n", current_volume);
+    // }
 }
 
 void print_button_debounce_buffer(){
@@ -246,25 +442,21 @@ void print_key_states(){
     } 
 }
 
+
 int main(){
-        /* initalize_daughter_board();
-        initalize_configuration();
-        initialze_radio_stored_state(); */
-        
-
-
-    gpio_init(led_status);
-    gpio_set_dir(led_status, GPIO_OUT);
-    gpio_put(led_status, 1);
+    gpio_init(pin_led_status);
+    gpio_set_dir(pin_led_status, GPIO_OUT);
+    gpio_put(pin_led_status, 1);
     bool8 led_status_value = 1;
+
     if(!stdio_init_all()){
 
         ifor(i, blink_code_stdio_failed_to_initalize){
             sleep_ms(333);
-            gpio_put(led_status, 0);
+            gpio_put(pin_led_status, 0);
             sleep_ms(333);
-            gpio_put(led_status, 1);
-            //reset_usb_boot(0,0);
+            gpio_put(pin_led_status, 1);
+            /* reset_usb_boot(0,0); */
         }
     }
 
@@ -278,18 +470,36 @@ int main(){
             gpio_set_dir(button_power_pin[i], GPIO_OUT);
             gpio_pull_down(button_power_pin[i]);
     }
-    
+
+    gpio_init(pin_encoder_a);
+    gpio_set_dir(pin_encoder_a, GPIO_IN);
+    gpio_init(pin_encoder_a);
+    gpio_set_dir(pin_encoder_a, GPIO_IN);
+
+    adc_init();
+    adc_gpio_init(pin_v_bat);
+    adc_gpio_init(pin_pot_volume);
+
+    /* TODO @Zea as of December 21 2025: do we need to do this here? */
+    /* Force-reset the I2C1 peripheral in case the Wi-Fi core or bootloader locked it */
+    i2c1_hw->enable = 0;
+    sleep_us(10);
+    i2c_init(i2c1, 100000);
+    gpio_set_function(pin_i2c1_sda, GPIO_FUNC_I2C);
+    gpio_set_function(pin_i2c1_scl, GPIO_FUNC_I2C);
+
+
     /* main loop */
     for(u32 i = 0;;++i){
-        poll_buttons_and_knobs();
+        poll_input();
         print_button_debounce_buffer();
         print_key_states();
 
         if((i& ((1<<5)-1)) == 0){
-            gpio_put(led_status, led_status_value);
+            gpio_put(pin_led_status, led_status_value);
             led_status_value = !led_status_value;
         }
-        /*TODO@Zea as of December 20 2025: make this try to keep the same interval between loops*/
+        /* TODO @Zea as of December 20 2025: make this try to keep the same interval between loops */
         sleep_ms(14);
         printf("loop:%"PRIu32"\r", i);
     }
