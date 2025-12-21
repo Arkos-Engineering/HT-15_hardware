@@ -1,1 +1,3 @@
 hardware/**/*.zip
+firmware/build
+
