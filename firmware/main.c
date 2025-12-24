@@ -7,6 +7,7 @@
 #include "hardware/adc.h"
 #include "hardware/spi.h"
 #include "hardware/i2c.h"
+#include "hardware/dma.h"
 #include <pico/bootrom.h>
 
 typedef uint8_t u8;
@@ -442,6 +443,10 @@ void print_key_states(){
     } 
 }
 
+void 
+
+
+/*(../hardware/Datasheets/AES200200A00-1.54ENRS(1).pdf)*/
 
 int main(){
     gpio_init(pin_led_status);
@@ -488,6 +493,38 @@ int main(){
     gpio_set_function(pin_i2c1_sda, GPIO_FUNC_I2C);
     gpio_set_function(pin_i2c1_scl, GPIO_FUNC_I2C);
 
+    /* Initalize display spi1 for display, sd card ,external spi flash*/
+    spi_init(spi1, 10000);
+    gpio_set_function(pin_spi1_clk, GPIO_FUNC_SPI);
+    gpio_set_function(pin_spi1_sdi, GPIO_FUNC_SPI);
+    gpio_set_function(pin_spi1_sdo, GPIO_FUNC_SPI);
+    gpio_init(pin_display_cs);
+    gpio_init(pin_display_busy);
+    gpio_init(pin_display_reset);
+    gpio_set_dir(pin_display_cs, GPIO_OUT);
+    gpio_set_dir(pin_display_busy, GPIO_IN);
+    gpio_set_dir(pin_display_reset, GPIO_OUT);
+    gpio_put(pin_display_cs, 0);
+    gpio_put(pin_display_reset, 0);
+
+    gpio_init(pin_sd_cs);
+    gpio_set_dir(pin_sd_cs, GPIO_OUT);
+    gpio_put(pin_sd_cs, 0);
+
+    gpio_init(pin_flash_cs);
+    gpio_set_dir(pin_flash_cs, GPIO_OUT);
+    gpio_put(pin_flash_cs, 0);
+
+    /* spi for CC1120 (RF, IC), Expansion*/
+    spi_init(spi0, 100000);
+
+    /* TODO@Zea as of December 23 2025: dma for display and radio module and stuff */
+    /* i32 dma_channel = dma_claim_unused_channel(1);
+    dma_channel_config dma_config = dma_channel_get_default_config(dma_channel);
+    channel_config_set_transfer_data_size(&dma_config, DMA_SIZE_16);
+    channel_config_set_read_increment(&dma_config, 1);
+    channel_config_set_write_increment(&dma_config, 0);
+    channel_config_set_write_increment(&dma_config, 0); */
 
     /* main loop */
     for(u32 i = 0;;++i){
@@ -499,6 +536,196 @@ int main(){
             gpio_put(pin_led_status, led_status_value);
             led_status_value = !led_status_value;
         }
+
+        /* do display stuff(../hardware/Datasheets/AES200200A00-1.54ENRS(1).pdf)*/{
+            if(!gpio_get(pin_display_busy)){
+                gpio_put(pin_display_cs, 1);
+            }
+
+            spi_set_format(spi1, 9, SPI_CPOL_0, 0, SPI_MSB_FIRST);
+            u16 data_bit = 1 << 8;
+
+            u16 sw_reset = 0x12;
+            spi_write16_blocking(spi1, &sw_reset, 1);
+            sleep_ms(10);
+
+            while(gpio_get(pin_display_busy)) sleep_ms(1);
+
+            /* initalize gate settings*/
+            {
+                u16 set_gate_driver_output_control = 0x01;
+                //select gate lines 9 bits, first 8 in 0 and then 1 in 1. 
+                u16 gate_lines_0 =  (1<<7) | data_bit;
+                u16 gate_lines_1 =  1 | data_bit;
+
+                /*if 0 g0, g1, g2, g3... else g1, g0, g3, g2...*/
+                u8 scan_staggered_bit = 0;
+                /* if 1 : g0 g2 g4 ... g198, g1 g3 ... g199 */
+                u8 scan_interlaced_bit = 0;
+                /* if 1 g199 to g0*/
+                u8 scan_backwards_bit = 0;
+                u16 sequence_0 = (scan_staggered_bit << 2) | (scan_interlaced_bit << 1) | (scan_backwards_bit << 0) | data_bit; 
+
+
+                /* set display rame size */
+                /* define data entry sequence*/
+                u16 set_data_entry_mode = 0x11;
+                u8 define_data_entry_sequence = 0;
+                u8 address_automatic_increment_decrement = 0;
+                /* if 0 the address counter is updeted in the X direction if 1 its updated in the y direction*/
+                u8 ram_direction = 0;
+
+                u16 data_entry_mode_0 = (define_data_entry_sequence << 2) | (address_automatic_increment_decrement << 1) | (ram_direction << 0) | data_bit;
+
+
+                u16 set_x_ram_address_start_end_position = 0x44;
+                /* only has the first 6 bits of a byte*/
+                u16 x_start_0 = 0;
+                u16 x_end_0 = (1<<6)-1;
+
+
+                u16 set_y_ram_address_start_end_position = 0x45;
+                /* has 9 bits 8 in 0 1 in 1*/
+                u16 y_start_0 = 0 | data_bit;
+                u16 y_start_1 = 0 | data_bit;
+                u16 y_end_0 = (1<<8)-1 | data_bit;
+                u16 y_end_1 = 1 | data_bit;
+
+                u16 buffer[] = {
+                    set_gate_driver_output_control, gate_lines_0, gate_lines_1, sequence_0,
+                    set_data_entry_mode, data_entry_mode_0,
+                    set_x_ram_address_start_end_position, x_start_0, x_end_0,
+                    set_y_ram_address_start_end_position, y_start_0, y_start_1, y_end_0, y_end_1
+                };
+                spi_write16_blocking(spi1, buffer, array_size(buffer));
+            }
+
+            /* load waveform LUT from OTP or by MCU 0x22 0x20 */
+            u16 display_update_control_2_command = 0x22;
+            /* 8 bits*/
+            u8 operating_sequence_parameter_table[] = {
+                0x80 /* Enable clock signal*/,
+                0x01 /* Disable clock signal*/,
+                0xc0 /* enable clock signale -> enable analog*/,
+                0x03 /* disable analog -> disable clock signal*/,
+                0x91 /* Enable clock signal -> laod LUT with Display mode 1 -> disable clock signal*/,
+                0x99 /* enable clock signal -> load LUT with display mode 2 -> disable clock signal*/,
+                0xb1 /* enable clock signal -> load temperature value -> load LUT with display mode 1*/,
+                0xb9 /* enable clock signal -> load temperature value -> load LUT with display mode 2*/,
+                0xc7 /* enable clock signal -> enable analog -> load LUT with display mode 1 -> disable analog -> disable OSC*/,
+                0xcf /* enable clock signal -> enable analog -> load LUT with display mode 2 -> disable analog -> disable OSC*/,
+                0xf7 /* enable clock signal -> enable analog -> load temperature value -> display with display mode 1 -> disable analog -> disable OSC*/,
+                0xff /* enable clock signal -> enable analog -> load temperature value -> display with display mode 2 -> disable analog -> disable OSC*/,
+            };
+
+            /* BUSY will output high durring this command*/
+            u16 master_activation_command = 0x20;
+
+            /* load wavefrom LUT*/{
+                u16 tempurature_sensor_selection = 0x18;
+                /* 8 bits*/
+                u16 sensor_control_0 = 0 | data_bit;
+
+
+                u16 control_command_param_0 = operating_sequence_parameter_table[0] | data_bit;
+
+
+                u16 buffer[] = {
+                    tempurature_sensor_selection, sensor_control_0,
+                    display_update_control_2_command, control_command_param_0,
+                    master_activation_command
+                };
+                spi_write16_blocking(spi1, buffer, array_size(buffer));
+            }
+            while(gpio_get(pin_display_busy)) sleep_us(33);
+
+            /* write image and drive display panel*/{
+                u16 set_initial_ram_x_address = 0x4e;
+                /* 6 bits*/
+                u16 initial_ram_x_address = 0x00 | data_bit;
+
+                u16 set_initial_ram_y_address = 0x4f;
+                /* 9bits */
+                u16 initial_ram_y_addres_0 = 0 | data_bit;
+                u16 initial_ram_y_addres_1 = 0 | data_bit;
+
+                /* Busy will be high*/
+                u16 vcom_sense = 0x26;
+
+
+                u16 buffer[] = {
+                    set_initial_ram_x_address, initial_ram_x_address,
+                    set_initial_ram_y_address, initial_ram_y_addres_0, initial_ram_y_addres_1,
+                    vcom_sense, 
+                };
+
+                spi_write16_blocking(spi1, buffer, array_size(buffer));
+                while(gpio_get(pin_display_busy)) sleep_us(33);
+
+                u16 booster_soft_start_control   = 0x0c;
+                union{
+                    u8 u8;
+                    struct{
+                        u8 drive_strength:4;
+                        u8 min_off_time_setting:4;
+                    };
+                } booster_phase_1, booster_phase_2, booster_phase_3;
+                
+                booster_phase_1.drive_strength = (1 << 4) - 1;
+                booster_phase_1.min_off_time_setting = (1 << 4) - 1;
+
+                booster_phase_2 = booster_phase_1;
+                booster_phase_3 = booster_phase_1;
+
+                /* 6 bits*/
+                union{
+                    u8 u8;
+                    struct{
+                        u8 phase_1:2;
+                        u8 phase_2:2;
+                        u8 phase_3:2;
+                    };
+                } phase_durrations;
+
+                phase_durrations.u8 = 0;
+
+                u16 phase_1 = booster_phase_1.u8 | data_bit;
+                u16 phase_2 = booster_phase_2.u8 | data_bit;
+                u16 phase_3 = booster_phase_3.u8 | data_bit;
+                u16 durations = phase_durrations.u8 | data_bit;
+
+
+                u16 display_command = operating_sequence_parameter_table[11];
+
+                u16 buffer2[] = {
+                    booster_soft_start_control, phase_1, phase_2, phase_3, durations,
+                    display_update_control_2_command, display_command,
+                    master_activation_command,
+                };
+
+                spi_write16_blocking(spi1, buffer, array_size(buffer));
+                while(gpio_get(pin_display_busy)) sleep_us(33);
+            }
+
+            while(gpio_get(pin_display_busy)) sleep_us(10);
+            /* set display rame size */
+            {
+
+            }
+
+
+            c_str set_panel_boarder = "\x3c";
+            spi_write_blocking(spi1, (u8 *)set_panel_boarder, strlen(set_panel_boarder));
+            
+            c_str sense_tempurature = "\x18";
+            spi_write_blocking(spi1, (u8 *)sense_tempurature, strlen(sense_tempurature));
+
+            c_str write_image_data = "\x4e";
+
+        }
+
+
+
         /* TODO @Zea as of December 20 2025: make this try to keep the same interval between loops */
         sleep_ms(14);
         printf("loop:%"PRIu32"\r", i);

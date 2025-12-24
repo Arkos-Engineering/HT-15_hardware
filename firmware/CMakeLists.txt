@@ -19,7 +19,7 @@ pico_set_program_name(Firmware "Firmware")
 pico_set_program_version(Firmware "0.1")
 pico_enable_stdio_uart(Firmware 0)
 pico_enable_stdio_usb(Firmware 1)
-target_link_libraries(Firmware pico_stdlib  pico_multicore hardware_adc hardware_spi hardware_i2c)
+target_link_libraries(Firmware pico_stdlib  pico_multicore hardware_adc hardware_spi hardware_i2c hardware_dma)
 target_include_directories(Firmware PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 pico_add_extra_outputs(Firmware)
 
