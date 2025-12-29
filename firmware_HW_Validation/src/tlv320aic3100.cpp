@@ -53,11 +53,18 @@ void TLV320AIC3100::init(i2c_inst_t *i2c_bus, int i2c_address, uint8_t reset_gpi
 
 }
 
-void TLV320AIC3100::init_system_clock(){
+void TLV320AIC3100::start_system_clock(){
     //configure microcontroller to output required MCLK signal on pin specified by master_clock_pin, derived from system clock
 
     //set clkout to the crystal oscillator frequency (12MHz)
     clock_gpio_init(this->mclk_pin, CLOCKS_CLK_GPOUT0_CTRL_AUXSRC_VALUE_XOSC_CLKSRC, 1);
+}
+
+void TLV320AIC3100::stop_system_clock(){
+    //disable MCLK output
+    gpio_init(13);              // makes it a normal GPIO again
+    gpio_set_dir(13, GPIO_OUT);
+    gpio_put(13, 0);
 }
 
 void TLV320AIC3100::reinit(){
@@ -66,23 +73,48 @@ void TLV320AIC3100::reinit(){
     gpio_init(this->reset_pin);
     gpio_set_dir(this->reset_pin, GPIO_OUT);
 
-    this->init_system_clock(); //initialize system clock output
+    this->start_system_clock(); //initialize system clock output
     
     //reset audio amp
     this->reset();
 
+    this->set_dac_processing_block(25); //enable all things
+
+    //below sets dac and adc clock dividers to 16kHz sample rate with 12MHz MCLK
+    this->write_register(1, 0b00000000);
 
     this->set_dac_power(true, true); //power on both DAC channels
-    this->set_mute(false, false); //unmute audio output
+    this->set_dac_mute(false, false); //unmute audio output
     this->set_volume(128); //set unity gain volume
-    this->set_speaker_amplifier_power(true); //power on speaker amplifier
+    this->set_speaker_amplifier_enable(true); //power on speaker amplifier
 
-    //unmute speaker amp
-    this->write_page(1); //set to page 1
-    this->write_register(42, 0b00000100); //unmute speaker
+    // //unmute headphone amp
+    // this->write_page(1); //set to page 1
+    // this->write_register(42, 0b00000100); //unmute HRL
+    // this->write_register(43, 0b00000100); //unmute HPR
+
+}
+void TLV320AIC3100::configure_clock_div(uint8_t timer, uint8_t dosr, uint8_t ndac, uint8_t mdac, uint8_t aors, uint8_t nadc, uint8_t madc){
+    //Configure clock dividers
+
+	/* 16k rate, 12MHz MCLK */
+    //mclk dosr ndac mdac aors nadc madc
+	//{12000000,125,3,2,125,3,2}, //16kHz
+
+    //set timer clock divider, This should be set so that MCLK / timer ~= 1MHz
+    this->write_page(3); //set to page 3
+    this->write_register(16, (timer==0)?128:timer); //set timer clock divider
+    this->write_page(0); //set to page 0
 }
 
-void TLV320AIC3100::set_mute(bool mute_l, bool mute_r){
+
+void TLV320AIC3100::set_dac_processing_block(uint8_t block){
+    //Set DAC processing block
+    this->write_page(0); //set to page 0
+    this->write_register(60, block); //set processing block
+}
+
+void TLV320AIC3100::set_dac_mute(bool mute_l, bool mute_r){
     //Mute or unmute audio output
     this->write_page(0); //set to page 0
     this->write_register(64, 0b00000010 | (mute_l ? 0b1000 : 0x00) | (mute_r ? 0b0100 : 0x00)); //set mute registers
@@ -94,10 +126,11 @@ void TLV320AIC3100::set_dac_power(bool pow_l, bool pow_r){
     this->write_register(63, 0b00010101 | (pow_l ? 0b10000000 : 0) | (pow_r ? 0b01000000 : 0b0)); //set DAC power registers
 }
 
-void TLV320AIC3100::set_speaker_amplifier_power(bool power_on){
+void TLV320AIC3100::set_speaker_amplifier_enable(bool enable){
     //Set overall amplifier power state
     this->write_page(1); //set to page 0
-    this->write_register(32, power_on ? 0b10000110 : 0b00000110); //set speaker amplifier power register
+    this->write_register(32, enable ? 0b10000110 : 0b00000110); //set speaker amplifier power register
+    this->write_register(42, enable ? 0b00000001 : 0b00000101); //set speaker amplifier mute
 }
 
 
