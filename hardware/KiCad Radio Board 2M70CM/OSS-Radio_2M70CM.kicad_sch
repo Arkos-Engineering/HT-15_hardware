@@ -6938,12 +6938,6 @@
 		(uuid "7cbb7e88-4ae4-4624-ba79-0886263babad")
 	)
 	(junction
-		(at 243.84 26.67)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7ff9bb6c-d8b6-4c4d-9cc4-e891bec10699")
-	)
-	(junction
 		(at 121.92 158.75)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7839,7 +7833,7 @@
 	)
 	(wire
 		(pts
-			(xy 228.6 26.67) (xy 243.84 26.67)
+			(xy 228.6 26.67) (xy 246.38 26.67)
 		)
 		(stroke
 			(width 0)
@@ -9536,16 +9530,6 @@
 			(type default)
 		)
 		(uuid "d9c87e92-cbdb-40e6-b2d1-a3a81739c428")
-	)
-	(wire
-		(pts
-			(xy 243.84 26.67) (xy 246.38 26.67)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "db4b7694-a14d-41c0-949a-9fde2cc1ca20")
 	)
 	(wire
 		(pts
@@ -16679,73 +16663,6 @@
 			(project "OSS-Radio_2M70CM"
 				(path "/07417920-d864-4fe6-bbe4-9feb9e01fbee"
 					(reference "C47")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 243.84 26.67 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "84e0e686-e74e-488c-a61c-a947858b8ad5")
-		(property "Reference" "TP4"
-			(at 246.38 28.7019 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 246.38 31.2419 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
-			(at 238.76 26.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 238.76 26.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 243.84 26.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "4a02a6ba-59d8-4711-b9f4-d95a3bfb5021")
-		)
-		(instances
-			(project "OSS-Radio_2M70CM"
-				(path "/07417920-d864-4fe6-bbe4-9feb9e01fbee"
-					(reference "TP4")
 					(unit 1)
 				)
 			)
