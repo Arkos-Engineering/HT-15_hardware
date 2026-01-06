@@ -141,7 +141,7 @@
 			(mirror no)
 			(drillshape 0)
 			(scaleselection 1)
-			(outputdirectory "Exports/")
+			(outputdirectory "Exports/2M70CM_Rev_0.1/")
 		)
 	)
 	(net 0 "")

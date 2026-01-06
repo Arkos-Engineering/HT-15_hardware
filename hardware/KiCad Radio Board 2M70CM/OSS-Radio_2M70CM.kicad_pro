@@ -514,10 +514,10 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "Exports/",
-      "pos_files": "Exports/",
+      "plot": "Exports/2M70CM_Rev_0.1/",
+      "pos_files": "Exports/2M70CM_Rev_0.1/",
       "specctra_dsn": "",
-      "step": "C:/Users/ben/Downloads/OSS-Radio_2M70CM.step",
+      "step": "Exports/2M70CM_Rev_0.1/OSS-Radio_2M70CM.step",
       "svg": "",
       "vrml": ""
     },
@@ -654,7 +654,7 @@
       "include_excluded_from_bom": true,
       "name": "",
       "sort_asc": true,
-      "sort_field": "Reference"
+      "sort_field": "PART-NUMBER"
     },
     "connection_grid_size": 50.0,
     "drawing": {
