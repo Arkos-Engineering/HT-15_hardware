@@ -1,12 +1,3 @@
-[submodule "firmware/HT-15_Test/Libraries/Libraries"]
-	path = firmware/HT-15_Test/Libraries/Libraries
-	url = https://github.com/krystiancha/pico-epaper
-[submodule "firmware/HT-15_Test/Libraries/pico-epaper"]
-	path = firmware/HT-15_Test/Libraries/pico-epaper
-	url = https://github.com/krystiancha/pico-epaper
 [submodule "firmware_HW_Validation/lib/Pico-I2S"]
 	path = firmware_HW_Validation/lib/Pico-I2S
 	url = https://github.com/VVatashi/Pico-I2S
-[submodule "firmware_HW_Validation/lib/tl320aic31xx"]
-	path = firmware_HW_Validation/lib/tlv320aic31xx/
-	url = https://github.com/haklein/tlv320aic31xx
