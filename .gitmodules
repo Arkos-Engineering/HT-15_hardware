@@ -4,3 +4,6 @@
 [submodule "firmware_HW_Validation/lib/tlv320aic31xx"]
 	path = firmware_HW_Validation/lib/tlv320aic31xx
 	url = https://github.com/haklein/tlv320aic31xx
+[submodule "firmware_HW_Validation/lib/arduino-pico"]
+	path = firmware_HW_Validation/lib/arduino-pico
+	url = https://github.com/earlephilhower/arduino-pico

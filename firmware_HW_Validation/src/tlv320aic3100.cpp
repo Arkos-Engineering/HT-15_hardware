@@ -62,9 +62,9 @@ void TLV320AIC3100::start_system_clock(){
 
 void TLV320AIC3100::stop_system_clock(){
     //disable MCLK output
-    gpio_init(13);              // makes it a normal GPIO again
-    gpio_set_dir(13, GPIO_OUT);
-    gpio_put(13, 0);
+    gpio_init(this->mclk_pin);              // makes it a normal GPIO again
+    gpio_set_dir(this->mclk_pin, GPIO_OUT);
+    gpio_put(this->mclk_pin, 0);
 }
 
 void TLV320AIC3100::reinit(){

@@ -12,9 +12,9 @@
 #include "pindefs.cpp"
 #include "keypad.h"
 #include "tlv320aic3100.h"
-#include "addresses.cpp"
 
 //global variables
+#define ADDRESS_I2C_AUDIOAMP 0b0011000
 
 //key names for printing
 char key_names[23][6] = {
