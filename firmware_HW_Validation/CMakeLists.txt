@@ -28,7 +28,7 @@ set(PICO_BOARD weact_studio_rp2350b_core CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-
+include(lib/tlv320aic31xx/pico_sdk_import.cmake)
 
 project(HT-15_Test C CXX ASM)
 
