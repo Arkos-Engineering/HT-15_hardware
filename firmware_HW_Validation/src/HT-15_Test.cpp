@@ -3,6 +3,8 @@
 #include <memory.h>
 #include <vector>
 
+#include "i2s_master_output.h"
+
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
 #include "hardware/adc.h"
