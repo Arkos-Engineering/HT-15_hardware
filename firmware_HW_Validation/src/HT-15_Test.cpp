@@ -3,7 +3,6 @@
 #include <memory.h>
 #include <vector>
 
-#include "i2s_master_output.h"
 
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
@@ -11,9 +10,12 @@
 #include "hardware/spi.h"
 #include "hardware/i2c.h"
 
+#include "pico_tlv320dac3100.h"
+#include "i2s_master_output.h"
+
 #include "pindefs.cpp"
 #include "keypad.h"
-#include "tlv320aic3100.h"
+// #include "tlv320aic3100.h"
 
 //global variables
 #define ADDRESS_I2C_AUDIOAMP 0b0011000
@@ -25,7 +27,7 @@ char key_names[23][6] = {
 };
 
 //Audio Amplifier object
-TLV320AIC3100 audio_amp;
+// TLV320AIC3100 audio_amp;
 
 
 /// I2C1 Initialization
@@ -89,7 +91,7 @@ void init_all(){
     I2C1_init();
 
 
-    audio_amp.init(i2c1, ADDRESS_I2C_AUDIOAMP, AUDIOAMP_RESET, AUDIOAMP_MASTERCLK); //initialize audio amp
+    // audio_amp.init(i2c1, ADDRESS_I2C_AUDIOAMP, AUDIOAMP_RESET, AUDIOAMP_MASTERCLK); //initialize audio amp
 
     Keypad::init(); //initialize keypad
 
@@ -171,7 +173,7 @@ void core_0() {
             // audio_amp.write_page(0);
             // printf("Amp_PB: 0x%02X\n", audio_amp.read_register(60));
             // audio_amp.set_volume(current_volume);
-            audio_amp.beep(100);
+            // audio_amp.beep(100);
         }
 
         //manage counter

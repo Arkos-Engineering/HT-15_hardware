@@ -37,10 +37,8 @@ pico_sdk_init()
 # include(src/libraries/pico-epaper/external/pico_epaper_import.cmake)
 
 # Add library subdirectory
-add_subdirectory(lib)
-
 # Add executable. Default name is the project name, version 0.1
-add_executable(HT-15_Test src/HT-15_Test.cpp src/keypad.cpp src/tlv320aic3100.cpp)
+add_executable(HT-15_Test src/HT-15_Test.cpp src/keypad.cpp)
 
 pico_set_program_name(HT-15_Test "HT-15_Test")
 pico_set_program_version(HT-15_Test "0.1")
@@ -49,14 +47,25 @@ pico_set_program_version(HT-15_Test "0.1")
 pico_enable_stdio_uart(HT-15_Test 0)
 pico_enable_stdio_usb(HT-15_Test 1)
 
+add_subdirectory(lib/pico_tlv320_i2s)
+add_subdirectory(lib/Pico-i2s)
+
 # Add the standard library to the build
-target_link_libraries(HT-15_Test
-        pico_stdlib pico_multicore hardware_adc hardware_spi hardware_i2c hardware_clocks
-        pico_i2s)
+target_link_libraries(HT-15_Test 
+                        pico_stdlib
+                        pico_multicore
+                        hardware_adc
+                        hardware_spi
+                        hardware_i2c
+                        hardware_clocks
+                        pico_i2s
+                        pico_tlv320_i2s
+                        )
 
 # Add the standard include files to the build
 target_include_directories(HT-15_Test PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
+        ${CMAKE_CURRENT_LIST_DIR}/lib/pico_tlv320_i2s
 )
 
 pico_add_extra_outputs(HT-15_Test)

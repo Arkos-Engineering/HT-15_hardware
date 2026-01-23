@@ -7,3 +7,6 @@
 [submodule "firmware_HW_Validation/lib/arduino-pico"]
 	path = firmware_HW_Validation/lib/arduino-pico
 	url = https://github.com/earlephilhower/arduino-pico
+[submodule "firmware_HW_Validation/lib/pico_tlv320_i2s"]
+	path = firmware_HW_Validation/lib/pico_tlv320_i2s
+	url = https://github.com/Arkos-Engineering/Pico_TLV320_I2S
