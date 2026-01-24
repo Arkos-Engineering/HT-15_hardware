@@ -28,6 +28,9 @@ set(PICO_BOARD weact_studio_rp2350b_core CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
+# set(PICO_EXTRAS_PATH ${CMAKE_CURRENT_LIST_DIR}/lib/pico-extras)
+# include(pico_extras_import.cmake)
+
 project(HT-15_Test C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
@@ -48,7 +51,6 @@ pico_enable_stdio_uart(HT-15_Test 0)
 pico_enable_stdio_usb(HT-15_Test 1)
 
 add_subdirectory(lib/pico_tlv320_i2s)
-add_subdirectory(lib/Pico-i2s)
 
 # Add the standard library to the build
 target_link_libraries(HT-15_Test 
@@ -58,8 +60,8 @@ target_link_libraries(HT-15_Test
                         hardware_spi
                         hardware_i2c
                         hardware_clocks
-                        pico_i2s
-                        pico_tlv320_i2s
+                        # pico_i2s
+                        pico_tlv320dac3100
                         )
 
 # Add the standard include files to the build

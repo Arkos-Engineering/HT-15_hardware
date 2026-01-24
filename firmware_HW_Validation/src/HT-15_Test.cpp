@@ -8,6 +8,7 @@
 #include "hardware/adc.h"
 #include "hardware/spi.h"
 #include "hardware/i2c.h"
+#include "hardware/clocks.h"
 
 #include "pico_tlv320dac3100.h"
 // #include "i2s_master_output.h"
@@ -27,6 +28,7 @@ char key_names[23][6] = {
 
 //Audio Amplifier object
 // TLV320AIC3100 audio_amp;
+tlv320dac3100_t audio_amp;
 
 
 /// I2C1 Initialization
@@ -35,12 +37,13 @@ void I2C1_init(){
     i2c1_hw->enable = 0;
     sleep_us(10);
 
-    // Initialize I2C1 at 100kHz
-    i2c_init(i2c1, 100000);
 
     // Set up GPIO pins for I2C1
     gpio_set_function(I2C1_SDA, GPIO_FUNC_I2C);
     gpio_set_function(I2C1_SCL, GPIO_FUNC_I2C);
+
+    // Initialize I2C1 at 100kHz
+    i2c_init(i2c1, 100000);
 }
 
 void I2C1_scan_bus(){
@@ -83,14 +86,67 @@ void init_encoder(){
     gpio_set_dir(BTN_ENC_B, GPIO_IN);
 }
 
+void audioamp_reset_hard(){
+    gpio_put(AUDIOAMP_RESET, 0); //start_reset
+    sleep_us(1);
+    gpio_put(AUDIOAMP_RESET, 1); //finish_reset
+    sleep_us(1);
+}
+
+void audioamp_start_system_clock(){
+    //configure microcontroller to output required MCLK signal on pin specified by master_clock_pin, derived from system clock
+
+    //set clkout to the crystal oscillator frequency (12MHz)
+    clock_gpio_init(AUDIOAMP_MASTERCLK, CLOCKS_CLK_GPOUT0_CTRL_AUXSRC_VALUE_XOSC_CLKSRC, 1);
+}
+
+void audioamp_stop_system_clock(){
+    //disable MCLK output
+    gpio_init(AUDIOAMP_MASTERCLK);              // makes it a normal GPIO again
+    gpio_set_dir(AUDIOAMP_MASTERCLK, GPIO_OUT);
+    gpio_put(AUDIOAMP_MASTERCLK, 0);
+}
+
+void init_audio_amp(){
+    // audio_amp.init(i2c1, ADDRESS_I2C_AUDIOAMP, AUDIOAMP_RESET, AUDIOAMP_MASTERCLK); //initialize audio amp
+    audioamp_start_system_clock();
+    tlv320_init(&audio_amp, i2c1, ADDRESS_I2C_AUDIOAMP);
+    gpio_set_dir(AUDIOAMP_RESET, GPIO_OUT);
+    audioamp_reset_hard();
+    tlv320_set_codec_interface(&audio_amp, TLV320DAC3100_FORMAT_I2S, TLV320DAC3100_DATA_LEN_16, false, false);
+    
+    tlv320_set_codec_clock_input(&audio_amp, TLV320DAC3100_CODEC_CLKIN_MCLK);
+
+    tlv320_set_dac_processing_block(&audio_amp, 25); //enable all things
+    
+    //set clock dividers
+    //mclk dosr ndac mdac aosr nadc madc
+	//{12000000,125,3,2,128,3,2}, //16kHz dac, 15.625kHz adc
+    tlv320_set_ndac(&audio_amp, true, 3);
+    tlv320_set_mdac(&audio_amp, true, 2);
+    tlv320_set_dosr(&audio_amp, 125);
+
+    tlv320_set_dac_data_path(&audio_amp, true, true, TLV320_DAC_PATH_NORMAL, TLV320_DAC_PATH_NORMAL, TLV320_VOLUME_STEP_2SAMPLE);
+
+    tlv320_configure_analog_inputs(&audio_amp, TLV320_DAC_ROUTE_MIXER, TLV320_DAC_ROUTE_MIXER, false, false, false, false);
+
+    tlv320_set_dac_volume_control(&audio_amp, false, false, TLV320_VOL_INDEPENDENT);
+    tlv320_set_channel_volume(&audio_amp, 0, 18); //set volume to unity gain
+
+    tlv320_enable_speaker(&audio_amp, true);
+    tlv320_configure_spk_pga(&audio_amp, TLV320_SPK_GAIN_6DB, true); //set speaker PGA gain to +12dB
+    tlv320_set_spk_volume(&audio_amp, true, 0); //set speaker volume to unity gain
+
+}
+
 void init_all(){
     //initialize all necessary pins
 
     //init I2C1
     I2C1_init();
 
-
     // audio_amp.init(i2c1, ADDRESS_I2C_AUDIOAMP, AUDIOAMP_RESET, AUDIOAMP_MASTERCLK); //initialize audio amp
+    init_audio_amp();
 
     Keypad::init(); //initialize keypad
 
@@ -104,10 +160,7 @@ void init_all(){
 
     //init encoder pins
     init_encoder();
-
-
 }
-
 
 //what will run on core 0
 void core_0() {
@@ -167,12 +220,14 @@ void core_0() {
             }
         }       
 
-        if (counter%2000==1000){
-            // I2C1_scan_bus();
+        if (!(counter%2000)){
+            I2C1_scan_bus();
             // audio_amp.write_page(0);
-            // printf("Amp_PB: 0x%02X\n", audio_amp.read_register(60));
+            printf("Amp_PB: 0x%02X\n", tlv320_read_register(&audio_amp, 1, TLV320DAC3100_REG_SPK_DRIVER));
             // audio_amp.set_volume(current_volume);
             // audio_amp.beep(100);
+            tlv320_set_beep_volume(&audio_amp, 0, 0);
+            tlv320_enable_beep(&audio_amp, true);
         }
 
         //manage counter
