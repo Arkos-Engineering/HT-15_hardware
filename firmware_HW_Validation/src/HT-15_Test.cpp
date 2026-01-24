@@ -90,7 +90,7 @@ void audioamp_reset_hard(){
     gpio_put(AUDIOAMP_RESET, 0); //start_reset
     sleep_us(1);
     gpio_put(AUDIOAMP_RESET, 1); //finish_reset
-    sleep_us(1);
+    sleep_ms(2);
 }
 
 void audioamp_start_system_clock(){
@@ -114,9 +114,6 @@ void init_audio_amp(){
     // Setup reset pin and perform hard reset BEFORE initializing
     gpio_set_dir(AUDIOAMP_RESET, GPIO_OUT);
     audioamp_reset_hard();
-    
-    // Wait for codec to stabilize after reset (per datasheet, min 1ms after reset)
-    sleep_ms(10);
     
     tlv320_init(&audio_amp, i2c1, ADDRESS_I2C_AUDIOAMP);
     
@@ -156,7 +153,7 @@ void init_audio_amp(){
     tlv320_set_channel_volume(&audio_amp, false, 0);  // Left channel 0dB
     tlv320_set_channel_volume(&audio_amp, true, 0);   // Right channel 0dB
 
-    // Enable speaker amplifier (Class-D)
+    // Enable speaker amplifier
     tlv320_enable_speaker(&audio_amp, true);
     
     // Configure speaker driver - gain and unmute
@@ -296,6 +293,8 @@ void core_0() {
                                  &right_dac_on, NULL, &right_classd_on, NULL, NULL);
             printf("DAC: L=%d R=%d, ClassD: L=%d R=%d\n", 
                    left_dac_on, right_dac_on, left_classd_on, right_classd_on);
+
+            printf(tlv320_is_speaker_shorted(&audio_amp) ? "Speaker short detected!\n" : "No speaker short.\n");
             
             // Generate a 1kHz beep for 200ms at 0dB (max volume)
             audioamp_beep(1000, 200, 0);
