@@ -116,21 +116,10 @@ void init_audio_amp(){
     audioamp_reset_hard();
     
     tlv320_init(&audio_amp, i2c1, ADDRESS_I2C_AUDIOAMP);
-    
-    // Configure codec interface - I2S, 16-bit, codec is slave (bclk_out=false, wclk_out=false)
-    tlv320_set_codec_interface(&audio_amp, TLV320DAC3100_FORMAT_I2S, TLV320DAC3100_DATA_LEN_16, false, false);
-    
-    // Set codec clock input to MCLK (12MHz from RP2350)
-    tlv320_set_codec_clock_input(&audio_amp, TLV320DAC3100_CODEC_CLKIN_MCLK);
 
     // Set DAC processing block (PRB_P25 supports beep generator)
     tlv320_set_dac_processing_block(&audio_amp, 25);
-    
-    // Configure timer/delay clock divider (Page 3, Reg 16)
-    // For 12MHz MCLK, divider of 12 gives ~1MHz timer clock for beep generator
-    // Per TLV320DAC3100 datasheet Section 7.4.3
-    tlv320_config_delay_divider(&audio_amp, true, 12);
-    
+
     // Set clock dividers for 16kHz sample rate
     // MCLK=12MHz, NDAC=3, MDAC=2, DOSR=125
     // DAC_CLK = MCLK / NDAC = 12MHz / 3 = 4MHz
@@ -140,6 +129,21 @@ void init_audio_amp(){
     tlv320_set_mdac(&audio_amp, true, 2);
     tlv320_set_dosr(&audio_amp, 125);
 
+    tlv320_set_bclk_n(&audio_amp, true, 6); //BCLK = MCLK / 6 = 2MHz for 16kHz sample rate with 16-bit stereo I2S
+    tlv320_set_bclk_config(&audio_amp, false, true, TLV320DAC3100_BCLK_SRC_DAC_CLK);
+
+    // Configure timer/delay clock divider (Page 3, Reg 16)
+    // For 12MHz MCLK, divider of 12 gives ~1MHz timer clock for beep generator
+    // Per TLV320DAC3100 datasheet Section 7.4.3
+    tlv320_config_delay_divider(&audio_amp, true, 12);
+
+    // Configure codec interface - I2S, 16-bit, codec is master (bclk_out=true, wclk_out=true)
+    tlv320_set_codec_interface(&audio_amp, TLV320DAC3100_FORMAT_I2S, TLV320DAC3100_DATA_LEN_16, true, true);
+    
+    // Set codec clock input to MCLK (12MHz from RP2350)
+    tlv320_set_codec_clock_input(&audio_amp, TLV320DAC3100_CODEC_CLKIN_MCLK);
+    // tlv320_set_clock_divider_input(&audio_amp, TLV320DAC3100_CDIV_CLKIN_MCLK);
+
     // Enable DAC data path - both channels on, normal routing
     tlv320_set_dac_data_path(&audio_amp, true, true, TLV320_DAC_PATH_NORMAL, TLV320_DAC_PATH_NORMAL, TLV320_VOLUME_STEP_2SAMPLE);
 
@@ -147,7 +151,7 @@ void init_audio_amp(){
     tlv320_configure_analog_inputs(&audio_amp, TLV320_DAC_ROUTE_MIXER, TLV320_DAC_ROUTE_MIXER, false, false, false, false);
 
     // Unmute DAC channels
-    tlv320_set_dac_volume_control(&audio_amp, false, false, TLV320_VOL_INDEPENDENT);
+    tlv320_set_dac_volume_control(&audio_amp, true, true, TLV320_VOL_RIGHT_TO_LEFT);
     
     // Set DAC digital volume (0dB for left and right channels)
     tlv320_set_channel_volume(&audio_amp, false, 0);  // Left channel 0dB
