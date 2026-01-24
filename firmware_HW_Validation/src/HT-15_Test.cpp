@@ -37,7 +37,6 @@ void I2C1_init(){
     i2c1_hw->enable = 0;
     sleep_us(10);
 
-
     // Set up GPIO pins for I2C1
     gpio_set_function(I2C1_SDA, GPIO_FUNC_I2C);
     gpio_set_function(I2C1_SCL, GPIO_FUNC_I2C);
@@ -129,6 +128,7 @@ void init_audio_amp(){
     tlv320_set_mdac(&audio_amp, true, 2);
     tlv320_set_dosr(&audio_amp, 125);
 
+
     // Configure codec interface - I2S, 16-bit, codec is master (bclk_out=true, wclk_out=true)
     // IMPORTANT: Must be set BEFORE configuring BCLK dividers per datasheet power-up sequence
     tlv320_set_codec_interface(&audio_amp, TLV320DAC3100_FORMAT_I2S, TLV320DAC3100_DATA_LEN_16, true, true);
@@ -153,11 +153,14 @@ void init_audio_amp(){
     // Per TLV320DAC3100 datasheet Section 7.4.3
     tlv320_config_delay_divider(&audio_amp, true, 12);
 
-    // Enable DAC data path - both channels on, normal routing
-    tlv320_set_dac_data_path(&audio_amp, true, true, TLV320_DAC_PATH_NORMAL, TLV320_DAC_PATH_NORMAL, TLV320_VOLUME_STEP_2SAMPLE);
-
     // Route DAC to speaker mixer (not headphone)
     tlv320_configure_analog_inputs(&audio_amp, TLV320_DAC_ROUTE_MIXER, TLV320_DAC_ROUTE_MIXER, false, false, false, false);
+    
+    sleep_ms(50);
+
+    // Power on DAC
+    // Enable DAC data path - both channels on, normal routing
+    tlv320_set_dac_data_path(&audio_amp, true, true, TLV320_DAC_PATH_NORMAL, TLV320_DAC_PATH_NORMAL, TLV320_VOLUME_STEP_2SAMPLE);
 
     // Unmute DAC channels
     tlv320_set_dac_volume_control(&audio_amp, true, true, TLV320_VOL_RIGHT_TO_LEFT);
