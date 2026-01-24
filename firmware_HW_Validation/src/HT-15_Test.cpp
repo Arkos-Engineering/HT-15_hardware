@@ -3,7 +3,6 @@
 #include <memory.h>
 #include <vector>
 
-
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
 #include "hardware/adc.h"
@@ -11,7 +10,7 @@
 #include "hardware/i2c.h"
 
 #include "pico_tlv320dac3100.h"
-#include "i2s_master_output.h"
+// #include "i2s_master_output.h"
 
 #include "pindefs.cpp"
 #include "keypad.h"

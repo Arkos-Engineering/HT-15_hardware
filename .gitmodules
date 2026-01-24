@@ -1,12 +1,6 @@
-[submodule "firmware_HW_Validation/lib/Pico-I2S"]
-	path = firmware_HW_Validation/lib/Pico-I2S
-	url = https://github.com/VVatashi/Pico-I2S
 [submodule "firmware_HW_Validation/lib/tlv320aic31xx"]
 	path = firmware_HW_Validation/lib/tlv320aic31xx
 	url = https://github.com/haklein/tlv320aic31xx
-[submodule "firmware_HW_Validation/lib/arduino-pico"]
-	path = firmware_HW_Validation/lib/arduino-pico
-	url = https://github.com/earlephilhower/arduino-pico
 [submodule "firmware_HW_Validation/lib/pico_tlv320_i2s"]
 	path = firmware_HW_Validation/lib/pico_tlv320_i2s
 	url = https://github.com/Arkos-Engineering/Pico_TLV320_I2S
