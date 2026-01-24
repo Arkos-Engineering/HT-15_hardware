@@ -4,3 +4,6 @@
 [submodule "firmware_HW_Validation/lib/pico_tlv320_i2s"]
 	path = firmware_HW_Validation/lib/pico_tlv320_i2s
 	url = https://github.com/Arkos-Engineering/Pico_TLV320_I2S
+[submodule "firmware_HW_Validation/lib/pico-extras"]
+	path = firmware_HW_Validation/lib/pico-extras
+	url = https://github.com/raspberrypi/pico-extras
