@@ -110,33 +110,96 @@ void audioamp_stop_system_clock(){
 void init_audio_amp(){
     // audio_amp.init(i2c1, ADDRESS_I2C_AUDIOAMP, AUDIOAMP_RESET, AUDIOAMP_MASTERCLK); //initialize audio amp
     audioamp_start_system_clock();
-    tlv320_init(&audio_amp, i2c1, ADDRESS_I2C_AUDIOAMP);
+    
+    // Setup reset pin and perform hard reset BEFORE initializing
     gpio_set_dir(AUDIOAMP_RESET, GPIO_OUT);
     audioamp_reset_hard();
+    
+    // Wait for codec to stabilize after reset (per datasheet, min 1ms after reset)
+    sleep_ms(10);
+    
+    tlv320_init(&audio_amp, i2c1, ADDRESS_I2C_AUDIOAMP);
+    
+    // Configure codec interface - I2S, 16-bit, codec is slave (bclk_out=false, wclk_out=false)
     tlv320_set_codec_interface(&audio_amp, TLV320DAC3100_FORMAT_I2S, TLV320DAC3100_DATA_LEN_16, false, false);
     
+    // Set codec clock input to MCLK (12MHz from RP2350)
     tlv320_set_codec_clock_input(&audio_amp, TLV320DAC3100_CODEC_CLKIN_MCLK);
 
-    tlv320_set_dac_processing_block(&audio_amp, 25); //enable all things
+    // Set DAC processing block (PRB_P25 supports beep generator)
+    tlv320_set_dac_processing_block(&audio_amp, 25);
     
-    //set clock dividers
-    //mclk dosr ndac mdac aosr nadc madc
-	//{12000000,125,3,2,128,3,2}, //16kHz dac, 15.625kHz adc
+    // Configure timer/delay clock divider (Page 3, Reg 16)
+    // For 12MHz MCLK, divider of 12 gives ~1MHz timer clock for beep generator
+    // Per TLV320DAC3100 datasheet Section 7.4.3
+    tlv320_config_delay_divider(&audio_amp, true, 12);
+    
+    // Set clock dividers for 16kHz sample rate
+    // MCLK=12MHz, NDAC=3, MDAC=2, DOSR=125
+    // DAC_CLK = MCLK / NDAC = 12MHz / 3 = 4MHz
+    // DAC_MOD_CLK = DAC_CLK / MDAC = 4MHz / 2 = 2MHz  
+    // DAC_FS = DAC_MOD_CLK / DOSR = 2MHz / 125 = 16kHz
     tlv320_set_ndac(&audio_amp, true, 3);
     tlv320_set_mdac(&audio_amp, true, 2);
     tlv320_set_dosr(&audio_amp, 125);
 
+    // Enable DAC data path - both channels on, normal routing
     tlv320_set_dac_data_path(&audio_amp, true, true, TLV320_DAC_PATH_NORMAL, TLV320_DAC_PATH_NORMAL, TLV320_VOLUME_STEP_2SAMPLE);
 
+    // Route DAC to speaker mixer (not headphone)
     tlv320_configure_analog_inputs(&audio_amp, TLV320_DAC_ROUTE_MIXER, TLV320_DAC_ROUTE_MIXER, false, false, false, false);
 
+    // Unmute DAC channels
     tlv320_set_dac_volume_control(&audio_amp, false, false, TLV320_VOL_INDEPENDENT);
-    tlv320_set_channel_volume(&audio_amp, 0, 18); //set volume to unity gain
+    
+    // Set DAC digital volume (0dB for left and right channels)
+    tlv320_set_channel_volume(&audio_amp, false, 0);  // Left channel 0dB
+    tlv320_set_channel_volume(&audio_amp, true, 0);   // Right channel 0dB
 
+    // Enable speaker amplifier (Class-D)
     tlv320_enable_speaker(&audio_amp, true);
-    tlv320_configure_spk_pga(&audio_amp, TLV320_SPK_GAIN_6DB, true); //set speaker PGA gain to +12dB
-    tlv320_set_spk_volume(&audio_amp, true, 0); //set speaker volume to unity gain
+    
+    // Configure speaker driver - gain and unmute
+    // TLV320_SPK_GAIN_6DB = +6dB gain stage
+    tlv320_configure_spk_pga(&audio_amp, TLV320_SPK_GAIN_6DB, true);
+    
+    // Set speaker analog volume - route enabled, 0dB gain
+    tlv320_set_spk_volume(&audio_amp, true, 0);
+    
+    // Wait for output drivers to stabilize
+    sleep_ms(50);
+    
+    printf("Audio amp initialized\n");
+}
 
+/// @brief Generate a beep tone on the speaker
+/// @param frequency_hz Frequency of the beep in Hz (recommended 500-2000Hz)
+/// @param duration_ms Duration of the beep in milliseconds
+/// @param volume_db Volume in dB (0 = max, -61 = min)
+void audioamp_beep(uint16_t frequency_hz, uint16_t duration_ms, int8_t volume_db){
+    // Sample rate is 16kHz based on our clock divider configuration
+    const uint32_t sample_rate = 16000;
+    
+    // Frequency must be less than sample_rate/4 per datasheet
+    if (frequency_hz >= sample_rate / 4) {
+        frequency_hz = sample_rate / 4 - 1;
+    }
+    
+    // Configure the beep tone (sin/cos coefficients and length)
+    // This calculates the proper phase increment for the DDS
+    if (!tlv320_configure_beep_tone(&audio_amp, (float)frequency_hz, duration_ms, sample_rate)) {
+        printf("Failed to configure beep tone\n");
+        return;
+    }
+    
+    // Set beep volume (0dB max, -61dB min)
+    // Using same volume for both channels
+    tlv320_set_beep_volume(&audio_amp, volume_db, volume_db);
+    
+    // Start the beep
+    tlv320_enable_beep(&audio_amp, true);
+    
+    printf("Beep: %dHz, %dms, %ddB\n", frequency_hz, duration_ms, volume_db);
 }
 
 void init_all(){
@@ -222,12 +285,20 @@ void core_0() {
 
         if (!(counter%2000)){
             I2C1_scan_bus();
-            // audio_amp.write_page(0);
-            printf("Amp_PB: 0x%02X\n", tlv320_read_register(&audio_amp, 1, TLV320DAC3100_REG_SPK_DRIVER));
-            // audio_amp.set_volume(current_volume);
-            // audio_amp.beep(100);
-            tlv320_set_beep_volume(&audio_amp, 0, 0);
-            tlv320_enable_beep(&audio_amp, true);
+            
+            // Debug: Read speaker driver register to verify configuration
+            uint8_t spk_driver = tlv320_read_register(&audio_amp, 1, TLV320DAC3100_REG_SPK_DRIVER);
+            printf("SPK_DRIVER (P1R42): 0x%02X\n", spk_driver);
+            
+            // Read DAC flags to verify power state
+            bool left_dac_on, right_dac_on, left_classd_on, right_classd_on;
+            tlv320_get_dac_flags(&audio_amp, &left_dac_on, NULL, &left_classd_on, 
+                                 &right_dac_on, NULL, &right_classd_on, NULL, NULL);
+            printf("DAC: L=%d R=%d, ClassD: L=%d R=%d\n", 
+                   left_dac_on, right_dac_on, left_classd_on, right_classd_on);
+            
+            // Generate a 1kHz beep for 200ms at 0dB (max volume)
+            audioamp_beep(1000, 200, 0);
         }
 
         //manage counter
