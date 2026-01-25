@@ -86,10 +86,11 @@ void init_encoder(){
 }
 
 void audioamp_reset_hard(){
+    gpio_init(AUDIOAMP_RESET);
+    gpio_set_dir(AUDIOAMP_RESET, GPIO_OUT);
     gpio_put(AUDIOAMP_RESET, 0); //start_reset
-    sleep_us(1);
+    sleep_us(10);
     gpio_put(AUDIOAMP_RESET, 1); //finish_reset
-    sleep_ms(2);
 }
 
 void audioamp_start_system_clock(){
@@ -108,13 +109,14 @@ void audioamp_stop_system_clock(){
 
 void init_audio_amp(){
     // audio_amp.init(i2c1, ADDRESS_I2C_AUDIOAMP, AUDIOAMP_RESET, AUDIOAMP_MASTERCLK); //initialize audio amp
-    audioamp_start_system_clock();
     
     // Setup reset pin and perform hard reset BEFORE initializing
-    gpio_set_dir(AUDIOAMP_RESET, GPIO_OUT);
     audioamp_reset_hard();
+
+    audioamp_start_system_clock();
     
     tlv320_init(&audio_amp, i2c1, ADDRESS_I2C_AUDIOAMP);
+    sleep_ms(10);
 
     // Set DAC processing block (PRB_P25 supports beep generator)
     tlv320_set_dac_processing_block(&audio_amp, 25);
@@ -337,7 +339,7 @@ void core_0() {
             printf(tlv320_is_speaker_shorted(&audio_amp) ? "Speaker short detected!\n" : "No speaker short.\n");
             
             // Generate a 1kHz beep for 200ms at 0dB (max volume)
-            audioamp_beep(1000, 200, 0);
+            audioamp_beep(2000, 200, 0);
         }
 
         //manage counter
@@ -360,7 +362,7 @@ int main(){
     
     stdio_init_all();
     init_all();
-    sleep_ms(5000);
+    sleep_ms(1000);
 
     printf("Device Initalized!\n");
 
