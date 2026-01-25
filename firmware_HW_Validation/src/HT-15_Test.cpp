@@ -107,6 +107,14 @@ void audioamp_stop_system_clock(){
     gpio_put(AUDIOAMP_MASTERCLK, 0);
 }
 
+void audioamp_set_volume(uint8_t volume){
+    //set volume on audio amp (0-99)
+    //map 0-99 to -61 to 0 dB
+    float vol_db = ((float)volume * 0.619191) - 61.0f;
+    tlv320_set_channel_volume(&audio_amp, false, (float)vol_db);  // Left channel
+    tlv320_set_channel_volume(&audio_amp, true, (float)vol_db);   // Right channel
+}
+
 void init_audio_amp(){
     // audio_amp.init(i2c1, ADDRESS_I2C_AUDIOAMP, AUDIOAMP_RESET, AUDIOAMP_MASTERCLK); //initialize audio amp
     
@@ -121,28 +129,31 @@ void init_audio_amp(){
     // Set DAC processing block (PRB_P25 supports beep generator)
     tlv320_set_dac_processing_block(&audio_amp, 25);
 
+    // Set PLL clock input to MCLK (12MHz from RP2350)
+    tlv320_set_pll_clock_input(&audio_amp, TLV320DAC3100_PLL_CLKIN_MCLK);
+    sleep_ms(10);
+    // Set codec clock input to PLL (12MHz from RP2350)
+    tlv320_set_codec_clock_input(&audio_amp, TLV320DAC3100_CODEC_CLKIN_PLL);
+
     // Set clock dividers for 16kHz sample rate
     // MCLK=12MHz, NDAC=3, MDAC=2, DOSR=125
     // DAC_CLK = MCLK / NDAC = 12MHz / 3 = 4MHz
     // DAC_MOD_CLK = DAC_CLK / MDAC = 4MHz / 2 = 2MHz  
     // DAC_FS = DAC_MOD_CLK / DOSR = 2MHz / 125 = 16kHz
-    tlv320_set_ndac(&audio_amp, true, 3);
-    tlv320_set_mdac(&audio_amp, true, 2);
-    tlv320_set_dosr(&audio_amp, 125);
+    tlv320_set_ndac(&audio_amp, true, 2);
+    tlv320_set_mdac(&audio_amp, true, 8);
+    tlv320_set_dosr(&audio_amp, 128);
+    tlv320_set_pll_values(&audio_amp, 1, 1, 8, 1920); // Set PLL to multiply MCLK by 4 (12MHz * 4 = 48MHz PLL clock)
+
+    tlv320_power_pll(&audio_amp, true);
 
 
     // Configure codec interface - I2S, 16-bit, codec is master (bclk_out=true, wclk_out=true)
     // IMPORTANT: Must be set BEFORE configuring BCLK dividers per datasheet power-up sequence
     tlv320_set_codec_interface(&audio_amp, TLV320DAC3100_FORMAT_I2S, TLV320DAC3100_DATA_LEN_16, true, true);
-    
-    // Set codec clock input to MCLK (12MHz from RP2350)
-    tlv320_set_codec_clock_input(&audio_amp, TLV320DAC3100_CODEC_CLKIN_MCLK);
 
     // Configure BCLK generation:
-    // For 16kHz sample rate with 16-bit stereo I2S: BCLK = 16kHz * 16 * 2 = 512kHz
-    // Using DAC_MOD_CLK (2MHz) as source: BCLK_N = 2MHz / 512kHz = 4 (gives 500kHz, acceptable)
-    // Per TLV320DAC3100 datasheet Section 7.4.2, when codec is master BCLK must be properly derived
-    tlv320_set_bclk_n(&audio_amp, true, 4);  // Enable BCLK divider with N=4
+    tlv320_set_bclk_n(&audio_amp, true, 1);  // Enable BCLK divider with N=1
     
     // Configure BCLK output behavior (Page 1, Reg 0x1D):
     // - invert_bclk=false: normal polarity
@@ -217,7 +228,7 @@ void init_audio_amp(){
 /// @param volume_db Volume in dB (0 = max, -61 = min)
 void audioamp_beep(uint16_t frequency_hz, uint16_t duration_ms, int8_t volume_db){
     // Sample rate is 16kHz based on our clock divider configuration
-    const uint32_t sample_rate = 16000;
+    const uint32_t sample_rate = 48000;
     
     // Frequency must be less than sample_rate/4 per datasheet
     if (frequency_hz >= sample_rate / 4) {
@@ -238,7 +249,7 @@ void audioamp_beep(uint16_t frequency_hz, uint16_t duration_ms, int8_t volume_db
     // Start the beep
     tlv320_enable_beep(&audio_amp, true);
     
-    printf("Beep: %dHz, %dms, %ddB\n", frequency_hz, duration_ms, volume_db);
+    // printf("Beep: %dHz, %dms, %ddB\n", frequency_hz, duration_ms, volume_db);
 }
 
 void init_all(){
@@ -298,6 +309,9 @@ void core_0() {
             std::vector<Keys> pressed_keys = Keypad::get_buttons_pressed();
             for(uint8_t i=0; i<pressed_keys.size(); i++){
                 printf("Key Pressed: %s\n", key_names[pressed_keys[i]]);
+                //play beep on button press
+                int8_t vol_db = (int8_t)(((float)current_volume * 0.619191) - 61.0f);
+                audioamp_beep(4000, 20, vol_db);
             }   
             
         }
@@ -314,32 +328,31 @@ void core_0() {
         }
 
         //read volume pot
-        if (!(counter%1000)){
+        if (!(counter%200)){
             current_volume = get_volume_pot();
             if(abs(current_volume-last_volume)>2){
                 last_volume = current_volume;
                 printf("Volume: %d\n", current_volume);
+                audioamp_set_volume(current_volume);
             }
         }       
 
         if (!(counter%2000)){
-            I2C1_scan_bus();
+            // I2C1_scan_bus();
             
-            // Debug: Read speaker driver register to verify configuration
-            uint8_t spk_driver = tlv320_read_register(&audio_amp, 1, TLV320DAC3100_REG_SPK_DRIVER);
-            printf("SPK_DRIVER (P1R42): 0x%02X\n", spk_driver);
+            // // Debug: Read speaker driver register to verify configuration
+            // uint8_t spk_driver = tlv320_read_register(&audio_amp, 1, TLV320DAC3100_REG_SPK_DRIVER);
+            // printf("SPK_DRIVER (P1R42): 0x%02X\n", spk_driver);
             
-            // Read DAC flags to verify power state
-            bool left_dac_on, right_dac_on, left_classd_on, right_classd_on;
-            tlv320_get_dac_flags(&audio_amp, &left_dac_on, NULL, &left_classd_on, 
-                                 &right_dac_on, NULL, &right_classd_on, NULL, NULL);
-            printf("DAC: L=%d R=%d, ClassD: L=%d R=%d\n", 
-                   left_dac_on, right_dac_on, left_classd_on, right_classd_on);
+            // // Read DAC flags to verify power state
+            // bool left_dac_on, right_dac_on, left_classd_on, right_classd_on;
+            // tlv320_get_dac_flags(&audio_amp, &left_dac_on, NULL, &left_classd_on, 
+            //                      &right_dac_on, NULL, &right_classd_on, NULL, NULL);
+            // printf("DAC: L=%d R=%d, ClassD: L=%d R=%d\n", 
+            //        left_dac_on, right_dac_on, left_classd_on, right_classd_on);
 
-            printf(tlv320_is_speaker_shorted(&audio_amp) ? "Speaker short detected!\n" : "No speaker short.\n");
+            // printf(tlv320_is_speaker_shorted(&audio_amp) ? "Speaker short detected!\n" : "No speaker short.\n");
             
-            // Generate a 1kHz beep for 200ms at 0dB (max volume)
-            audioamp_beep(2000, 200, 0);
         }
 
         //manage counter
