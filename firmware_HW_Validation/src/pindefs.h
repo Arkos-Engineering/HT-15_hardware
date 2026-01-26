@@ -1,6 +1,7 @@
-#ifndef PINDEFS_C
-#define PINDEFS_C
-enum Pindefs{
+#ifndef PINDEFS_H
+#define PINDEFS_H
+
+typedef enum {
     BTN_MTX_A=0,
     BTN_MTX_B=1,
     BTN_MTX_C=2,
@@ -49,5 +50,5 @@ enum Pindefs{
     POT_VOLUME=45,
     CHGR_CONN=46,
     V_BAT=47
-};
-#endif  // PINDEFS_C
+} pindefs;
+#endif  // PINDEFS_H

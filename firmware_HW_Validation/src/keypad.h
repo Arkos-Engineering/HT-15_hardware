@@ -12,7 +12,7 @@
 
 #include "pico/stdlib.h"
 
-#include "pindefs.cpp"
+#include "pindefs.h"
 
 enum Keys{
     KEY_NULL,
