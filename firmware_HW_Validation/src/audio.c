@@ -1,3 +1,8 @@
+/**
+ * @file audio.h
+ * @brief Controlls all audio functions for the HT-15
+ * 
+ */
 #include "audio.h"
 #include <stdio.h>
 
