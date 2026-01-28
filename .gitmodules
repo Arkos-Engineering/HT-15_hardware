@@ -10,3 +10,7 @@
 [submodule "firmware_HW_Validation/lib/pico_ssd1681"]
 	path = firmware_HW_Validation/lib/pico_ssd1681
 	url = https://github.com/Arkos-Engineering/pico_ssd1681
+[ "\\lib\\pico_ssd1681\\"]
+	branch = main
+[submodule "\\lib\\pico_ssd1681\\"]
+	branch = main

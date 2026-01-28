@@ -66,6 +66,7 @@ target_link_libraries(HT-15_Test
                         hardware_clocks
                         # pico_i2s
                         pico_tlv320dac3100
+                        pico_
                         )
 
 # Add the standard include files to the build
