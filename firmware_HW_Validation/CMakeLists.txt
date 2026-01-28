@@ -55,6 +55,7 @@ pico_enable_stdio_uart(HT-15_Test 0)
 pico_enable_stdio_usb(HT-15_Test 1)
 
 add_subdirectory(lib/pico_tlv320_i2s)
+add_subdirectory(lib/pico_ssd1681/pico)
 
 # Add the standard library to the build
 target_link_libraries(HT-15_Test 
@@ -66,7 +67,7 @@ target_link_libraries(HT-15_Test
                         hardware_clocks
                         # pico_i2s
                         pico_tlv320dac3100
-                        pico_
+                        ssd1681
                         )
 
 # Add the standard include files to the build

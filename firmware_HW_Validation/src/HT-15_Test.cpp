@@ -12,6 +12,7 @@
 
 #include "pico_tlv320dac3100.h"
 // #include "i2s_master_output.h"
+#include "pico_ssd1681.h"
 
 #include "pindefs.h"
 #include "keypad.h"
@@ -87,6 +88,36 @@ void init_encoder(){
 }
 
 
+void display_init(){
+    ssd1681_config_t display_config;
+    ssd1681_get_default_config_3wire(&display_config);
+    display_config.spi_port = 1;
+    display_config.spi_baudrate = 1000000; //1 MHz
+    display_config.spi_mode = SSD1681_SPI_3WIRE;
+    display_config.pin_mosi = SPI1_SDI;
+    display_config.pin_sck = SPI1_CLK;
+    display_config.pin_cs = DISPLAY_CS;
+    display_config.pin_rst = DISPLAY_RESET;
+    display_config.pin_busy = DISPLAY_BUSY;
+
+
+    if(ssd1681_init(&display_config)!=0){
+        printf("Error initializing display!\n");
+        return;
+    } else{
+        printf("Display initialized successfully!\n");
+    }
+
+    ssd1681_clear(SSD1681_COLOR_BLACK);
+    ssd1681_update();   
+
+    sleep_ms(1000);
+    // ssd1681_draw_string(SSD1681_COLOR_BLACK, 10, 10, "HT-15 Test", 2, 1, SSD1681_FONT_24);
+    ssd1681_fill_rect(SSD1681_COLOR_BLACK, 20, 20, 100, 80, 1);
+    ssd1681_update();
+}
+
+
 void init_all(){
     //initialize all necessary pins
 
@@ -94,6 +125,8 @@ void init_all(){
     I2C1_init();
 
     audio_init(&audio_cfg, AUDIOAMP_RESET, AUDIOAMP_MASTERCLK, i2c1, ADDRESS_I2C_AUDIOAMP); //initialize audio amp
+
+    display_init(); //initialize e-ink display
 
     Keypad::init(); //initialize keypad
 
@@ -194,8 +227,8 @@ void core_1() {
 int main(){
     
     stdio_init_all();
+    sleep_ms(1000);
     init_all();
-    sleep_ms(500);
 
     //play startup beep
     audio_beep(&audio_cfg, 1000, 20, -6);
