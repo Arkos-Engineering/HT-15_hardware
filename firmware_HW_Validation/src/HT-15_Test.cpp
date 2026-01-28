@@ -111,9 +111,14 @@ void display_init(){
     ssd1681_clear(SSD1681_COLOR_BLACK);
     ssd1681_update();   
 
-    sleep_ms(1000);
     // ssd1681_draw_string(SSD1681_COLOR_BLACK, 10, 10, "HT-15 Test", 2, 1, SSD1681_FONT_24);
     ssd1681_fill_rect(SSD1681_COLOR_BLACK, 20, 20, 100, 80, 1);
+    // for(int x=0; x<200; x+=2){
+    //     for(int y=0; y<200; y+=2){
+    //         ssd1681_write_point(SSD1681_COLOR_BLACK, x, y, 1);
+    //     }
+    // }
+    // ssd1681_write_point(SSD1681_COLOR_BLACK, 50, 50, 1);
     ssd1681_update();
 }
 
@@ -179,6 +184,7 @@ void core_0() {
                 //play beep on button press
                 int8_t vol_db = (int8_t)(((float)current_volume * 0.619191) - 61.0f);
                 audio_beep(&audio_cfg, 4000, 20, vol_db);
+                ssd1681_fill_rect(SSD1681_COLOR_BLACK, 20, 20, 100, 80, 1);
             }   
             
         }
