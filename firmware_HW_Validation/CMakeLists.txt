@@ -61,6 +61,7 @@ add_subdirectory(lib/pico_ssd1681/src)
 target_link_libraries(HT-15_Test 
                         pico_stdlib
                         pico_multicore
+                        pico_rand
                         hardware_adc
                         hardware_spi
                         hardware_i2c

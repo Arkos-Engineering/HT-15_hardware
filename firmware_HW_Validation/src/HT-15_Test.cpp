@@ -5,6 +5,7 @@
 
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
+#include "pico/rand.h"
 #include "hardware/adc.h"
 #include "hardware/spi.h"
 #include "hardware/i2c.h"
@@ -117,10 +118,7 @@ void display_init(){
     // }
     // ssd1681_write_point(SSD1681_COLOR_BLACK, 50, 50, 1);
 
-    ssd1681_fill_rect(SSD1681_COLOR_BLACK, 50, 50, 30, 30, 1);
     // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 0, 0, 199, 199, 0);
-    ssd1681_write_buffer(SSD1681_COLOR_BLACK);
-    ssd1681_update();
 }
 
 
@@ -185,7 +183,6 @@ void core_0() {
                 //play beep on button press
                 int8_t vol_db = (int8_t)(((float)current_volume * 0.619191) - 61.0f);
                 audio_beep(&audio_cfg, 4000, 20, vol_db);
-                ssd1681_fill_rect(SSD1681_COLOR_BLACK, 20, 20, 100, 80, 1);
             }   
             
         }
@@ -211,8 +208,14 @@ void core_0() {
             }
         }       
 
-        if (!(counter%2000)){
+        if (!(counter%5000)){
             // I2C1_scan_bus();
+            uint8_t x=(uint8_t)(get_rand_32() % 200);
+            uint8_t y=(uint8_t)(get_rand_32() % 200);
+
+            ssd1681_fill_rect(SSD1681_COLOR_BLACK, x, y, x+10, y+10, 1);
+            ssd1681_write_buffer(SSD1681_COLOR_BLACK);
+            ssd1681_update();
         }
 
         //manage counter
