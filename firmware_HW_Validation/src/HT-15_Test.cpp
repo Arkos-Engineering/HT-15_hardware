@@ -108,17 +108,18 @@ void display_init(){
         printf("Display initialized successfully!\n");
     }
 
-    ssd1681_clear(SSD1681_COLOR_BLACK);
-    ssd1681_update();   
-
+    // ssd1681_clear(SSD1681_COLOR_BLACK);
     // ssd1681_draw_string(SSD1681_COLOR_BLACK, 10, 10, "HT-15 Test", 2, 1, SSD1681_FONT_24);
-    ssd1681_fill_rect(SSD1681_COLOR_BLACK, 20, 20, 100, 80, 1);
     // for(int x=0; x<200; x+=2){
     //     for(int y=0; y<200; y+=2){
     //         ssd1681_write_point(SSD1681_COLOR_BLACK, x, y, 1);
     //     }
     // }
     // ssd1681_write_point(SSD1681_COLOR_BLACK, 50, 50, 1);
+
+    ssd1681_fill_rect(SSD1681_COLOR_BLACK, 50, 50, 30, 30, 1);
+    // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 0, 0, 199, 199, 0);
+    ssd1681_write_buffer(SSD1681_COLOR_BLACK);
     ssd1681_update();
 }
 
