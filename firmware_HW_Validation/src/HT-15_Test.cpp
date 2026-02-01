@@ -93,7 +93,7 @@ void display_init(){
     ssd1681_config_t display_config;
     ssd1681_get_default_config_3wire(&display_config);
     display_config.spi_port = 1;
-    display_config.spi_baudrate = 1000000; //1 MHz
+    display_config.spi_baudrate = 4000000; //10 MHz for some reason.
     display_config.spi_mode = SSD1681_SPI_3WIRE;
     display_config.pin_mosi = SPI1_SDI;
     display_config.pin_sck = SPI1_CLK;
@@ -109,7 +109,9 @@ void display_init(){
         printf("Display initialized successfully!\n");
     }
 
-    // ssd1681_clear(SSD1681_COLOR_BLACK);
+    sleep_ms(100);
+
+    ssd1681_clear(SSD1681_COLOR_BLACK);
     // ssd1681_draw_string(SSD1681_COLOR_BLACK, 10, 10, "HT-15 Test", 2, 1, SSD1681_FONT_24);
     // for(int x=0; x<200; x+=2){
     //     for(int y=0; y<200; y+=2){
@@ -119,6 +121,7 @@ void display_init(){
     // ssd1681_write_point(SSD1681_COLOR_BLACK, 50, 50, 1);
 
     // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 0, 0, 199, 199, 0);
+    ssd1681_update(true);
 }
 
 
@@ -148,20 +151,23 @@ void init_all(){
 
 //what will run on core 0
 void core_0() {
-    printf("Core 0 launched\n");
 
+    uint64_t loop_time_target_us = 1000; //target loop time of 1ms
+
+    printf("Core 0 launched\n");
 
     bool led_state = false;
     gpio_put(LED_STATUS, 1);
-   
 
     uint8_t encoder_state = 0;
-
     uint8_t current_volume = 0;
     uint8_t last_volume = 0;
 
     uint16_t counter = 0;
-    printf("Starting main loop on core 0\n");
+    uint16_t slowest_loop_time_us = 0;
+    float rolling_average_loop_time_us = 0.0f;
+    uint64_t loop_start_us = time_us_64();
+
     while (true) {
         //toggle LED
         if(!(counter%500)){
@@ -169,10 +175,6 @@ void core_0() {
             gpio_put(LED_STATUS, led_state);
         }
         
-        //read battery voltage every 10 seconds
-        if (!counter){
-            printf("Battery Voltage: %.2fV\n", get_battery_voltage());
-        }
 
         if (!(counter%10)){
             //scan buttons
@@ -183,6 +185,10 @@ void core_0() {
                 //play beep on button press
                 int8_t vol_db = (int8_t)(((float)current_volume * 0.619191) - 61.0f);
                 audio_beep(&audio_cfg, 4000, 20, vol_db);
+                ssd1681_clear(SSD1681_COLOR_BLACK);
+                ssd1681_write_buffer(SSD1681_COLOR_BLACK);
+                // sleep_ms(1);
+                ssd1681_update(true);
             }   
             
         }
@@ -208,14 +214,20 @@ void core_0() {
             }
         }       
 
-        if (!(counter%5000)){
-            // I2C1_scan_bus();
+        if (!(counter%500)){
             uint8_t x=(uint8_t)(get_rand_32() % 200);
             uint8_t y=(uint8_t)(get_rand_32() % 200);
-
             ssd1681_fill_rect(SSD1681_COLOR_BLACK, x, y, x+10, y+10, 1);
-            ssd1681_write_buffer(SSD1681_COLOR_BLACK);
-            ssd1681_update();
+            ssd1681_write_buffer_and_update_if_ready(false);
+        }
+
+        //every 10 seconds
+        if (!counter){
+            printf("Battery Voltage: %.2fV\n", get_battery_voltage());
+            printf("Max CPU time last 10 seonds: %.2f%% (%d us)\n", 100.0f*(float)slowest_loop_time_us/(float)loop_time_target_us, slowest_loop_time_us);
+            slowest_loop_time_us = 0;
+            printf("Rolling Average CPU time: %.2f%% (%.2f us)\n", 100.0f*((float)rolling_average_loop_time_us/(float)loop_time_target_us), rolling_average_loop_time_us);
+            
         }
 
         //manage counter
@@ -223,7 +235,14 @@ void core_0() {
         if(counter>=10000){
             counter = 0;
         }
-        sleep_ms(1);
+        loop_start_us = time_us_64()-loop_start_us;
+        sleep_us(loop_time_target_us>loop_start_us ? loop_time_target_us-loop_start_us : 0);
+        if (loop_start_us > slowest_loop_time_us){
+            slowest_loop_time_us = loop_start_us;
+        }
+        rolling_average_loop_time_us = (rolling_average_loop_time_us  *0.999f) + ((float)loop_start_us * 0.001f);
+        loop_start_us = time_us_64();
+
     }
 }
 
