@@ -111,7 +111,6 @@ void display_init(){
 
     sleep_ms(100);
 
-    ssd1681_clear(SSD1681_COLOR_BLACK);
     // ssd1681_draw_string(SSD1681_COLOR_BLACK, 10, 10, "HT-15 Test", 2, 1, SSD1681_FONT_24);
     // for(int x=0; x<200; x+=2){
     //     for(int y=0; y<200; y+=2){
@@ -121,6 +120,10 @@ void display_init(){
     // ssd1681_write_point(SSD1681_COLOR_BLACK, 50, 50, 1);
 
     // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 0, 0, 199, 199, 0);
+    ssd1681_clear(SSD1681_COLOR_BLACK);
+    ssd1681_write_buffer(SSD1681_COLOR_BLACK);
+    ssd1681_update(true);
+    ssd1681_write_buffer(SSD1681_COLOR_BLACK);
     ssd1681_update(true);
 }
 
@@ -188,7 +191,7 @@ void core_0() {
                 ssd1681_clear(SSD1681_COLOR_BLACK);
                 ssd1681_write_buffer(SSD1681_COLOR_BLACK);
                 // sleep_ms(1);
-                ssd1681_update(true);
+                ssd1681_write_buffer_and_update_if_ready(true);
             }   
             
         }
