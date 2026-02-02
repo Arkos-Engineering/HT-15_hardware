@@ -189,9 +189,6 @@ void core_0() {
                 int8_t vol_db = (int8_t)(((float)current_volume * 0.619191) - 61.0f);
                 audio_beep(&audio_cfg, 4000, 20, vol_db);
                 ssd1681_clear(SSD1681_COLOR_BLACK);
-                ssd1681_write_buffer(SSD1681_COLOR_BLACK);
-                // sleep_ms(1);
-                ssd1681_write_buffer_and_update_if_ready(true);
             }   
             
         }
@@ -220,7 +217,10 @@ void core_0() {
         if (!(counter%500)){
             uint8_t x=(uint8_t)(get_rand_32() % 200);
             uint8_t y=(uint8_t)(get_rand_32() % 200);
-            ssd1681_fill_rect(SSD1681_COLOR_BLACK, x, y, x+10, y+10, 1);
+            // ssd1681_fill_rect(SSD1681_COLOR_BLACK, x, y, x+10, y+10, 1);
+            ssd1681_draw_string(SSD1681_COLOR_BLACK, 50, 50, "HT-15 Testing Text Writing", 26, 1, SSD1681_FONT_8);
+            ssd1681_fill_rect(SSD1681_COLOR_BLACK, 10, 10, 20, 20, 1);
+            ssd1681_fill_rect(SSD1681_COLOR_BLACK, 20, 20, 40, 40, 1);
             ssd1681_write_buffer_and_update_if_ready(false);
         }
 
