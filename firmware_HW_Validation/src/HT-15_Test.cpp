@@ -221,6 +221,7 @@ void core_0() {
             uint8_t y=(uint8_t)(get_rand_32() % 200);
             ssd1681_fill_rect(SSD1681_COLOR_BLACK, x, y, x+2, y+2, 1);
             ssd1681_draw_string(SSD1681_COLOR_BLACK, 40, 50, "HT-15", 5, 1, SSD1681_FONT_24);
+            ssd1681_draw_string(SSD1681_COLOR_BLACK, 40, 75, "HT-15", 5, 1, SSD1681_FONT_12);
             ssd1681_draw_string(SSD1681_COLOR_BLACK, 10, 10, voltage_string, 5, 1, SSD1681_FONT_8);
             // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 10, 10, 20, 20, 1);
             // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 20, 20, 40, 40, 1);
@@ -266,9 +267,9 @@ int main(){
     init_all();
 
     //play startup beep
-    audio_beep(&audio_cfg, 1000, 20, -6);
+    audio_beep(&audio_cfg, 1000, 20, -24);
     sleep_ms(100);
-    audio_beep(&audio_cfg, 1000, 20, -6);
+    audio_beep(&audio_cfg, 1000, 20, -24);
 
     printf("Device Initalized!\n");
 
