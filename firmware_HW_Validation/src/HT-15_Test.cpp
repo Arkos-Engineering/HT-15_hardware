@@ -215,12 +215,15 @@ void core_0() {
         }       
 
         if (!(counter%500)){
+            char voltage_string[6];
+            sprintf(voltage_string, "%.2fV", get_battery_voltage());
             uint8_t x=(uint8_t)(get_rand_32() % 200);
             uint8_t y=(uint8_t)(get_rand_32() % 200);
-            // ssd1681_fill_rect(SSD1681_COLOR_BLACK, x, y, x+10, y+10, 1);
-            ssd1681_draw_string(SSD1681_COLOR_BLACK, 50, 50, "HT-15 Testing Text Writing", 26, 1, SSD1681_FONT_8);
-            ssd1681_fill_rect(SSD1681_COLOR_BLACK, 10, 10, 20, 20, 1);
-            ssd1681_fill_rect(SSD1681_COLOR_BLACK, 20, 20, 40, 40, 1);
+            ssd1681_fill_rect(SSD1681_COLOR_BLACK, x, y, x+2, y+2, 1);
+            ssd1681_draw_string(SSD1681_COLOR_BLACK, 40, 50, "HT-15", 5, 1, SSD1681_FONT_24);
+            ssd1681_draw_string(SSD1681_COLOR_BLACK, 10, 10, voltage_string, 5, 1, SSD1681_FONT_8);
+            // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 10, 10, 20, 20, 1);
+            // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 20, 20, 40, 40, 1);
             ssd1681_write_buffer_and_update_if_ready(false);
         }
 
