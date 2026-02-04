@@ -214,15 +214,24 @@ void core_0() {
             }
         }       
 
-        if (!(counter%500)){
+        if (!(counter%1000)){
             char voltage_string[6];
             sprintf(voltage_string, "%.2fV", get_battery_voltage());
             uint8_t x=(uint8_t)(get_rand_32() % 200);
             uint8_t y=(uint8_t)(get_rand_32() % 200);
+            // for(uint16_t i=0; i<200*200; i++){
+            //     ssd1681_write_point(SSD1681_COLOR_BLACK, i%200, i/200, get_rand_32() & 0x01);
+            // }
             ssd1681_fill_rect(SSD1681_COLOR_BLACK, x, y, x+2, y+2, 1);
             ssd1681_draw_string(SSD1681_COLOR_BLACK, 40, 50, "HT-15", 5, 1, SSD1681_FONT_24);
             ssd1681_draw_string(SSD1681_COLOR_BLACK, 40, 75, "HT-15", 5, 1, SSD1681_FONT_12);
             ssd1681_draw_string(SSD1681_COLOR_BLACK, 10, 10, voltage_string, 5, 1, SSD1681_FONT_8);
+            // for (uint8_t i=1; i<14; i++){
+            //     char string[15];
+            //     sprintf(string, "%d: aAbBcC", i);
+            //     ssd1681_draw_string(SSD1681_COLOR_BLACK, 10, 10+(i*(i-1)), string, 10, 1, i);
+            // }
+
             // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 10, 10, 20, 20, 1);
             // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 20, 20, 40, 40, 1);
             ssd1681_write_buffer_and_update_if_ready(false);
@@ -267,9 +276,9 @@ int main(){
     init_all();
 
     //play startup beep
-    audio_beep(&audio_cfg, 1000, 20, -24);
+    audio_beep(&audio_cfg, 1000, 20, -30);
     sleep_ms(100);
-    audio_beep(&audio_cfg, 1000, 20, -24);
+    audio_beep(&audio_cfg, 1000, 20, -30);
 
     printf("Device Initalized!\n");
 
