@@ -122,9 +122,7 @@ void display_init(){
     // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 0, 0, 199, 199, 0);
     ssd1681_clear(SSD1681_COLOR_BLACK);
     ssd1681_write_buffer(SSD1681_COLOR_BLACK);
-    ssd1681_update(true);
-    ssd1681_write_buffer(SSD1681_COLOR_BLACK);
-    ssd1681_update(true);
+    ssd1681_update(SSD1681_UPDATE_CLEAN_FULL_AGGRESSIVE);
 }
 
 
@@ -189,6 +187,7 @@ void core_0() {
                 int8_t vol_db = (int8_t)(((float)current_volume * 0.619191) - 61.0f);
                 audio_beep(&audio_cfg, 4000, 20, vol_db);
                 ssd1681_clear(SSD1681_COLOR_BLACK);
+                // ssd1681_write_buffer_and_update_if_ready(SSD1681_UPDATE_FAST_FULL);
             }   
             
         }
@@ -234,7 +233,7 @@ void core_0() {
 
             // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 10, 10, 20, 20, 1);
             // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 20, 20, 40, 40, 1);
-            ssd1681_write_buffer_and_update_if_ready(false);
+            ssd1681_write_buffer_and_update_if_ready(SSD1681_UPDATE_FAST_PARTIAL);
         }
 
         //every 10 seconds
