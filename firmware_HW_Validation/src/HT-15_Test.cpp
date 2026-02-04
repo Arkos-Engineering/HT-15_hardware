@@ -122,7 +122,10 @@ void display_init(){
     // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 0, 0, 199, 199, 0);
     ssd1681_clear(SSD1681_COLOR_BLACK);
     ssd1681_write_buffer(SSD1681_COLOR_BLACK);
-    ssd1681_update(SSD1681_UPDATE_CLEAN_FULL_AGGRESSIVE);
+    ssd1681_update(SSD1681_UPDATE_CLEAN_FULL);
+    ssd1681_clear(SSD1681_COLOR_BLACK);
+    ssd1681_write_buffer(SSD1681_COLOR_BLACK);
+    ssd1681_update(SSD1681_UPDATE_CLEAN_FULL);
 }
 
 
