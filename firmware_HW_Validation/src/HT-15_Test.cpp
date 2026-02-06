@@ -29,9 +29,15 @@ char key_names[23][6] = {
     "PTT", "Back", "Enter", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "*", "#"
 };
 
+typedef enum {
+    SPI1_SELECT_NONE = 0b111,
+    SPI1_SELECT_DISPLAY = 0b110,
+    SPI1_SELECT_SD = 0b101,
+    SPI1_SELECT_FLASH = 0b011
+}spi1_select_t;
+
 //Audio Amplifier object
 audio_config_t audio_cfg;
-
 
 /// I2C1 Initialization
 void I2C1_init(){
@@ -47,47 +53,25 @@ void I2C1_init(){
     i2c_init(i2c1, 100000);
 }
 
-void SPI1_init(){
-    gpio_set_dir(DISPLAY_CS, GPIO_OUT);
-    gpio_put(DISPLAY_CS, 1); // Set CS high (inactive)
-    gpio_set_dir(SD_CS, GPIO_OUT);
-    gpio_put(SD_CS, 1); // Set SD CS high (inactive)
-    gpio_set_dir(FLASH_CS, GPIO_OUT);
-    gpio_put(FLASH_CS, 1); // Set display CS high (inactive)
+void spi1_cs(spi1_select_t select){
+    while(spi_is_busy(spi1)){} //wait for any ongoing SPI transactions to finish
+    gpio_put(DISPLAY_CS, 1 & select << 0);
+    gpio_put(SD_CS, 1 & select << 1);
+    gpio_put(FLASH_CS, 1 & select << 2);
+    // sleep_us(1);
+}
 
-    // CS pins will be controlled manually as GPIOs
-    spi_init(spi1, 8000000); //20 MHz capped by the display. for some reason the SPI frequency is scaled by 2.5x currently
+void spi1_init(){
+    gpio_set_dir(DISPLAY_CS, GPIO_OUT);
+    gpio_set_dir(SD_CS, GPIO_OUT);
+    gpio_set_dir(FLASH_CS, GPIO_OUT);
+    spi1_cs(SPI1_SELECT_NONE);
+
+    spi_init(spi1, 8000000); //8MHz is 20 MHz measured for some reason
+    spi_set_format(spi1, 8, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
     gpio_set_function(SPI1_SDI, GPIO_FUNC_SPI);
     gpio_set_function(SPI1_CLK, GPIO_FUNC_SPI);
 
-}
-
-void SPI1_select_display(){
-    gpio_put(SD_CS, 1); // Set SD CS high (inactive)
-    gpio_put(FLASH_CS, 1); // Set flash CS high (inactive)
-    sleep_us(1);
-    gpio_put(DISPLAY_CS, 0); // Set display CS low (active)
-    sleep_us(1);
-}
-void SPI1_select_sd(){
-    gpio_put(DISPLAY_CS, 1); // Set display CS high (inactive)
-    gpio_put(FLASH_CS, 1); // Set flash CS high (inactive)
-    sleep_us(1);
-    gpio_put(SD_CS, 0); // Set SD CS low (active)
-    sleep_us(1);
-}
-void SPI1_select_flash(){
-    gpio_put(DISPLAY_CS, 1); // Set display CS high (inactive)
-    gpio_put(SD_CS, 1); // Set SD CS high (inactive)
-    sleep_us(1);
-    gpio_put(FLASH_CS, 0); // Set flash CS low (active)
-    sleep_us(1);
-}
-void SPI1_select_none(){
-    gpio_put(DISPLAY_CS, 1); // Set display CS high (inactive)
-    gpio_put(SD_CS, 1); // Set SD CS high (inactive)
-    gpio_put(FLASH_CS, 1); // Set flash CS high (inactive)
-    sleep_us(1);
 }
 
 void I2C1_scan_bus(){
@@ -134,8 +118,8 @@ void init_all(){
     //initialize all necessary pins
 
     I2C1_init();
-    // SPI1_init();
-    SPI1_select_none();
+    // spi1_init();
+    spi1_cs(SPI1_SELECT_NONE);
 
     audio_init(&audio_cfg, AUDIOAMP_RESET, AUDIOAMP_MASTERCLK, i2c1, ADDRESS_I2C_AUDIOAMP); //initialize audio amp
 
@@ -241,12 +225,14 @@ void core_0() {
 
             // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 10, 10, 20, 20, 1);
             // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 20, 20, 40, 40, 1);
+            spi1_cs(SPI1_SELECT_DISPLAY);
             if(display_needs_clean){
                 ssd1681_write_buffer_and_update_if_ready(SSD1681_UPDATE_FAST_FULL);
                 display_needs_clean = 0;
             } else {
                 ssd1681_write_buffer_and_update_if_ready(SSD1681_UPDATE_FAST_PARTIAL);
             }
+            spi1_cs(SPI1_SELECT_NONE);
         }
 
         //every 10 seconds
