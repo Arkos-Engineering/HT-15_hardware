@@ -14,3 +14,6 @@
 	branch = main
 [submodule "\\lib\\pico_ssd1681\\"]
 	branch = main
+[submodule "firmware_HW_Validation/lib/pico_fatfs"]
+	path = firmware_HW_Validation/lib/pico_fatfs
+	url = https://github.com/elehobica/pico_fatfs
