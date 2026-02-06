@@ -13,12 +13,28 @@
 
 // #include "pico_tlv320dac3100.h"
 #include "pico_ssd1681.h"
+#include "tf_card.h"
+#include "ff.h"
 
 
 #include "pindefs.h"
 #include "keypad.h"
 #include "audio.h"
 #include "display.h"
+
+#define i8 int8_t
+#define u8 uint8_t
+#define i16 int16_t
+#define u16 uint16_t
+#define i32 int32_t
+#define u32 uint32_t
+#define i64 int64_t
+#define u64 uint64_t
+#define f32 float
+#define f64 double
+
+#define MHZ 1000000
+#define KHZ 1000
 
 //global variables
 #define ADDRESS_I2C_AUDIOAMP 0b0011000
@@ -38,9 +54,20 @@ typedef enum {
 
 //Audio Amplifier object
 audio_config_t audio_cfg;
-
+pico_fatfs_spi_config_t sd_cfg = {
+    spi1,
+    CLK_SLOW_DEFAULT,
+    10*MHZ,
+    SPI1_SDI,  // SPIx_RX
+    SD_CS,    // SPIx_CS
+    SPI1_CLK,   // SPIx_SCK
+    SPI1_SDO,  // SPIx_TX
+    true   // use internal pullup
+};
+FATFS sd_fatfs;
+FRESULT sd_fatfs_return_code;     /* FatFs return code */
 /// I2C1 Initialization
-void I2C1_init(){
+void i2c1_init(){
     // Force-reset the I2C1 peripheral in case the Wi-Fi core or bootloader locked it
     i2c1_hw->enable = 0;
     sleep_us(10);
@@ -61,7 +88,28 @@ void spi1_cs(spi1_select_t select){
     // sleep_us(1);
 }
 
-void spi1_init(){
+i8 sd_init(){
+    gpio_init(SD_CARD_DETECT);
+    gpio_set_dir(SD_CARD_DETECT, GPIO_IN);
+
+    pico_fatfs_set_config(&sd_cfg);
+    if(gpio_get(SD_CARD_DETECT) == 0){
+        printf("SD card detected, initializing...\n");
+        sd_fatfs_return_code = f_mount(&sd_fatfs, "", 1);
+        if(sd_fatfs_return_code == FR_OK){
+            printf("SD card initialized successfully!\n");
+        } else {
+            printf("SD card initialization failed with return code %d\n", sd_fatfs_return_code);
+            return -1;
+        }
+    } else {
+        printf("No SD card detected.\n");
+        return 0;
+    }
+    return 1;
+}
+
+void spi1_init_all(){
     gpio_set_dir(DISPLAY_CS, GPIO_OUT);
     gpio_set_dir(SD_CS, GPIO_OUT);
     gpio_set_dir(FLASH_CS, GPIO_OUT);
@@ -71,14 +119,21 @@ void spi1_init(){
     spi_set_format(spi1, 8, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
     gpio_set_function(SPI1_SDI, GPIO_FUNC_SPI);
     gpio_set_function(SPI1_CLK, GPIO_FUNC_SPI);
+    
+    //SD card needs to init before anything else because it starts in SD mode and needs to be switched to SPI mode before the display can be used, which shares the same SPI bus
 
+    sd_init(); // init sd card
+    sleep_ms(1);
+    display_init(); //initialize e-ink display
+    sleep_ms(1);
 }
 
-void I2C1_scan_bus(){
+
+void i2c1_scan_bus(){
     printf("Scanning I2C1 bus...\n");
-    for (uint8_t address = 1; address < 127; address++) {
-        uint8_t txdata[] = {0x00};
-        int ret = i2c_write_blocking(i2c1, address, txdata, 1, false);
+    for (i8 address = 1; address < 127; address++) {
+        u8 txdata[] = {0x00};
+        i16 ret = i2c_write_blocking(i2c1, address, txdata, 1, false);
         if (ret >= 0) {
             printf("Found device at address 0x%02X\n", address);
         }
@@ -117,13 +172,12 @@ void init_encoder(){
 void init_all(){
     //initialize all necessary pins
 
-    I2C1_init();
-    // spi1_init();
-    spi1_cs(SPI1_SELECT_NONE);
+    i2c1_init();
+    
+    spi1_init_all();
 
     audio_init(&audio_cfg, AUDIOAMP_RESET, AUDIOAMP_MASTERCLK, i2c1, ADDRESS_I2C_AUDIOAMP); //initialize audio amp
 
-    display_init(); //initialize e-ink display
 
     Keypad::init(); //initialize keypad
 
@@ -172,10 +226,10 @@ void core_0() {
             //scan buttons
             Keypad::keypad_poll();
             std::vector<Keys> pressed_keys = Keypad::get_buttons_pressed();
-            for(uint8_t i=0; i<pressed_keys.size(); i++){
+            for(u8 i=0; i<pressed_keys.size(); i++){
                 printf("Key Pressed: %s\n", key_names[pressed_keys[i]]);
                 //play beep on button press
-                int8_t vol_db = (int8_t)(((float)current_volume * 0.619191) - 61.0f);
+                i8 vol_db = (i8)(((float)current_volume * 0.619191) - 61.0f);
                 audio_beep(&audio_cfg, 4000, 20, vol_db);
                 // ssd1681_clear(SSD1681_COLOR_BLACK);
                 display_needs_clean = 1;

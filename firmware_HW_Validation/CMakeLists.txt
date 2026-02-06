@@ -57,6 +57,7 @@ pico_enable_stdio_usb(HT-15_Test 1)
 
 add_subdirectory(lib/pico_tlv320_i2s)
 add_subdirectory(lib/pico_ssd1681/src)
+add_subdirectory(lib/pico_fatfs)
 
 # Add the standard library to the build
 target_link_libraries(HT-15_Test 
@@ -70,6 +71,7 @@ target_link_libraries(HT-15_Test
                         # pico_i2s
                         pico_tlv320dac3100
                         ssd1681
+                        pico_fatfs
                         )
 
 # Add the standard include files to the build
@@ -77,6 +79,7 @@ target_include_directories(HT-15_Test PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
         ${CMAKE_CURRENT_LIST_DIR}/lib/pico_tlv320_i2s
         # ${CMAKE_CURRENT_LIST_DIR}/lib/pico_ssd1681/src
+        ${CMAKE_CURRENT_LIST_DIR}/lib/pico_fatfs
 )
 
 pico_add_extra_outputs(HT-15_Test)
