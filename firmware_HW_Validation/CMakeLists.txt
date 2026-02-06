@@ -45,6 +45,7 @@ add_executable(HT-15_Test
     src/HT-15_Test.cpp 
     src/keypad.cpp 
     src/audio.c
+    src/display.c
 )
 
 pico_set_program_name(HT-15_Test "HT-15_Test")

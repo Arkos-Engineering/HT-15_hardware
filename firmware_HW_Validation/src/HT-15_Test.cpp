@@ -11,14 +11,14 @@
 #include "hardware/i2c.h"
 #include "hardware/clocks.h"
 
-#include "pico_tlv320dac3100.h"
-// #include "i2s_master_output.h"
+// #include "pico_tlv320dac3100.h"
 #include "pico_ssd1681.h"
+
 
 #include "pindefs.h"
 #include "keypad.h"
 #include "audio.h"
-// #include "tlv320aic3100.h"
+#include "display.h"
 
 //global variables
 #define ADDRESS_I2C_AUDIOAMP 0b0011000
@@ -30,7 +30,6 @@ char key_names[23][6] = {
 };
 
 //Audio Amplifier object
-// TLV320AIC3100 audio_amp;
 audio_config_t audio_cfg;
 
 
@@ -46,6 +45,49 @@ void I2C1_init(){
 
     // Initialize I2C1 at 100kHz
     i2c_init(i2c1, 100000);
+}
+
+void SPI1_init(){
+    gpio_set_dir(DISPLAY_CS, GPIO_OUT);
+    gpio_put(DISPLAY_CS, 1); // Set CS high (inactive)
+    gpio_set_dir(SD_CS, GPIO_OUT);
+    gpio_put(SD_CS, 1); // Set SD CS high (inactive)
+    gpio_set_dir(FLASH_CS, GPIO_OUT);
+    gpio_put(FLASH_CS, 1); // Set display CS high (inactive)
+
+    // CS pins will be controlled manually as GPIOs
+    spi_init(spi1, 8000000); //20 MHz capped by the display. for some reason the SPI frequency is scaled by 2.5x currently
+    gpio_set_function(SPI1_SDI, GPIO_FUNC_SPI);
+    gpio_set_function(SPI1_CLK, GPIO_FUNC_SPI);
+
+}
+
+void SPI1_select_display(){
+    gpio_put(SD_CS, 1); // Set SD CS high (inactive)
+    gpio_put(FLASH_CS, 1); // Set flash CS high (inactive)
+    sleep_us(1);
+    gpio_put(DISPLAY_CS, 0); // Set display CS low (active)
+    sleep_us(1);
+}
+void SPI1_select_sd(){
+    gpio_put(DISPLAY_CS, 1); // Set display CS high (inactive)
+    gpio_put(FLASH_CS, 1); // Set flash CS high (inactive)
+    sleep_us(1);
+    gpio_put(SD_CS, 0); // Set SD CS low (active)
+    sleep_us(1);
+}
+void SPI1_select_flash(){
+    gpio_put(DISPLAY_CS, 1); // Set display CS high (inactive)
+    gpio_put(SD_CS, 1); // Set SD CS high (inactive)
+    sleep_us(1);
+    gpio_put(FLASH_CS, 0); // Set flash CS low (active)
+    sleep_us(1);
+}
+void SPI1_select_none(){
+    gpio_put(DISPLAY_CS, 1); // Set display CS high (inactive)
+    gpio_put(SD_CS, 1); // Set SD CS high (inactive)
+    gpio_put(FLASH_CS, 1); // Set flash CS high (inactive)
+    sleep_us(1);
 }
 
 void I2C1_scan_bus(){
@@ -88,52 +130,12 @@ void init_encoder(){
     gpio_set_dir(BTN_ENC_B, GPIO_IN);
 }
 
-
-void display_init(){
-    ssd1681_config_t display_config;
-    ssd1681_get_default_config_3wire(&display_config);
-    display_config.spi_port = 1;
-    display_config.spi_baudrate = 4000000; //10 MHz for some reason.
-    display_config.spi_mode = SSD1681_SPI_3WIRE;
-    display_config.pin_mosi = SPI1_SDI;
-    display_config.pin_sck = SPI1_CLK;
-    display_config.pin_cs = DISPLAY_CS;
-    display_config.pin_rst = DISPLAY_RESET;
-    display_config.pin_busy = DISPLAY_BUSY;
-
-
-    if(ssd1681_init(&display_config)!=0){
-        printf("Error initializing display!\n");
-        return;
-    } else{
-        printf("Display initialized successfully!\n");
-    }
-
-    sleep_ms(100);
-
-    // ssd1681_draw_string(SSD1681_COLOR_BLACK, 10, 10, "HT-15 Test", 2, 1, SSD1681_FONT_24);
-    // for(int x=0; x<200; x+=2){
-    //     for(int y=0; y<200; y+=2){
-    //         ssd1681_write_point(SSD1681_COLOR_BLACK, x, y, 1);
-    //     }
-    // }
-    // ssd1681_write_point(SSD1681_COLOR_BLACK, 50, 50, 1);
-
-    // ssd1681_fill_rect(SSD1681_COLOR_BLACK, 0, 0, 199, 199, 0);
-    ssd1681_clear(SSD1681_COLOR_BLACK);
-    ssd1681_write_buffer(SSD1681_COLOR_BLACK);
-    ssd1681_update(SSD1681_UPDATE_CLEAN_FULL);
-    ssd1681_clear(SSD1681_COLOR_BLACK);
-    ssd1681_write_buffer(SSD1681_COLOR_BLACK);
-    ssd1681_update(SSD1681_UPDATE_CLEAN_FULL);
-}
-
-
 void init_all(){
     //initialize all necessary pins
 
-    //init I2C1
     I2C1_init();
+    // SPI1_init();
+    SPI1_select_none();
 
     audio_init(&audio_cfg, AUDIOAMP_RESET, AUDIOAMP_MASTERCLK, i2c1, ADDRESS_I2C_AUDIOAMP); //initialize audio amp
 
