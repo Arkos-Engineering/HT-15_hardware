@@ -58,10 +58,10 @@ pico_fatfs_spi_config_t sd_cfg = {
     spi1,
     CLK_SLOW_DEFAULT,
     10*MHZ,
-    SPI1_SDI,  // SPIx_RX
+    SPI1_SDO,  // SPIx_RX
     SD_CS,    // SPIx_CS
     SPI1_CLK,   // SPIx_SCK
-    SPI1_SDO,  // SPIx_TX
+    SPI1_SDI,  // SPIx_TX
     true   // use internal pullup
 };
 FATFS sd_fatfs;
@@ -77,15 +77,14 @@ void i2c1_init(){
     gpio_set_function(I2C1_SCL, GPIO_FUNC_I2C);
 
     // Initialize I2C1 at 100kHz
-    i2c_init(i2c1, 100000);
+    i2c_init(i2c1, 100 * KHZ);
 }
 
 void spi1_cs(spi1_select_t select){
     while(spi_is_busy(spi1)){} //wait for any ongoing SPI transactions to finish
-    gpio_put(DISPLAY_CS, 1 & select << 0);
-    gpio_put(SD_CS, 1 & select << 1);
-    gpio_put(FLASH_CS, 1 & select << 2);
-    // sleep_us(1);
+    gpio_put(DISPLAY_CS, 1 & select);
+    gpio_put(SD_CS,1 & (select >> 1));
+    gpio_put(FLASH_CS, 1 & (select >> 2));
 }
 
 i8 sd_init(){
@@ -95,13 +94,23 @@ i8 sd_init(){
     pico_fatfs_set_config(&sd_cfg);
     if(gpio_get(SD_CARD_DETECT) == 0){
         printf("SD card detected, initializing...\n");
-        sd_fatfs_return_code = f_mount(&sd_fatfs, "", 1);
-        if(sd_fatfs_return_code == FR_OK){
-            printf("SD card initialized successfully!\n");
-        } else {
-            printf("SD card initialization failed with return code %d\n", sd_fatfs_return_code);
+        // sd_fatfs_return_code = f_mount(&sd_fatfs, "", 1);
+        for (int i = 0; i < 5; i++) {
+            sd_fatfs_return_code = f_mount(&sd_fatfs, "", 1);
+            if (sd_fatfs_return_code == FR_OK) { break; }
+            printf("Mount attempt %d failed with return code %d. Retrying...\n", i+1, sd_fatfs_return_code);
+            pico_fatfs_reboot_spi();
+        }
+        if(sd_fatfs_return_code!= FR_OK){
+            printf("Failed to mount SD card with return code %d\n", sd_fatfs_return_code);
             return -1;
         }
+        // if(sd_fatfs_return_code == FR_OK){
+        //     printf("SD card initialized successfully!\n");
+        // } else {
+        //     printf("SD card initialization failed with return code %d\n", sd_fatfs_return_code);
+        //     return -1;
+        // }
     } else {
         printf("No SD card detected.\n");
         return 0;
@@ -110,6 +119,9 @@ i8 sd_init(){
 }
 
 void spi1_init_all(){
+    gpio_init(DISPLAY_CS);
+    gpio_init(SD_CS);
+    gpio_init(FLASH_CS);
     gpio_set_dir(DISPLAY_CS, GPIO_OUT);
     gpio_set_dir(SD_CS, GPIO_OUT);
     gpio_set_dir(FLASH_CS, GPIO_OUT);
@@ -118,13 +130,16 @@ void spi1_init_all(){
     spi_init(spi1, 8000000); //8MHz is 20 MHz measured for some reason
     spi_set_format(spi1, 8, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
     gpio_set_function(SPI1_SDI, GPIO_FUNC_SPI);
+    gpio_set_function(SPI1_SDO, GPIO_FUNC_SPI);
     gpio_set_function(SPI1_CLK, GPIO_FUNC_SPI);
     
     //SD card needs to init before anything else because it starts in SD mode and needs to be switched to SPI mode before the display can be used, which shares the same SPI bus
 
     sd_init(); // init sd card
+    spi1_cs(SPI1_SELECT_NONE);
     sleep_ms(1);
-    display_init(); //initialize e-ink display
+    // display_init(); //initialize e-ink display
+    spi1_cs(SPI1_SELECT_NONE);
     sleep_ms(1);
 }
 
