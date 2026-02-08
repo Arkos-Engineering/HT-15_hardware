@@ -115,6 +115,11 @@ i8 sd_init(){
         printf("No SD card detected.\n");
         return 0;
     }
+    if (sd_fatfs_return_code == FR_OK) {
+        printf("Creating test DIR");
+        f_mkdir("HT15");
+        // f_unmount("");
+    }
     return 1;
 }
 
@@ -127,7 +132,7 @@ void spi1_init_all(){
     gpio_set_dir(FLASH_CS, GPIO_OUT);
     spi1_cs(SPI1_SELECT_NONE);
 
-    spi_init(spi1, 8000000); //8MHz is 20 MHz measured for some reason
+    spi_init(spi1, 8 * MHZ); //8MHz is 20 MHz measured for some reason
     spi_set_format(spi1, 8, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
     gpio_set_function(SPI1_SDI, GPIO_FUNC_SPI);
     gpio_set_function(SPI1_SDO, GPIO_FUNC_SPI);
@@ -137,10 +142,8 @@ void spi1_init_all(){
 
     sd_init(); // init sd card
     spi1_cs(SPI1_SELECT_NONE);
-    sleep_ms(1);
-    // display_init(); //initialize e-ink display
+    display_init(); //initialize e-ink display
     spi1_cs(SPI1_SELECT_NONE);
-    sleep_ms(1);
 }
 
 
