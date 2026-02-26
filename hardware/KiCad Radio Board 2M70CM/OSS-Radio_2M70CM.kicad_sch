@@ -6860,6 +6860,12 @@
 		(uuid "55c422b2-526a-43f6-a160-ce2f0eb3ab93")
 	)
 	(junction
+		(at 48.26 185.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5a97bb2a-5c1e-4f58-9d02-55c21ee95fe4")
+	)
+	(junction
 		(at 180.34 132.08)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7803,6 +7809,16 @@
 	)
 	(wire
 		(pts
+			(xy 43.18 52.07) (xy 44.45 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "369b576d-ba0e-446e-88ea-2ddcfd81df16")
+	)
+	(wire
+		(pts
 			(xy 111.76 85.09) (xy 113.03 85.09)
 		)
 		(stroke
@@ -8063,6 +8079,16 @@
 	)
 	(wire
 		(pts
+			(xy 49.53 52.07) (xy 52.07 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "52ad20db-a7af-476d-9894-4b6bc8e23eb7")
+	)
+	(wire
+		(pts
 			(xy 256.54 77.47) (xy 259.08 77.47)
 		)
 		(stroke
@@ -8090,6 +8116,16 @@
 			(type default)
 		)
 		(uuid "560eb7d0-55e9-4dac-9e3b-bc5fc002b3c8")
+	)
+	(wire
+		(pts
+			(xy 48.26 185.42) (xy 53.34 185.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "56c02083-8db0-4bac-810d-d6ae0da06ca9")
 	)
 	(wire
 		(pts
@@ -10535,7 +10571,7 @@
 	)
 	(global_label "RF_GPIO0"
 		(shape bidirectional)
-		(at 52.07 52.07 180)
+		(at 43.18 52.07 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10545,7 +10581,7 @@
 		)
 		(uuid "7a3a4274-8435-4468-96d4-73d30a84cb39")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 38.9625 52.07 0)
+			(at 30.0725 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14998,6 +15034,82 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_Small")
+		(at 46.99 52.07 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp yes)
+		(uuid "6c582b43-c98e-4f7d-b935-fb9660ba0ce1")
+		(property "Reference" "R29"
+			(at 45.466 50.292 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0"
+			(at 48.768 50.292 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 46.99 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 46.99 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 46.99 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PART-NUMBER" "RC0402JR-070RL"
+			(at 46.99 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "41a32a47-b15f-40b3-ad30-a41face55fff")
+		)
+		(pin "2"
+			(uuid "b8870b1b-f277-4576-b9a4-96333e5106be")
+		)
+		(instances
+			(project "OSS-Radio_2M70CM"
+				(path "/07417920-d864-4fe6-bbe4-9feb9e01fbee"
+					(reference "R29")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:TestPoint")
 		(at 33.02 114.3 90)
 		(unit 1)
@@ -15188,6 +15300,72 @@
 			(project "OSS-Radio_2M70CM"
 				(path "/07417920-d864-4fe6-bbe4-9feb9e01fbee"
 					(reference "TP2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 53.34 191.77 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6e34852d-b9f7-443a-a891-ba7b5b1f57a8")
+		(property "Reference" "J3"
+			(at 57.912 191.77 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "P70-7000045"
+			(at 52.832 193.802 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 53.34 196.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 53.34 196.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 53.34 191.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "df5d156c-2f81-469f-89fc-f2edc331c0c1")
+		)
+		(instances
+			(project "OSS-Radio_2M70CM"
+				(path "/07417920-d864-4fe6-bbe4-9feb9e01fbee"
+					(reference "J3")
 					(unit 1)
 				)
 			)
@@ -16832,6 +17010,72 @@
 			(project ""
 				(path "/07417920-d864-4fe6-bbe4-9feb9e01fbee"
 					(reference "TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 53.34 185.42 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8b13785e-3d7c-4c11-b3a8-c94d842d7133")
+		(property "Reference" "J2"
+			(at 54.356 189.23 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "P70-7000045"
+			(at 51.562 187.198 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 53.34 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 53.34 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 53.34 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f1a0abab-4340-416a-a3da-516cfc620717")
+		)
+		(instances
+			(project ""
+				(path "/07417920-d864-4fe6-bbe4-9feb9e01fbee"
+					(reference "J2")
 					(unit 1)
 				)
 			)
@@ -19073,6 +19317,72 @@
 			(project "OSS-Radio_2M70CM"
 				(path "/07417920-d864-4fe6-bbe4-9feb9e01fbee"
 					(reference "TP24")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 53.34 191.77 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b8ec1a97-1f04-4f68-b2b5-833e445ea5ee")
+		(property "Reference" "#PWR016"
+			(at 46.99 191.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 49.784 191.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 53.34 191.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 53.34 191.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 53.34 191.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "516a21d2-924e-44bc-917e-2449285a830d")
+		)
+		(instances
+			(project "OSS-Radio_2M70CM"
+				(path "/07417920-d864-4fe6-bbe4-9feb9e01fbee"
+					(reference "#PWR016")
 					(unit 1)
 				)
 			)
