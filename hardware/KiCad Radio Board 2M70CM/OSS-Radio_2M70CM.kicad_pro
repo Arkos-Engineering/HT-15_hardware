@@ -38,8 +38,8 @@
         "other_text_upright": false,
         "pads": {
           "drill": 0.0,
-          "height": 1.0,
-          "width": 1.0
+          "height": 1.2,
+          "width": 1.2
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -107,6 +107,7 @@
         "solder_mask_bridge": "error",
         "starved_thermal": "error",
         "text_height": "warning",
+        "text_on_edge_cuts": "error",
         "text_thickness": "warning",
         "through_hole_pad_without_hole": "error",
         "too_many_vias": "error",
@@ -468,6 +469,7 @@
       "single_global_label": "ignore",
       "unannotated": "error",
       "unconnected_wire_endpoint": "warning",
+      "undefined_netclass": "error",
       "unit_value_mismatch": "error",
       "unresolved_variable": "error",
       "wire_dangling": "error"
@@ -514,8 +516,8 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "Exports/2M70CM_Rev_0.1/",
-      "pos_files": "Exports/2M70CM_Rev_0.1/",
+      "plot": "Exports/2M70CM_Rev_0.2/",
+      "pos_files": "Exports/2M70CM_Rev_0.2/",
       "specctra_dsn": "",
       "step": "Exports/2M70CM_Rev_0.1/OSS-Radio_2M70CM.step",
       "svg": "",

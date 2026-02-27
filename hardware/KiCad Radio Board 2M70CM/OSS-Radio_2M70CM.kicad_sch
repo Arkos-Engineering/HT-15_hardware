@@ -8339,7 +8339,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 74.93) (xy 142.24 74.93)
+			(xy 138.43 74.93) (xy 142.24 74.93)
 		)
 		(stroke
 			(width 0)
@@ -9139,7 +9139,7 @@
 	)
 	(wire
 		(pts
-			(xy 129.54 74.93) (xy 134.62 74.93)
+			(xy 129.54 74.93) (xy 133.35 74.93)
 		)
 		(stroke
 			(width 0)
@@ -15312,7 +15312,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "6e34852d-b9f7-443a-a891-ba7b5b1f57a8")
 		(property "Reference" "J3"
 			(at 57.912 191.77 90)
@@ -17022,7 +17022,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "8b13785e-3d7c-4c11-b3a8-c94d842d7133")
 		(property "Reference" "J2"
 			(at 54.356 189.23 90)
@@ -17668,7 +17668,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 137.16 74.93 270)
+		(at 135.89 74.93 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -17676,7 +17676,7 @@
 		(dnp no)
 		(uuid "9a5f1fbe-53fe-41fe-b3cb-011fd5018cba")
 		(property "Reference" "C65"
-			(at 139.192 72.136 90)
+			(at 137.922 72.136 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17684,7 +17684,7 @@
 			)
 		)
 		(property "Value" "18p"
-			(at 134.874 72.136 90)
+			(at 133.604 72.136 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17692,7 +17692,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 137.16 74.93 0)
+			(at 135.89 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17701,7 +17701,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 137.16 74.93 0)
+			(at 135.89 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17710,7 +17710,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 140.208 69.596 90)
+			(at 138.938 69.596 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17719,7 +17719,7 @@
 			)
 		)
 		(property "PART-NUMBER" "GJM1555C1H180GB01"
-			(at 137.16 74.93 0)
+			(at 135.89 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)

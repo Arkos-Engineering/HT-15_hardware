@@ -6,4 +6,5 @@
   (lib (name "DF40C")(type "KiCad")(uri "${KIPRJMOD}/Library/DF40C-24DP-0.4V(51)/footprints.pretty")(options "")(descr ""))
   (lib (name "Wurth 9774020243R")(type "KiCad")(uri "${KIPRJMOD}/Library/Wurth 9774020243R")(options "")(descr ""))
   (lib (name "Library")(type "KiCad")(uri "${KIPRJMOD}/Library/Wurth 9774020243R/Library.pretty")(options "")(descr ""))
+  (lib (name "Harwin P70-7000045")(type "KiCad")(uri "${KIPRJMOD}/Library/Harwin P70-7000045/Harwin P70-7000045.pretty")(options "")(descr ""))
 )
