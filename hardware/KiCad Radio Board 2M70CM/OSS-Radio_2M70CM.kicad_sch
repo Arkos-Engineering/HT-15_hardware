@@ -11379,6 +11379,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C85873"
+			(at 69.85 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "e57dafdc-f0ca-46b2-acdd-92c0c20174e5")
 		)
@@ -11468,7 +11477,7 @@
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "0ba8388c-c60b-4567-b756-9303592cb98b")
@@ -11509,6 +11518,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 36.83 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
 			(at 36.83 63.5 0)
 			(effects
 				(font
@@ -11588,6 +11606,15 @@
 		)
 		(property "PART-NUMBER" "DF40C-24DP-0.4V"
 			(at 35.56 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C424639"
+			(at 35.56 127 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11681,7 +11708,7 @@
 		(at 273.05 77.47 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -11723,6 +11750,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 273.05 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
 			(at 273.05 77.47 0)
 			(effects
 				(font
@@ -11806,6 +11842,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C616257"
+			(at 85.09 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "4"
 			(uuid "64300b97-cea2-4c5d-b712-ab6c1f28ef3f")
 		)
@@ -11835,7 +11880,7 @@
 		(at 95.25 85.09 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "182f6583-a780-444d-a82b-7ed3a427dd54")
@@ -11876,6 +11921,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 95.25 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
 			(at 95.25 85.09 0)
 			(effects
 				(font
@@ -11951,6 +12005,15 @@
 			)
 		)
 		(property "PART-NUMBER" "RT0402FRE0751RL"
+			(at 120.65 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C854359"
 			(at 120.65 88.9 0)
 			(effects
 				(font
@@ -12045,7 +12108,7 @@
 		(at 246.38 77.47 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -12086,6 +12149,15 @@
 		)
 		(property "Description" "test point"
 			(at 246.38 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
+			(at 246.38 77.47 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12161,6 +12233,15 @@
 			)
 		)
 		(property "PART-NUMBER" "GMC10X7R475K10NT"
+			(at 80.61 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C6203961"
 			(at 80.61 157.48 0)
 			(effects
 				(font
@@ -12245,6 +12326,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C2168499"
+			(at 100.33 69.85 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "64b06498-8f04-4a0e-a4c8-d0612e5cda73")
 		)
@@ -12314,6 +12404,15 @@
 		)
 		(property "PART-NUMBER" "GRM155R71E473KA8J"
 			(at 97.79 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C2168499"
+			(at 97.79 34.29 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12464,6 +12563,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C2168499"
+			(at 97.79 53.34 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "597c7639-125a-48b4-b9b9-f2d9090f29c8")
 		)
@@ -12484,7 +12592,7 @@
 		(at 33.02 104.14 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "2e42afe6-4db5-4087-bc58-43de85c2c71a")
@@ -12526,6 +12634,15 @@
 		)
 		(property "Description" "test point"
 			(at 33.02 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
+			(at 33.02 104.14 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12744,6 +12861,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C2654715"
+			(at 228.6 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "10"
 			(uuid "18d80aa9-472e-4047-b86d-4fc3348c535c")
 		)
@@ -12798,7 +12924,7 @@
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "338fc6d8-1bf6-48e0-9ebf-d5c25fe0dbc6")
@@ -12839,6 +12965,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 142.24 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
 			(at 142.24 74.93 0)
 			(effects
 				(font
@@ -12922,6 +13057,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C6203961"
+			(at 124.46 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "38ab49ae-b2d9-4e7c-9316-c6f5d3b74cc9")
 		)
@@ -12989,8 +13133,17 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E103KA1J"
+		(property "PART-NUMBER" "GRM155R71C103KA01D"
 			(at 100.33 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C85735"
+			(at 100.33 64.77 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13274,6 +13427,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C2168499"
+			(at 97.79 41.91 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "98a5dc49-a3a9-49ac-94da-017a6f2c07b5")
 		)
@@ -13294,7 +13456,7 @@
 		(at 259.08 132.08 0)
 		(unit 1)
 		(exclude_from_sim yes)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -13336,6 +13498,15 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
+			(at 259.08 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
 			(at 259.08 132.08 0)
 			(effects
 				(font
@@ -13406,6 +13577,15 @@
 			)
 		)
 		(property "PART-NUMBER" "GRM033R71A152KA01D"
+			(at 46.99 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C710829"
 			(at 46.99 78.74 0)
 			(effects
 				(font
@@ -13492,6 +13672,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C60485"
+			(at 158.75 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9df29a2f-a9aa-446f-8d8b-e45cf7d156b0")
 		)
@@ -13512,7 +13701,7 @@
 		(at 33.02 99.06 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "3e3910a2-16d0-4613-962d-e5ec70c0ca7e")
@@ -13554,6 +13743,15 @@
 		)
 		(property "Description" "test point"
 			(at 33.02 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
+			(at 33.02 99.06 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13632,6 +13830,15 @@
 			)
 		)
 		(property "PART-NUMBER" "OnSemi BSS138 "
+			(at 138.43 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C52895"
 			(at 138.43 106.68 0)
 			(effects
 				(font
@@ -13719,6 +13926,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C4016348"
+			(at 173.99 45.72 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "88b436d8-1520-44d9-b2e1-a2a45a41213a")
 		)
@@ -13790,6 +14006,15 @@
 			)
 		)
 		(property "PART-NUMBER" "LQW15AW56NG80D"
+			(at 142.24 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C1012790"
 			(at 142.24 77.47 0)
 			(effects
 				(font
@@ -13875,6 +14100,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C137992"
+			(at 144.78 113.03 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "fa17be7a-f35e-4b34-a3bf-25f4d4114a43")
 		)
@@ -13944,6 +14178,15 @@
 		)
 		(property "PART-NUMBER" "GJM1555C1H100GB01"
 			(at 224.79 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C85873"
+			(at 224.79 63.5 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14092,6 +14335,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C137992"
+			(at 171.45 38.1 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c457b8ee-9d25-4fa3-b24b-1a6048ce5630")
 		)
@@ -14177,7 +14429,7 @@
 		(at 33.02 93.98 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "55e362cc-f378-4bfc-9604-b32191c22cc8")
@@ -14219,6 +14471,15 @@
 		)
 		(property "Description" "test point"
 			(at 33.02 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
+			(at 33.02 93.98 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14291,6 +14552,15 @@
 			)
 		)
 		(property "PART-NUMBER" "GRM155C81A105KA2J"
+			(at 85.09 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C3856634"
 			(at 85.09 99.06 0)
 			(effects
 				(font
@@ -14509,6 +14779,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C60485"
+			(at 158.75 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "a919a749-2bca-46d7-a12e-85eee4074229")
 		)
@@ -14579,6 +14858,15 @@
 			)
 		)
 		(property "PART-NUMBER" "GMC10X7R475K10NT"
+			(at 90.77 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C6203961"
 			(at 90.77 157.48 0)
 			(effects
 				(font
@@ -14732,6 +15020,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C882467"
+			(at 120.65 74.93 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "508cea12-a786-4131-ae9e-12831027d994")
 		)
@@ -14752,7 +15049,7 @@
 		(at 259.08 119.38 0)
 		(unit 1)
 		(exclude_from_sim yes)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -14794,6 +15091,15 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
+			(at 259.08 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
 			(at 259.08 119.38 0)
 			(effects
 				(font
@@ -14873,6 +15179,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C1852376"
+			(at 41.91 67.31 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "4c4efe66-29a0-4a2a-8259-5444b88d580e")
 		)
@@ -14944,6 +15259,15 @@
 			)
 		)
 		(property "PART-NUMBER" "MMCX-J-P-H-RA-TH1"
+			(at 251.46 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C2934607"
 			(at 251.46 26.67 0)
 			(effects
 				(font
@@ -15094,6 +15418,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C60485"
+			(at 46.99 52.07 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "41a32a47-b15f-40b3-ad30-a41face55fff")
 		)
@@ -15114,7 +15447,7 @@
 		(at 33.02 114.3 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "6ce56940-9b26-40e8-a407-741b92caffd6")
@@ -15163,6 +15496,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" ""
+			(at 33.02 114.3 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "e20ce397-461d-42a0-b23e-8c4e4bb6f794")
 		)
@@ -15180,7 +15522,7 @@
 		(at 259.08 125.73 0)
 		(unit 1)
 		(exclude_from_sim yes)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -15230,6 +15572,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" ""
+			(at 259.08 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(instances
 			(project "OSS-Radio_2M70CM"
 				(path "/07417920-d864-4fe6-bbe4-9feb9e01fbee"
@@ -15244,7 +15595,7 @@
 		(at 57.15 129.54 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "6e09aea7-2e6b-46f4-9844-2d56465b31fc")
@@ -15285,6 +15636,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 57.15 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
 			(at 57.15 129.54 0)
 			(effects
 				(font
@@ -15359,6 +15719,24 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C21344921"
+			(at 53.34 191.77 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PART-NUMBER" "P70-7000045"
+			(at 53.34 191.77 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "df5d156c-2f81-469f-89fc-f2edc331c0c1")
 		)
@@ -15425,6 +15803,15 @@
 		)
 		(property "PART-NUMBER" "GRM155R71E473KA8J"
 			(at 97.79 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C2168499"
+			(at 97.79 38.1 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15569,6 +15956,15 @@
 		)
 		(property "PART-NUMBER" "GRM155R71E473KA8J"
 			(at 20.32 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C2168499"
+			(at 20.32 67.31 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15727,6 +16123,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C19725753"
+			(at 255.27 144.78 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "78211b5b-fec6-4331-9015-478e43d3d2e9")
 		)
@@ -15794,6 +16199,15 @@
 		)
 		(property "PART-NUMBER" "2508051217Y6"
 			(at 45.72 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C3716596"
+			(at 45.72 129.54 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15870,6 +16284,15 @@
 		)
 		(property "PART-NUMBER" "RC0402JR-070RL"
 			(at 173.99 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C60485"
+			(at 173.99 99.06 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16011,7 +16434,16 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM152R61A104KE19D"
+		(property "PART-NUMBER" "GRM155R71C104KA88D"
+			(at 167.64 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C71629"
 			(at 167.64 110.49 0)
 			(effects
 				(font
@@ -16040,7 +16472,7 @@
 		(at 24.13 96.52 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "763b34a5-286c-4f8f-a63f-ff0d3efa6958")
@@ -16082,6 +16514,15 @@
 		)
 		(property "Description" "test point"
 			(at 24.13 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
+			(at 24.13 96.52 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16153,8 +16594,17 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM152R61A104KE19D"
+		(property "PART-NUMBER" "GRM155R71C104KA88D"
 			(at 80.01 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C71629"
+			(at 80.01 125.73 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16231,6 +16681,15 @@
 		)
 		(property "PART-NUMBER" "GRM155R71E473KA8J"
 			(at 92.71 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C2168499"
+			(at 92.71 67.31 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16325,7 +16784,7 @@
 		(at 24.13 106.68 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "78e067db-045c-45fb-901e-d81eedeebc76")
@@ -16367,6 +16826,15 @@
 		)
 		(property "Description" "test point"
 			(at 24.13 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
+			(at 24.13 106.68 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16573,6 +17041,15 @@
 		)
 		(property "PART-NUMBER" "RC0402FR-136K8L"
 			(at 147.32 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C4016348"
+			(at 147.32 109.22 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16791,6 +17268,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C3716596"
+			(at 53.34 175.26 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "41512d72-cd6c-4ff9-9fab-332fe764399d")
 		)
@@ -16867,6 +17353,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C2168499"
+			(at 97.79 45.72 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "f5c743b9-7442-43ad-baca-8d5fff0066ec")
 		)
@@ -16887,7 +17382,7 @@
 		(at 33.02 109.22 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "84f5456d-7717-4e68-af5c-2874c5530082")
@@ -16936,6 +17431,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" ""
+			(at 33.02 109.22 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "af977cc5-9a7a-4b95-a909-843459dfab0b")
 		)
@@ -16953,7 +17457,7 @@
 		(at 128.27 158.75 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -16995,6 +17499,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 128.27 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
 			(at 128.27 158.75 0)
 			(effects
 				(font
@@ -17069,6 +17582,24 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C21344921"
+			(at 53.34 185.42 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PART-NUMBER" "P70-7000045"
+			(at 53.34 185.42 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "f1a0abab-4340-416a-a3da-516cfc620717")
 		)
@@ -17136,6 +17667,15 @@
 		)
 		(property "PART-NUMBER" "LQW15AN5N6C10D"
 			(at 172.72 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C91626"
+			(at 172.72 106.68 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17294,6 +17834,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C19725753"
+			(at 226.06 144.78 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "e2a7d074-9935-4d46-aa2e-6c5b876a823d")
 		)
@@ -17360,6 +17909,15 @@
 		)
 		(property "PART-NUMBER" "RC0402FR-136K8L"
 			(at 41.91 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C4016348"
+			(at 41.91 24.13 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17436,6 +17994,15 @@
 			)
 		)
 		(property "PART-NUMBER" "GRM1555C1H102GA1J"
+			(at 160.02 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C1852376"
 			(at 160.02 31.75 0)
 			(effects
 				(font
@@ -17531,7 +18098,7 @@
 		(at 259.08 138.43 0)
 		(unit 1)
 		(exclude_from_sim yes)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -17573,6 +18140,15 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
+			(at 259.08 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
 			(at 259.08 138.43 0)
 			(effects
 				(font
@@ -17644,6 +18220,15 @@
 		)
 		(property "PART-NUMBER" "RC0402FR-136K8L"
 			(at 41.91 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C4016348"
+			(at 41.91 19.05 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17727,6 +18312,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C237274"
+			(at 135.89 74.93 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "8609d337-80ee-4f26-89d0-e04d392f9ce5")
 		)
@@ -17796,6 +18390,15 @@
 			)
 		)
 		(property "PART-NUMBER" "TG-5006CG-43L 40.0000M3"
+			(at 29.21 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C5797117"
 			(at 29.21 67.31 0)
 			(effects
 				(font
@@ -17882,6 +18485,15 @@
 		)
 		(property "PART-NUMBER" "GRM155R71E473KA8J"
 			(at 97.79 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C2168499"
+			(at 97.79 49.53 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18027,6 +18639,15 @@
 			)
 		)
 		(property "PART-NUMBER" "LQW15AN33NG80D"
+			(at 113.03 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C2043859"
 			(at 113.03 88.9 0)
 			(effects
 				(font
@@ -18186,6 +18807,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C19725753"
+			(at 196.85 144.78 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "83b75f12-c063-47fb-aac5-2f9b24219206")
 		)
@@ -18254,6 +18884,15 @@
 			)
 		)
 		(property "PART-NUMBER" "GRF5504"
+			(at 180.34 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C5379863"
 			(at 180.34 83.82 0)
 			(effects
 				(font
@@ -18376,6 +19015,15 @@
 		)
 		(property "PART-NUMBER" "RC0402FR-0727KP"
 			(at 161.29 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C5716745"
+			(at 161.29 166.37 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18661,6 +19309,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C1852376"
+			(at 109.22 85.09 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "3b3c9a55-77ce-42e7-8968-6f4cb7421bfe")
 		)
@@ -18737,6 +19394,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C5755009"
+			(at 92.71 62.23 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c3016ccd-ebde-4402-b2b8-71656fbaf143")
 		)
@@ -18757,7 +19423,7 @@
 		(at 74.93 186.69 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "aed85e49-747b-49fc-a18f-d1a94d66bbed")
@@ -18806,6 +19472,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" ""
+			(at 74.93 186.69 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "a13e10fd-688f-4fa2-89e8-4f3f58dc3d71")
 		)
@@ -18823,7 +19498,7 @@
 		(at 24.13 91.44 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "af27121b-eee9-4509-a0ba-d4429018a6f9")
@@ -18872,6 +19547,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" ""
+			(at 24.13 91.44 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "88635e1c-689c-43f7-8cb2-c564780e1b4d")
 		)
@@ -18889,7 +19573,7 @@
 		(at 187.96 41.91 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "afb4ad5c-fc7f-494b-afdf-a330a57dcece")
@@ -18930,6 +19614,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 187.96 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
 			(at 187.96 41.91 0)
 			(effects
 				(font
@@ -19014,6 +19707,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C2043868"
+			(at 256.54 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9dbaba03-2475-4020-a494-3160035fb80b")
 		)
@@ -19083,6 +19785,15 @@
 		)
 		(property "PART-NUMBER" "RC0402FR-136K8L"
 			(at 181.61 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C4016348"
+			(at 181.61 45.72 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19171,6 +19882,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C52895"
+			(at 152.4 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "c750cf81-43ca-4d6f-9d6c-ca74f4544c63")
 		)
@@ -19195,7 +19915,7 @@
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "b767ea7b-251d-4df9-9361-94c9ba715ec2")
@@ -19244,6 +19964,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" ""
+			(at 90.17 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "421a9953-4ddc-471d-9749-25015a625f6d")
 		)
@@ -19261,7 +19990,7 @@
 		(at 85.09 186.69 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "b845e4ca-44e2-46a9-b490-044e80e71ee2")
@@ -19303,6 +20032,15 @@
 		)
 		(property "Description" "test point"
 			(at 85.09 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
+			(at 85.09 186.69 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19449,6 +20187,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C2168499"
+			(at 97.79 26.67 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "3da1bf6a-3f5a-44e8-af6b-9fede652827f")
 		)
@@ -19528,6 +20275,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C7198516"
+			(at 132.08 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c7fb8b5f-19eb-4de8-b212-6dd31daed8cd")
 		)
@@ -19595,7 +20351,16 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM152R61A104KE19D"
+		(property "PART-NUMBER" "GRM155R71C104KA88D"
+			(at 77.47 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C71629"
 			(at 77.47 99.06 0)
 			(effects
 				(font
@@ -19683,6 +20448,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C269823"
+			(at 246.38 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "78080b2a-f21a-469a-9e3f-0fcf18cd28a7")
 		)
@@ -19752,6 +20526,15 @@
 		)
 		(property "PART-NUMBER" "GRM155C81A105KA2J"
 			(at 127 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C3856634"
+			(at 127 184.15 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19968,6 +20751,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C1864241"
+			(at 251.46 77.47 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "3cce536c-6110-4ef2-9d67-b481ca64551e")
 		)
@@ -20037,6 +20829,15 @@
 		)
 		(property "PART-NUMBER" "RC0402FR-1356KL"
 			(at 45.72 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C4193995"
+			(at 45.72 72.39 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20120,6 +20921,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C137992"
+			(at 180.34 38.1 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "1b0bb224-8885-4a68-a501-dc00339f73cb")
 		)
@@ -20140,7 +20950,7 @@
 		(at 170.18 85.09 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -20182,6 +20992,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 170.18 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
 			(at 170.18 85.09 0)
 			(effects
 				(font
@@ -20256,6 +21075,15 @@
 		)
 		(property "PART-NUMBER" "GJM1555C1H100GB01"
 			(at 219.71 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C85873"
+			(at 219.71 63.5 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20536,6 +21364,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C2168499"
+			(at 97.79 30.48 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "82c36305-b460-42b9-99a7-95d0a7b1bc7b")
 		)
@@ -20607,6 +21444,15 @@
 			)
 		)
 		(property "PART-NUMBER" "LQW15AW51NG80D"
+			(at 129.54 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C1012789"
 			(at 129.54 77.47 0)
 			(effects
 				(font
@@ -20757,6 +21603,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C1864641"
+			(at 261.62 77.47 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "03250df0-8cbb-44e3-89cf-3619c1b18841")
 		)
@@ -20826,6 +21681,15 @@
 			)
 		)
 		(property "PART-NUMBER" "TPS7A4701RGWR"
+			(at 111.76 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C90084"
 			(at 111.76 173.99 0)
 			(effects
 				(font
@@ -20949,6 +21813,15 @@
 			)
 		)
 		(property "PART-NUMBER" "RC0402JR-070RL"
+			(at 156.21 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C60485"
 			(at 156.21 154.94 0)
 			(effects
 				(font
@@ -21167,6 +22040,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C5716745"
+			(at 134.62 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d7e9f371-c875-4642-ac3e-3f824c2dcf33")
 		)
@@ -21308,6 +22190,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C5716745"
+			(at 166.37 152.4 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "bac64207-03ad-4ec7-9e1b-23fce1161fd5")
 		)
@@ -21328,7 +22219,7 @@
 		(at 24.13 111.76 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "e28e6ca0-0e81-440d-870e-dfe07a124f17")
@@ -21370,6 +22261,15 @@
 		)
 		(property "Description" "test point"
 			(at 24.13 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
+			(at 24.13 111.76 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21445,6 +22345,15 @@
 		)
 		(property "PART-NUMBER" "RT1206FRD0751RL"
 			(at 87.63 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C862185"
+			(at 87.63 91.44 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21595,6 +22504,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C5716745"
+			(at 156.21 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "13ff4478-63ed-4e64-875f-5f1fa6fdba76")
 		)
@@ -21615,7 +22533,7 @@
 		(at 55.88 175.26 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -21657,6 +22575,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 55.88 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
 			(at 55.88 175.26 0)
 			(effects
 				(font
@@ -21731,6 +22658,15 @@
 			)
 		)
 		(property "PART-NUMBER" "CC1200RHBR"
+			(at 69.85 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C122881"
 			(at 69.85 59.69 0)
 			(effects
 				(font
@@ -21972,6 +22908,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C3856634"
+			(at 234.95 63.5 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9de12bdd-1eac-4cbf-a9e4-81de498a65bf")
 		)
@@ -22045,6 +22990,15 @@
 			)
 		)
 		(property "PART-NUMBER" "OnSemi BSS138 "
+			(at 163.83 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C52895"
 			(at 163.83 161.29 0)
 			(effects
 				(font
@@ -22200,6 +23154,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C524641"
+			(at 266.7 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c351d9f0-adda-4149-b767-0a01aa7d2901")
 		)
@@ -22270,6 +23233,15 @@
 			)
 		)
 		(property "PART-NUMBER" "GMC10X7R475K10NT"
+			(at 139.7 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C6203961"
 			(at 139.7 161.29 0)
 			(effects
 				(font
@@ -22354,6 +23326,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C60485"
+			(at 46.99 27.94 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "268be674-c5ee-4072-aee5-70aa8c2e49ee")
 		)
@@ -22430,6 +23411,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C2168499"
+			(at 97.79 57.15 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d222d5eb-69c9-4508-89e2-7865649f9442")
 		)
@@ -22497,8 +23487,17 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM152R61A104KE19D"
+		(property "PART-NUMBER" "GRM155R71C104KA88D"
 			(at 229.87 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C71629"
+			(at 229.87 63.5 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22643,6 +23642,15 @@
 			)
 		)
 		(property "PART-NUMBER" "GMC10X7R475K10NT"
+			(at 53.34 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" "C6203961"
 			(at 53.34 133.35 0)
 			(effects
 				(font
@@ -22796,6 +23804,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPB Part#" "C2168499"
+			(at 167.64 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c9988792-e55e-4b06-a52e-67231cd164ce")
 		)
@@ -22883,7 +23900,7 @@
 		(at 24.13 101.6 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "ff23653c-fcd8-4a57-8e9b-8d304c4c2487")
@@ -22925,6 +23942,15 @@
 		)
 		(property "Description" "test point"
 			(at 24.13 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPB Part#" ""
+			(at 24.13 101.6 90)
 			(effects
 				(font
 					(size 1.27 1.27)
