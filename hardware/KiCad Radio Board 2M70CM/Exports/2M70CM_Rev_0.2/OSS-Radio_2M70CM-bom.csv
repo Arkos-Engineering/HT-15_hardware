@@ -1,43 +1,43 @@
-Comment,Designator,Footprint,JLCPB Part#,PART-NUMBER
-TPS7A4701xRGW,U4,Package_DFN_QFN:Texas_RGW0020A_VQFN-20-1EP_5x5mm_P0.65mm_EP3.15x3.15mm_ThermalVias,C90084,TPS7A4701RGWR
-TG-5021CG,Y4,Oscillator:Oscillator_SMD_SeikoEpson_TG2520SMN-xxx-xxxxxx-4Pin_2.5x2.0mm,C5797117,TG-5006CG-43L 40.0000M3
-SKY13330-397LF,U7,SKY13330-397LF:QFN_330-397LF_SKY,C2654715,SKY13330-397LF
-51 1%,R15,Resistor_SMD:R_1206_3216Metric,C862185,RT1206FRD0751RL
-51 1%,R16,Resistor_SMD:R_0402_1005Metric,C854359,RT0402FRE0751RL
-0,R29,Resistor_SMD:R_0402_1005Metric,C60485,RC0402JR-070RL
-0,"R22,R23,R24,R25,R27",Resistor_SMD:R_0402_1005Metric,C60485,RC0402JR-070RL
-6k8,R14,Resistor_SMD:R_0402_1005Metric,C4016348,RC0402FR-136K8L
-6k8,"R9,R13,R19,R21",Resistor_SMD:R_0402_1005Metric,C4016348,RC0402FR-136K8L
-3k3,"R8,R18,R20",Resistor_SMD:R_0402_1005Metric,C137992,RC0402FR-073K3L
-56k 1%,R12,Resistor_SMD:R_0402_1005Metric,C4193995,RC0402FR-1356KL
-27k,"R10,R11,R26,R28",Resistor_SMD:R_0402_1005Metric,C5716745,RC0402FR-0727KP
-P70-7000045,"J2,J3",TestPoint:TestPoint_Pad_D1.5mm,C21344921,P70-7000045
-BSS138,"Q1,Q2,Q3",Package_TO_SOT_SMD:SOT-23,C52895,OnSemi BSS138 
-MMCX-J-P-H-RA-TH1,AE2,Connector_Coaxial:MMCX_Molex_73415-1471_Vertical,C2934607,MMCX-J-P-H-RA-TH1
-56n,L12,Inductor_SMD:L_0402_1005Metric,C1012790,LQW15AW56NG80D
-51n,L13,Inductor_SMD:L_0402_1005Metric,C1012789,LQW15AW51NG80D
-6.8n,L14,Inductor_SMD:L_0402_1005Metric,C882467,LQW15AN6N8G80D
-5.6nH,L10,Inductor_SMD:L_0402_1005Metric,C91626,LQW15AN5N6C10D
-39n,L3,Inductor_SMD:L_0402_1005Metric,C269823,LQW15AN39NG80D
-33n,L11,Inductor_SMD:L_0402_1005Metric,C2043859,LQW15AN33NG80D
-22n,L16,Inductor_SMD:L_0402_1005Metric,C524641,LQW15AN22NG80D
-20n,L15,Inductor_SMD:L_0402_1005Metric,C2043868,LQW15AN20NG80D
-220n,C53,Capacitor_SMD:C_0402_1005Metric,C5755009,GRM15R61J224KE01D
-47n,"C44,C45,C46,C47,C48,C49,C50,C51,C52,C55,C56,C59,C64",Capacitor_SMD:C_0402_1005Metric,C2168499,GRM155R71E473KA8J
-.1uF,"C20,C38,C43,C60",Capacitor_SMD:C_0402_1005Metric,C71629,GRM155R71C104KA88D
-10n,C54,Capacitor_SMD:C_0402_1005Metric,C85735,GRM155R71C103KA01D
-1uF,"C15,C37,C61",Capacitor_SMD:C_0402_1005Metric,C3856634,GRM155C81A105KA2J
-1n,"C58,C62,C63",Capacitor_SMD:C_0402_1005Metric,C1852376,GRM1555C1H102GA1J
-1n5,C57,Capacitor_SMD:C_0402_1005Metric,C710829,GRM033R71A152KA01D
-47uF,C14,Capacitor_SMD:C_1210_3225Metric,C7198516,GRJ32ER71A476KE11L
-GRF5504,U3,Package_DFN_QFN:LQFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm,C5379863,GRF5504
-4.7uF,"C16,C17,C18,C19,C23",Capacitor_SMD:C_0603_1608Metric,C6203961,GMC10X7R475K10NT
-39p,C41,Capacitor_SMD:C_0402_1005Metric,C1864241,GJM1555C1H390GB01
-24p,C42,Capacitor_SMD:C_0402_1005Metric,C1864641,GJM1555C1H240GB01
-18p,C65,Capacitor_SMD:C_0402_1005Metric,C237274,GJM1555C1H180GB01
-10pF,"C39,C40,C66",Capacitor_SMD:C_0402_1005Metric,C85873,GJM1555C1H100GB01
-DF40C-24DP-0.4V,J1,DF40C:CONN24_6p32X1p85_hdr_HIR,C424639,DF40C-24DP-0.4V
-CC1200,U5,Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm,C122881,CC1200RHBR
-AT24CS01-STUM,U6,Package_TO_SOT_SMD:SOT-23-5,C616257,AT24CS01-STUM-T
-2508051217Y6,"FB1,FB2",Inductor_SMD:L_0805_2012Metric_Pad1.05x1.20mm_HandSolder,C3716596,2508051217Y6
-WA-SMSI_9774XXX243,"MP1,MP2,MP3",Mounting_Wuerth:Mounting_Wuerth_WA-SMSI-M2_H2.5mm_9774025243,C19725753,9774015943R
+Comment,Designator,Footprint,JLCPB Part#,PART-NUMBER,,,,,Datasheet,Description
+BSS138,"Q1,Q2,Q3",Package_TO_SOT_SMD:SOT-23,C52895,OnSemi BSS138 ,,,,,https://www.onsemi.com/pub/Collateral/BSS138-D.PDF,"50V Vds, 0.22A Id, N-Channel MOSFET, SOT-23"
+0,"R22,R23,R24,R25,R27",Resistor_SMD:R_0402_1005Metric,C60485,RC0402JR-070RL,,,,,~,"Resistor, small symbol"
+0,R29,Resistor_SMD:R_0402_1005Metric,C60485,RC0402JR-070RL,,,,,~,"Resistor, small symbol"
+.1uF,"C20,C38,C43,C60",Capacitor_SMD:C_0402_1005Metric,C71629,GRM155R71C104KA88D,,,,,~,"Unpolarized capacitor, small symbol"
+1uF,"C15,C37,C61",Capacitor_SMD:C_0402_1005Metric,C77006,GRM155R61C105KA12D,,,,,~,"Unpolarized capacitor, small symbol"
+220n,C53,Capacitor_SMD:C_0402_1005Metric,C77011,GRM155R71C224KA12D,,,,,~,"Unpolarized capacitor, small symbol"
+47n,"C44,C45,C46,C47,C48,C49,C50,C51,C52,C55,C56,C59,C64",Capacitor_SMD:C_0402_1005Metric,C77017,GRM155R71E473KA88D,,,,,~,"Unpolarized capacitor, small symbol"
+4.7uF,"C16,C17,C18,C19,C23",Capacitor_SMD:C_0603_1608Metric,C77045,GRM188R61C475KE11D,,,,,~,"Unpolarized capacitor, small symbol"
+47uF,C14,Capacitor_SMD:C_1210_3225Metric,C77101,GRM32ER61C476KE15L,,,,,~,"Unpolarized capacitor, small symbol"
+BLM21PG121SN1D,"FB1,FB2",Inductor_SMD:L_0805_2012Metric_Pad1.05x1.20mm_HandSolder,C79382,BLM21PG121SN1D,,,,,https://www.fair-rite.com/wp-content/themes/fair-rite/print_product.php?pid=19226,"Ferrite bead, small symbol"
+10n,C54,Capacitor_SMD:C_0402_1005Metric,C85735,GRM155R71C103KA01D,,,,,~,"Unpolarized capacitor, small symbol"
+10pF,"C39,C40,C66",Capacitor_SMD:C_0402_1005Metric,C85873,GJM1555C1H100GB01,,,,,~,"Unpolarized capacitor, small symbol"
+TPS7A4701xRGW,U4,Package_DFN_QFN:Texas_RGW0020A_VQFN-20-1EP_5x5mm_P0.65mm_EP3.15x3.15mm_ThermalVias,C90084,TPS7A4701RGWR,,,,,https://www.ti.com/lit/ds/symlink/tps7a47.pdf,"1A, Low-Noise Low-Dropout Voltage Regulator, 3-35V Input, Adjustable 1.4-34V Output, VQFN-20"
+5.6nH,L10,Inductor_SMD:L_0402_1005Metric,C91626,LQW15AN5N6C10D,,,,,~,"Inductor, small symbol"
+CC1200,U5,Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm,C122881,CC1200RHBR,,,,,https://www.ti.com/general/docs/suppproductinfo.tsp?distId=10&gotoUrl=https%3A%2F%2Fwww.ti.com%2Flit%2Fgpn%2Fcc1200,"Low-Power, High-Performance RF Transceiver, QFN-32"
+3k3,"R8,R18,R20",Resistor_SMD:R_0402_1005Metric,C137992,RC0402FR-073K3L,,,,,~,"Resistor, small symbol"
+1n5,C57,Capacitor_SMD:C_0402_1005Metric,C161482,GRM033R71C152KA01D,,,,,~,"Unpolarized capacitor, small symbol"
+18p,C65,Capacitor_SMD:C_0402_1005Metric,C237274,GJM1555C1H180GB01,,,,,~,
+39n,L3,Inductor_SMD:L_0402_1005Metric,C269823,LQW15AN39NG80D,,,,,~,"Inductor, small symbol"
+DF40C-24DP-0.4V,J1,DF40C:CONN24_6p32X1p85_hdr_HIR,C424639,DF40C-24DP-0.4V,,,,,https://www.hirose.com/en/product/document?clcode=&productname=&series=DF40&documenttype=Catalog&lang=en&documentid=en_DF40_CAT,
+22n,L16,Inductor_SMD:L_0402_1005Metric,C524641,LQW15AN22NG80D,,,,,~,"Inductor, small symbol"
+AT24CS01-STUM,U6,Package_TO_SOT_SMD:SOT-23-5,C616257,AT24CS01-STUM-T,,,,,https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/20006330A.pdf,"I2C Serial EEPROM, 1Kb (128x8) with Unique Serial Number, SOT-23-5"
+51 1%,R16,Resistor_SMD:R_0402_1005Metric,C854359,RT0402FRE0751RL,,,,,~,"Resistor, small symbol"
+51 1%,R15,Resistor_SMD:R_1206_3216Metric,C862185,RT1206FRD0751RL,,,,,~,"Resistor, small symbol"
+6.8n,L14,Inductor_SMD:L_0402_1005Metric,C882467,LQW15AN6N8G80D,,,,,,"Inductor, small symbol"
+6k8,"R9,R13,R19,R21",Resistor_SMD:R_0402_1005Metric,C965237,NQ02WGF6801TCE,,,,,~,"Resistor, small symbol"
+6k8,R14,Resistor_SMD:R_0402_1005Metric,C965237,NQ02WGF6801TCE,,,,,~,"Resistor, small symbol"
+51n,L13,Inductor_SMD:L_0402_1005Metric,C1012789,LQW15AW51NG80D,,,,,~,"Inductor, small symbol"
+56n,L12,Inductor_SMD:L_0402_1005Metric,C1012790,LQW15AW56NG80D,,,,,~,"Inductor, small symbol"
+1n,"C58,C62,C63",Capacitor_SMD:C_0402_1005Metric,C1852376,GRM1555C1H102GA1J,,,,,~,"Unpolarized capacitor, small symbol"
+39p,C41,Capacitor_SMD:C_0402_1005Metric,C1864241,GJM1555C1H390GB01,,,,,~,"Unpolarized capacitor, small symbol"
+24p,C42,Capacitor_SMD:C_0402_1005Metric,C1864641,GJM1555C1H240GB01,,,,,~,"Unpolarized capacitor, small symbol"
+33n,L11,Inductor_SMD:L_0402_1005Metric,C2043859,LQW15AN33NG80D,,,,,~,"Inductor, small symbol"
+20n,L15,Inductor_SMD:L_0402_1005Metric,C2043868,LQW15AN20NG80D,,,,,~,"Inductor, small symbol"
+SKY13330-397LF,U7,SKY13330-397LF:QFN_330-397LF_SKY,C2654715,SKY13330-397LF,,,,,https://www.skyworksinc.com/-/media/B49B0E0897F04C66BD3D7DFD2A11187B.pdf,
+MMCX-J-P-H-RA-TH1,AE2,Connector_Coaxial:MMCX_Molex_73415-1471_Vertical,C2934607,MMCX-J-P-H-RA-TH1,,,,,https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/6129/mmcx-j-p-x-ra-th1-mkt.pdf,Antenna with extra pin for shielding
+56k 1%,R12,Resistor_SMD:R_0402_1005Metric,C4193995,RC0402FR-1356KL,,,,,~,"Resistor, small symbol"
+GRF5504,U3,Package_DFN_QFN:LQFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm,C5379863,GRF5504,,,,,https://www.guerrilla-rf.com/products/DataSheet?sku=5504&file_name=GRF5504DS.pdf,
+27k,"R10,R11,R26,R28",Resistor_SMD:R_0402_1005Metric,C5716745,RC0402FR-0727KP,,,,,~,"Resistor, small symbol"
+TG-5021CG,Y4,Oscillator:Oscillator_SMD_SeikoEpson_TG2520SMN-xxx-xxxxxx-4Pin_2.5x2.0mm,C5797117,TG-5006CG-43L 40.0000M3,,,,,https://support.epson.biz/td/api/doc_check.php?dl=brief_TG-5006CG&lang=en,Crystal Oscillator Low Profile / High Stability TCXO
+P70-7000045,"J2,J3",TestPoint:TestPoint_Pad_D1.5mm,C21344921,P70-7000045,,,,,~,test point
+WA-SMSI_9774XXX243,"MP1,MP2,MP3",Mounting_Wuerth:Mounting_Wuerth_WA-SMSI-M2_H2.5mm_9774025243,C22431324,9774015243R,,,,,https://www.we-online.com/components/products/datasheet/9774015943R.pdf,

@@ -12232,7 +12232,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GMC10X7R475K10NT"
+		(property "PART-NUMBER" "GRM188R61C475KE11D"
 			(at 80.61 157.48 0)
 			(effects
 				(font
@@ -12241,7 +12241,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C6203961"
+		(property "JLCPB Part#" "C77045"
 			(at 80.61 157.48 0)
 			(effects
 				(font
@@ -12317,7 +12317,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E473KA8J"
+		(property "PART-NUMBER" "GRM155R71E473KA88D"
 			(at 100.33 69.85 0)
 			(effects
 				(font
@@ -12326,7 +12326,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C2168499"
+		(property "JLCPB Part#" "C77017"
 			(at 100.33 69.85 90)
 			(effects
 				(font
@@ -12402,7 +12402,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E473KA8J"
+		(property "PART-NUMBER" "GRM155R71E473KA88D"
 			(at 97.79 34.29 0)
 			(effects
 				(font
@@ -12411,7 +12411,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C2168499"
+		(property "JLCPB Part#" "C77017"
 			(at 97.79 34.29 90)
 			(effects
 				(font
@@ -12554,7 +12554,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E473KA8J"
+		(property "PART-NUMBER" "GRM155R71E473KA88D"
 			(at 97.79 53.34 0)
 			(effects
 				(font
@@ -12563,7 +12563,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C2168499"
+		(property "JLCPB Part#" "C77017"
 			(at 97.79 53.34 90)
 			(effects
 				(font
@@ -13048,7 +13048,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GMC10X7R475K10NT"
+		(property "PART-NUMBER" "GRM188R61C475KE11D"
 			(at 124.46 161.29 0)
 			(effects
 				(font
@@ -13057,7 +13057,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C6203961"
+		(property "JLCPB Part#" "C77045"
 			(at 124.46 161.29 0)
 			(effects
 				(font
@@ -13418,7 +13418,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E473KA8J"
+		(property "PART-NUMBER" "GRM155R71E473KA88D"
 			(at 97.79 41.91 0)
 			(effects
 				(font
@@ -13427,7 +13427,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C2168499"
+		(property "JLCPB Part#" "C77017"
 			(at 97.79 41.91 90)
 			(effects
 				(font
@@ -13576,7 +13576,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM033R71A152KA01D"
+		(property "PART-NUMBER" "GRM033R71C152KA01D"
 			(at 46.99 78.74 0)
 			(effects
 				(font
@@ -13585,7 +13585,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C710829"
+		(property "JLCPB Part#" "C161482"
 			(at 46.99 78.74 0)
 			(effects
 				(font
@@ -13917,7 +13917,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "RC0402FR-136K8L"
+		(property "PART-NUMBER" "NQ02WGF6801TCE"
 			(at 173.99 45.72 0)
 			(effects
 				(font
@@ -13926,7 +13926,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C4016348"
+		(property "JLCPB Part#" "C965237"
 			(at 173.99 45.72 90)
 			(effects
 				(font
@@ -13958,7 +13958,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "3fe55098-78ca-4b40-a91c-6fb6c108fe2e")
 		(property "Reference" "L12"
 			(at 146.558 78.994 0)
@@ -14551,7 +14551,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155C81A105KA2J"
+		(property "PART-NUMBER" "GRM155R61C105KA12D"
 			(at 85.09 99.06 0)
 			(effects
 				(font
@@ -14560,7 +14560,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C3856634"
+		(property "JLCPB Part#" "C77006"
 			(at 85.09 99.06 0)
 			(effects
 				(font
@@ -14857,7 +14857,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GMC10X7R475K10NT"
+		(property "PART-NUMBER" "GRM188R61C475KE11D"
 			(at 90.77 157.48 0)
 			(effects
 				(font
@@ -14866,7 +14866,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C6203961"
+		(property "JLCPB Part#" "C77045"
 			(at 90.77 157.48 0)
 			(effects
 				(font
@@ -15801,7 +15801,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E473KA8J"
+		(property "PART-NUMBER" "GRM155R71E473KA88D"
 			(at 97.79 38.1 0)
 			(effects
 				(font
@@ -15810,7 +15810,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C2168499"
+		(property "JLCPB Part#" "C77017"
 			(at 97.79 38.1 90)
 			(effects
 				(font
@@ -15954,7 +15954,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E473KA8J"
+		(property "PART-NUMBER" "GRM155R71E473KA88D"
 			(at 20.32 67.31 0)
 			(effects
 				(font
@@ -15963,7 +15963,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C2168499"
+		(property "JLCPB Part#" "C77017"
 			(at 20.32 67.31 90)
 			(effects
 				(font
@@ -16103,7 +16103,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "9774015943R"
+		(property "PART-NUMBER" "9774015243R"
 			(at 255.27 144.78 0)
 			(effects
 				(font
@@ -16123,7 +16123,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C19725753"
+		(property "JLCPB Part#" "C22431324"
 			(at 255.27 144.78 90)
 			(effects
 				(font
@@ -16162,7 +16162,7 @@
 				)
 			)
 		)
-		(property "Value" "2508051217Y6"
+		(property "Value" "BLM21PG121SN1D"
 			(at 43.688 124.46 90)
 			(effects
 				(font
@@ -16197,7 +16197,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "2508051217Y6"
+		(property "PART-NUMBER" "BLM21PG121SN1D"
 			(at 45.72 129.54 0)
 			(effects
 				(font
@@ -16206,7 +16206,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C3716596"
+		(property "JLCPB Part#" "C79382"
 			(at 45.72 129.54 90)
 			(effects
 				(font
@@ -16679,7 +16679,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E473KA8J"
+		(property "PART-NUMBER" "GRM155R71E473KA88D"
 			(at 92.71 67.31 0)
 			(effects
 				(font
@@ -16688,7 +16688,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C2168499"
+		(property "JLCPB Part#" "C77017"
 			(at 92.71 67.31 90)
 			(effects
 				(font
@@ -17039,7 +17039,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "RC0402FR-136K8L"
+		(property "PART-NUMBER" "NQ02WGF6801TCE"
 			(at 147.32 109.22 0)
 			(effects
 				(font
@@ -17048,7 +17048,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C4016348"
+		(property "JLCPB Part#" "C965237"
 			(at 147.32 109.22 90)
 			(effects
 				(font
@@ -17224,7 +17224,7 @@
 				)
 			)
 		)
-		(property "Value" "2508051217Y6"
+		(property "Value" "BLM21PG121SN1D"
 			(at 56.388 171.704 90)
 			(effects
 				(font
@@ -17259,7 +17259,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "2508051217Y6"
+		(property "PART-NUMBER" "BLM21PG121SN1D"
 			(at 53.34 175.26 0)
 			(effects
 				(font
@@ -17268,7 +17268,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C3716596"
+		(property "JLCPB Part#" "C79382"
 			(at 53.34 175.26 90)
 			(effects
 				(font
@@ -17344,7 +17344,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E473KA8J"
+		(property "PART-NUMBER" "GRM155R71E473KA88D"
 			(at 97.79 45.72 0)
 			(effects
 				(font
@@ -17353,7 +17353,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C2168499"
+		(property "JLCPB Part#" "C77017"
 			(at 97.79 45.72 90)
 			(effects
 				(font
@@ -17814,7 +17814,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "9774015943R"
+		(property "PART-NUMBER" "9774015243R"
 			(at 226.06 144.78 0)
 			(effects
 				(font
@@ -17834,7 +17834,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C19725753"
+		(property "JLCPB Part#" "C22431324"
 			(at 226.06 144.78 90)
 			(effects
 				(font
@@ -17907,7 +17907,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "RC0402FR-136K8L"
+		(property "PART-NUMBER" "NQ02WGF6801TCE"
 			(at 41.91 24.13 0)
 			(effects
 				(font
@@ -17916,7 +17916,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C4016348"
+		(property "JLCPB Part#" "C965237"
 			(at 41.91 24.13 90)
 			(effects
 				(font
@@ -18218,7 +18218,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "RC0402FR-136K8L"
+		(property "PART-NUMBER" "NQ02WGF6801TCE"
 			(at 41.91 19.05 0)
 			(effects
 				(font
@@ -18227,7 +18227,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C4016348"
+		(property "JLCPB Part#" "C965237"
 			(at 41.91 19.05 90)
 			(effects
 				(font
@@ -18483,7 +18483,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E473KA8J"
+		(property "PART-NUMBER" "GRM155R71E473KA88D"
 			(at 97.79 49.53 0)
 			(effects
 				(font
@@ -18492,7 +18492,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C2168499"
+		(property "JLCPB Part#" "C77017"
 			(at 97.79 49.53 90)
 			(effects
 				(font
@@ -18787,7 +18787,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "9774015943R"
+		(property "PART-NUMBER" "9774015243R"
 			(at 196.85 144.78 0)
 			(effects
 				(font
@@ -18807,7 +18807,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C19725753"
+		(property "JLCPB Part#" "C22431324"
 			(at 196.85 144.78 90)
 			(effects
 				(font
@@ -19385,7 +19385,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM15R61J224KE01D"
+		(property "PART-NUMBER" "GRM155R71C224KA12D"
 			(at 92.71 62.23 0)
 			(effects
 				(font
@@ -19394,7 +19394,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C5755009"
+		(property "JLCPB Part#" "C77011"
 			(at 92.71 62.23 90)
 			(effects
 				(font
@@ -19783,7 +19783,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "RC0402FR-136K8L"
+		(property "PART-NUMBER" "NQ02WGF6801TCE"
 			(at 181.61 45.72 0)
 			(effects
 				(font
@@ -19792,7 +19792,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C4016348"
+		(property "JLCPB Part#" "C965237"
 			(at 181.61 45.72 90)
 			(effects
 				(font
@@ -20178,7 +20178,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E473KA8J"
+		(property "PART-NUMBER" "GRM155R71E473KA88D"
 			(at 97.79 26.67 0)
 			(effects
 				(font
@@ -20187,7 +20187,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C2168499"
+		(property "JLCPB Part#" "C77017"
 			(at 97.79 26.67 90)
 			(effects
 				(font
@@ -20266,7 +20266,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRJ32ER71A476KE11L"
+		(property "PART-NUMBER" "GRM32ER61C476KE15L"
 			(at 132.08 161.29 0)
 			(effects
 				(font
@@ -20275,7 +20275,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C7198516"
+		(property "JLCPB Part#" "C77101"
 			(at 132.08 161.29 0)
 			(effects
 				(font
@@ -20524,7 +20524,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155C81A105KA2J"
+		(property "PART-NUMBER" "GRM155R61C105KA12D"
 			(at 127 184.15 0)
 			(effects
 				(font
@@ -20533,7 +20533,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C3856634"
+		(property "JLCPB Part#" "C77006"
 			(at 127 184.15 90)
 			(effects
 				(font
@@ -21355,7 +21355,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E473KA8J"
+		(property "PART-NUMBER" "GRM155R71E473KA88D"
 			(at 97.79 30.48 0)
 			(effects
 				(font
@@ -21364,7 +21364,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C2168499"
+		(property "JLCPB Part#" "C77017"
 			(at 97.79 30.48 90)
 			(effects
 				(font
@@ -22899,7 +22899,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155C81A105KA2J"
+		(property "PART-NUMBER" "GRM155R61C105KA12D"
 			(at 234.95 63.5 0)
 			(effects
 				(font
@@ -22908,7 +22908,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C3856634"
+		(property "JLCPB Part#" "C77006"
 			(at 234.95 63.5 90)
 			(effects
 				(font
@@ -23232,7 +23232,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GMC10X7R475K10NT"
+		(property "PART-NUMBER" "GRM188R61C475KE11D"
 			(at 139.7 161.29 0)
 			(effects
 				(font
@@ -23241,7 +23241,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C6203961"
+		(property "JLCPB Part#" "C77045"
 			(at 139.7 161.29 0)
 			(effects
 				(font
@@ -23402,7 +23402,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E473KA8J"
+		(property "PART-NUMBER" "GRM155R71E473KA88D"
 			(at 97.79 57.15 0)
 			(effects
 				(font
@@ -23411,7 +23411,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C2168499"
+		(property "JLCPB Part#" "C77017"
 			(at 97.79 57.15 90)
 			(effects
 				(font
@@ -23641,7 +23641,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GMC10X7R475K10NT"
+		(property "PART-NUMBER" "GRM188R61C475KE11D"
 			(at 53.34 133.35 0)
 			(effects
 				(font
@@ -23650,7 +23650,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C6203961"
+		(property "JLCPB Part#" "C77045"
 			(at 53.34 133.35 0)
 			(effects
 				(font
@@ -23795,7 +23795,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM155R71E473KA8J"
+		(property "PART-NUMBER" "GRM155R71E473KA88D"
 			(at 167.64 31.75 0)
 			(effects
 				(font
@@ -23804,7 +23804,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C2168499"
+		(property "JLCPB Part#" "C77017"
 			(at 167.64 31.75 0)
 			(effects
 				(font
