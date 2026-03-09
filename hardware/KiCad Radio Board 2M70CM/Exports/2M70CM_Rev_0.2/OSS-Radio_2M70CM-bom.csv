@@ -38,6 +38,6 @@ MMCX-J-P-H-RA-TH1,AE2,Connector_Coaxial:MMCX_Molex_73415-1471_Vertical,C2934607,
 56k 1%,R12,Resistor_SMD:R_0402_1005Metric,C4193995,RC0402FR-1356KL,,,,,~,"Resistor, small symbol"
 GRF5504,U3,Package_DFN_QFN:LQFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm,C5379863,GRF5504,,,,,https://www.guerrilla-rf.com/products/DataSheet?sku=5504&file_name=GRF5504DS.pdf,
 27k,"R10,R11,R26,R28",Resistor_SMD:R_0402_1005Metric,C5716745,RC0402FR-0727KP,,,,,~,"Resistor, small symbol"
-TG-5021CG,Y4,Oscillator:Oscillator_SMD_SeikoEpson_TG2520SMN-xxx-xxxxxx-4Pin_2.5x2.0mm,C5797117,TG-5006CG-43L 40.0000M3,,,,,https://support.epson.biz/td/api/doc_check.php?dl=brief_TG-5006CG&lang=en,Crystal Oscillator Low Profile / High Stability TCXO
+TG-5021CG,Y4,Oscillator:Oscillator_SMD_SeikoEpson_TG2520SMN-xxx-xxxxxx-4Pin_2.5x2.0mm,C20341501 ,TG2520SMN 40.0000M-CCGNDM5,,,,,https://support.epson.biz/td/api/doc_check.php?dl=brief_TG-5006CG&lang=en,Crystal Oscillator Low Profile / High Stability TCXO
 P70-7000045,"J2,J3",TestPoint:TestPoint_Pad_D1.5mm,C21344921,P70-7000045,,,,,~,test point
 WA-SMSI_9774XXX243,"MP1,MP2,MP3",Mounting_Wuerth:Mounting_Wuerth_WA-SMSI-M2_H2.5mm_9774025243,C22431324,9774015243R,,,,,https://www.we-online.com/components/products/datasheet/9774015943R.pdf,
