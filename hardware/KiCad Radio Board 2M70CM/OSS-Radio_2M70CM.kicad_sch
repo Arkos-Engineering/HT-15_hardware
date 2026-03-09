@@ -15170,7 +15170,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM1555C1H102GA1J"
+		(property "PART-NUMBER" "GCM1555C1H102FA16D "
 			(at 41.91 67.31 0)
 			(effects
 				(font
@@ -15179,7 +15179,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C1852376"
+		(property "JLCPB Part#" "C126493"
 			(at 41.91 67.31 90)
 			(effects
 				(font
@@ -17993,7 +17993,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM1555C1H102GA1J"
+		(property "PART-NUMBER" "GCM1555C1H102FA16D "
 			(at 160.02 31.75 0)
 			(effects
 				(font
@@ -18002,7 +18002,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C1852376"
+		(property "JLCPB Part#" "C126493"
 			(at 160.02 31.75 0)
 			(effects
 				(font
@@ -19013,7 +19013,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "RC0402FR-0727KP"
+		(property "PART-NUMBER" "RC0402FR-0727KL"
 			(at 161.29 166.37 0)
 			(effects
 				(font
@@ -19022,7 +19022,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C5716745"
+		(property "JLCPB Part#" "C138022"
 			(at 161.29 166.37 90)
 			(effects
 				(font
@@ -19300,7 +19300,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "GRM1555C1H102GA1J"
+		(property "PART-NUMBER" "GCM1555C1H102FA16D "
 			(at 109.22 85.09 0)
 			(effects
 				(font
@@ -19309,7 +19309,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C1852376"
+		(property "JLCPB Part#" "C126493"
 			(at 109.22 85.09 90)
 			(effects
 				(font
@@ -20827,7 +20827,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "RC0402FR-1356KL"
+		(property "PART-NUMBER" "RC0402FR-0756KL"
 			(at 45.72 72.39 0)
 			(effects
 				(font
@@ -20836,7 +20836,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C4193995"
+		(property "JLCPB Part#" "C114756"
 			(at 45.72 72.39 90)
 			(effects
 				(font
@@ -22031,7 +22031,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "RC0402FR-0727KP"
+		(property "PART-NUMBER" "RC0402FR-0727KL"
 			(at 134.62 111.76 0)
 			(effects
 				(font
@@ -22040,7 +22040,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C5716745"
+		(property "JLCPB Part#" "C138022"
 			(at 134.62 111.76 90)
 			(effects
 				(font
@@ -22181,7 +22181,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "RC0402FR-0727KP"
+		(property "PART-NUMBER" "RC0402FR-0727KL"
 			(at 166.37 152.4 0)
 			(effects
 				(font
@@ -22190,7 +22190,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C5716745"
+		(property "JLCPB Part#" "C138022"
 			(at 166.37 152.4 90)
 			(effects
 				(font
@@ -22495,7 +22495,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "RC0402FR-0727KP"
+		(property "PART-NUMBER" "RC0402FR-0727KL"
 			(at 156.21 111.76 0)
 			(effects
 				(font
@@ -22504,7 +22504,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C5716745"
+		(property "JLCPB Part#" "C138022"
 			(at 156.21 111.76 90)
 			(effects
 				(font
