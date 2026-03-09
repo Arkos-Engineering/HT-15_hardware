@@ -18389,7 +18389,7 @@
 				(hide yes)
 			)
 		)
-		(property "PART-NUMBER" "TG-5006CG-43L 40.0000M3"
+		(property "PART-NUMBER" "TG2520SMN 40.0000M-CCGNDM5"
 			(at 29.21 67.31 0)
 			(effects
 				(font
@@ -18398,7 +18398,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPB Part#" "C5797117"
+		(property "JLCPB Part#" "C20341501"
 			(at 29.21 67.31 0)
 			(effects
 				(font
